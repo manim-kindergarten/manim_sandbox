@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+*.aux
+*.log
+*.synctex.gz
+# *.tex
+*.toc
+*.out
