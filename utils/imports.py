@@ -4,3 +4,6 @@ from manim_sandbox.utils.Arc_group import *
 from manim_sandbox.utils.Subtitle import *
 from manim_sandbox.utils.debugTeX import *
 from manim_sandbox.utils.MyText import *
+from manim_sandbox.utils.Trail import *
+from manim_sandbox.utils.MyBoxes import *
+from manim_sandbox.utils.Right_angle import *
