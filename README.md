@@ -39,6 +39,9 @@ manim_sandbox是由[manim-kindergarten](https://github.com/manim-kindergarten)�
 - 如果想提交一些amazing的Scene代码，请提交到`scenes`文件夹中
   1. 需要在文件头加上`# from @author`一行
   2. 需要在文件头部给出效果链接，或者将效果一同提交至文件夹中
+- 如果想提交一些示例代码，请提交到`demo`文件夹中
+  1. 需要在文件头加上`# from @author`一行
+  2. 示例尽可能规范，可添加注释说明以方便他人学习
 - 如果想提交一些对manim源码的更改，请提交到旁边的[repo](https://github.com/manim-kindergarten/manim)中
 
 ### 关于代码使用的相关声明
