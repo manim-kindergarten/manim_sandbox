@@ -76,17 +76,6 @@ manim_sandbox是由[manim-kindergarten](https://github.com/manim-kindergarten)�
   </tr>
 </table>
 
-- [solara570的B站主页](https://space.bilibili.com/3557916 '求关注求三连ღ( ´･ᴗ･` )')
-- [cigar666的B站主页](https://space.bilibili.com/66806831 '求关注求三连ღ( ´･ᴗ･` )')
-- [鹤翔万里的B站主页](https://space.bilibili.com/171431343 '求关注求三连ღ( ´･ᴗ･` )')
-- [pdcxs的B站主页](https://space.bilibili.com/10707223 '求关注求三连ღ( ´･ᴗ･` )')
-- [有一种悲伤叫颓废的B站主页](https://space.bilibili.com/387821788 '求关注求三连ღ( ´･ᴗ･` )')
-- [鹤翔万里的github中的manim项目](https://github.com/Tony031218/manim-projects)<br>
-- [cigar666的github中的manim项目](https://github.com/cigar666/my_manim_projects)<br>
-- [有一种悲伤叫颓废的github中的manim项目](https://github.com/136108Haumea/my-manim)<br>
-- [pdcxs的github中的manim项目](https://github.com/pdcxs/ManimProjects)
-- [cai-hust整理的manim中文文档](https://github.com/cai-hust/manim-tutorial-CN)<br>
-
 ## 关于manim的学习和交流
 
 我们有一个manim交流群（QQ群：862671480），欢迎大家加入交流。<br>
