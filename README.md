@@ -1,5 +1,7 @@
-# about manim_sandbox
+![logo](assets/logo.png)
 
+[![MIT License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](http://choosealicense.com/licenses/mit/)
+![QQ](https://img.shields.io/badge/QQ-862671480-red.svg?style=flat)
 
 manim_sandbox是由[manim-kindergarten](https://github.com/manim-kindergarten)的成员所管理维护的一个代码仓库，目的在于汇总整合各成员提供的[manim](https://github.com/3b1b/manim)代码和模块。
 
@@ -104,7 +106,7 @@ manim_sandbox是由[manim-kindergarten](https://github.com/manim-kindergarten)�
 #### Ⅴ. 一些图片素材
 提交到`assets`文件夹中
   1. 保证图片可以正常打开
-#### Ⅴ. 一些对manim源码的更改
+#### Ⅵ. 一些对manim源码的更改
 提交到旁边的[repo](https://github.com/manim-kindergarten/manim)中
 
 ## 关于代码使用的相关声明
