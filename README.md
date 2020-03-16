@@ -88,25 +88,22 @@ manim_sandbox是由[manim-kindergarten](https://github.com/manim-kindergarten)�
 #### Ⅰ. 一些实用函数/类代码
 提交到`utils`文件夹中
   1. 需要在文件头加上`# from @author`一行
-  2. 需要在`utils/imports.py`中添加`import`
-  3. 函数/类 需要有文档字符串(函数下的注释)
-  3. 尽可能写一些注释方便学习，并要保证代码可读性
-#### Ⅱ. 一些amazing的Scene代码
-提交到`scenes`文件夹中
-  1. 需要在文件头加上`# from @author`一行
-  2. 需要在文件头部给出效果链接，或者将效果视频一并上传(文件名保持一致)
-#### Ⅲ. 一些示例代码
+  2. 需要在`utils`文件夹中分好类，放入对应子文件夹中
+  3. 需要在`utils/imports.py`中添加`import`
+  4. 函数/类 需要有文档字符串(函数下的注释)
+  5. 尽可能写一些注释方便学习，并要保证代码可读性
+#### Ⅱ. 一些示例代码
 提交到`demo`文件夹中
   1. 需要在文件头加上`# from @author`一行
   2. 示例尽可能规范，可添加注释说明以方便他人学习
-#### Ⅳ. 自己视频的工程文件
+#### Ⅲ. 自己视频的工程文件
 提交到`videos`文件夹中
   1. 需要在文件头加上`# from @author`一行
   2. 在文件头部给出视频链接`# video address: https://......`，或将效果视频一并上传(文件名保持一致)
-#### Ⅴ. 一些图片素材
+#### Ⅳ. 一些图片素材
 提交到`assets`文件夹中
   1. 保证图片可以正常打开
-#### Ⅵ. 一些对manim源码的更改
+#### Ⅴ. 一些对manim源码的更改
 提交到旁边的[repo](https://github.com/manim-kindergarten/manim)中
 
 ## 关于代码使用的相关声明
