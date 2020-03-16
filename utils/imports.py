@@ -1,12 +1,15 @@
-from manim_sandbox.utils.bilibili import *
-from manim_sandbox.utils.code import *
-from manim_sandbox.utils.Arc_group import *
-from manim_sandbox.utils.Subtitle import *
-from manim_sandbox.utils.debugTeX import *
-from manim_sandbox.utils.MyText import *
-from manim_sandbox.utils.Trail import *
-from manim_sandbox.utils.MyBoxes import *
-from manim_sandbox.utils.Right_angle import *
-from manim_sandbox.utils.angle import *
-from manim_sandbox.utils.PeriodicTable import *
-from manim_sandbox.utils.calculation import *
+from manim_sandbox.utils.functions.calculation import *
+from manim_sandbox.utils.functions.debugTeX import *
+
+from manim_sandbox.utils.mobjects.code import *
+from manim_sandbox.utils.mobjects.Arc_group import *
+from manim_sandbox.utils.mobjects.MyText import *
+from manim_sandbox.utils.mobjects.Trail import *
+from manim_sandbox.utils.mobjects.MyBoxes import *
+from manim_sandbox.utils.mobjects.Right_angle import *
+from manim_sandbox.utils.mobjects.angle import *
+from manim_sandbox.utils.mobjects.PeriodicTable import *
+
+from manim_sandbox.utils.scenes.bilibili import *
+from manim_sandbox.utils.scenes.parabola import *
+from manim_sandbox.utils.scenes.NewGraphScene import *
