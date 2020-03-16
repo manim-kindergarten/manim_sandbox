@@ -1,3 +1,6 @@
+# from @MicoaelPrimo
+# homework vol 01
+
 from manimlib.imports import *
 
 class StartingScene(Scene):
