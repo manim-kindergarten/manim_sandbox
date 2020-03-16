@@ -12,6 +12,11 @@ class NewGraphScene(GraphScene):
     NewGraphScene by GZTime.
     ~~~~~~~~~~~~~~~~
     To use:
+    - 更新函数展示区域，定义域和坐标轴位置同GraphScene，此项设置需要在setup_axes前完成。
+    >>> self.graph_origin = ORIGIN
+    >>> self.x_min, self.x_max = -5,5
+    >>> self.y_min, self.y_max = -5,5
+
     - 新建坐标轴 create axes
     >>> self.setup_axes(animate=True)
 
@@ -36,7 +41,7 @@ class NewGraphScene(GraphScene):
             animate=True,t_min=0,t_max=2*math.pi,
             color=ORANGE)
 
-    - 访问已经新建的函数使用如下两个'list'也可以直接获取add_graph函数的返回值
+    - 访问已经新建的函数使用如下两个`list`也可以直接获取add_graph函数的返回值。
     >>> self.play(FadeOut(self.functions[0]))
     >>> self.play(FadeOut(self.parametric_functions[0]))
     
@@ -44,12 +49,15 @@ class NewGraphScene(GraphScene):
     >>> self.updata_graph(
             self.parametric_functions[0],
             lambda t: [2*math.cos(t),math.sin(t),0])
+
+    - 除上述方法外，此类为GraphScene的子类，可以调用其方法和属性以及扩展，但不再建议使用原本的get_function函数。
     """
     functions = []
     parametric_functions = []
 
     def add_function_graph(self,func,animate=False,color=None,x_min=None,x_max=None,**kwargs):
         """
+        向场景中添加函数图像。
         Add a function graph to scene.
         """
         if color is None:
@@ -83,6 +91,7 @@ class NewGraphScene(GraphScene):
 
     def add_parametric_graph(self,func,animate=False,color=None,x_min=None,x_max=None,t_min=0,t_max=1,**kwargs):
         """
+        向场景中添加参数方程。
         Add a parametric function graph to scene.
         """
         if color is None:
@@ -111,6 +120,7 @@ class NewGraphScene(GraphScene):
 
     def updata_graph(self,graph,newfunc):
         """
+        更新某图像的方程，并使用Transform变换。
         update and transform your graph to a new function.
         """
         newgraph = graph.copy().updata_function(newfunc)
@@ -120,6 +130,8 @@ class NewGraphScene(GraphScene):
 class NewParametricFunction(ParametricFunction):
     """
     NewParametricFunction by GZTime.
+    ~~~~~~~~~~~~~~~~~~
+    此类主要覆写了generate_points函数使其生成的路径具有x轴以及y轴的限制，并将每一段曲线作为一个submobject展示。
     """
     CONFIG = {
         "y_min": -1,
