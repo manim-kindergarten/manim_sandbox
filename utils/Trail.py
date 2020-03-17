@@ -21,7 +21,7 @@ class Trail(VGroup):
         self.pos_old = self[0].get_center()
 
     def update_trail(self, trail):
-        err = 1e-9
+        err = 1e-6
         pos_new = self[0].get_center()
         pos_old = self.pos_old
         self.pos_old = pos_new
@@ -48,7 +48,7 @@ class Trail(VGroup):
                 l.set_stroke(width=self.max_width * self.rate_func(k/len(trail)),
                              opacity=self.rate_func(k/len(trail)))
 
-    def get_path_xyz(self, err=1e-9):
+    def get_path_xyz(self, err=1e-4):
         pos_new = self[0].get_center()
         pos_old = self.pos_old
         if sum(abs(pos_new - pos_old))>err:
@@ -73,6 +73,9 @@ class Trail(VGroup):
     def start_trace(self):
         # self.trail.add_updater(self.update_trail)
         self.trail.add_updater(self.update_path)
+
+    def stop_trace(self):
+        self.trial.remove_updater(self.update_path)
 
 ## test Trail ##
 
