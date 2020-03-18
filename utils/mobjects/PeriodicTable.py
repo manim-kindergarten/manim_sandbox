@@ -1,7 +1,7 @@
 # from @鹤翔万里
 
 from manimlib.imports import *
-from manim_sandbox.utils.MyBoxes import MyBox, MyBoxes
+from manim_sandbox.utils.mobjects.MyBoxes import MyBox, MyBoxes
 
 class PeriodicTable(VGroup):
     CONFIG = {
