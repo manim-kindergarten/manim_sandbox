@@ -19,7 +19,7 @@ from manimlib.imports import *
 class Logo(VGroup):
 
     CONFIG = {
-        'color_1': [WHITE, BLUE_B, BLUE_C],
+        'color_1': [WHITE, BLUE_B, BLUE_D],
         'color_2': [WHITE, '#C59978', '#8D5630'],
         'center': ORIGIN,
         'size': 2,
@@ -124,8 +124,6 @@ class Logo_02(Scene):
             rate_func=smooth, run_time=1
         )
         self.wait()
-
-
 
 class Fractal_by_logo(Scene):
 
