@@ -21,8 +21,8 @@ class Logo(VGroup):
     CONFIG = {
         'color_1': [WHITE, BLUE_B, BLUE_D],
         'color_2': [WHITE, '#C59978', '#8D5630'],
-        'color_3': [average_color("#CCCCCC", BLUE_C), BLUE_C, BLUE_D],
-        'color_4': [average_color("#CCCCCC", "#C59978"), '#C59978', '#8D5630'],
+        'color_3': [average_color(WHITE, BLUE_C), BLUE_C, BLUE_D],
+        'color_4': [average_color(WHITE, "#C59978"), '#C59978', '#8D5630'],
         'center': ORIGIN,
         'size': 2,
         'shift_out': ORIGIN,
@@ -31,7 +31,6 @@ class Logo(VGroup):
     }
 
     def __init__(self, **kwargs):
-
         VGroup.__init__(self, **kwargs)
         self.create_logo()
 
