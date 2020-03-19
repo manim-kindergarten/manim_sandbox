@@ -228,7 +228,7 @@ class Logo_03(Scene):
 
     def construct(self):
 
-        logo = Logo(size=3.5)
+        logo = Logo(size=2.5)
         squares = VGroup(*[Polygon(ORIGIN, UR, UL), Polygon(ORIGIN, UL, DL), Polygon(ORIGIN, DL, DR), Polygon(ORIGIN, DR, UR),])
         squares.set_fill(WHITE, 1).set_stroke(width=0.5, color=WHITE).rotate(np.arctan(0.5)).set_height(logo.inner_triangles.get_height())
         for s in squares:
@@ -256,6 +256,26 @@ class Logo_03(Scene):
 
         tris = logo.inner_triangles.copy().rotate(-PI)
         self.add(text, bg)
+
+        self.wait(0.3)
+        self.add(tris)
+        self.wait(0.3)
+        self.remove(tris)
+
+        self.wait(0.2)
+        self.add(tris)
+        self.wait(0.15)
+        self.remove(tris)
+
+        self.wait(0.1)
+        self.add(tris)
+        self.wait(0.1)
+        self.remove(tris)
+        
+        self.wait(0.05)
+        self.add(tris)
+        self.wait(0.05)
+        self.remove(tris)
         # square = Square().set_height(tris.get_height()).set_stroke(width=0.5, color=WHITE)
         # self.play(ReplacementTransform(square, tris), run_time=1)
         self.play(ShowSubmobjectsOneByOne(tris), rate_func=linear, run_time=0.4)
@@ -263,18 +283,18 @@ class Logo_03(Scene):
             self.add(i)
             self.wait(0.1)
         self.play(*[ReplacementTransform(tris[i], squares[i]) for i in range(4)], 
-            rate_func=rush_from, run_time=0.75)
+            rate_func=rush_from, run_time=0.6)
         #self.play(ReplacementTransform(tris, squares), rate_func=linear, run_time=0.8)
         self.wait(0.1)
         self.play(*[ReplacementTransform(squares[i], logo[i]) for i in range(4)], 
-            rate_func=rush_from, run_time=1.2)
+            rate_func=rush_from, run_time=1)
         #self.play(ReplacementTransform(squares, logo), rate_func=linear, run_time=1.5)
-        self.wait(0.25)
+        self.wait(0.15)
         self.play(
             text.restore, logo.restore,
             rate_func=rush_from, run_time=1
         )
-        self.wait(2)
+        self.wait(1)
 
 
 
