@@ -220,7 +220,9 @@ class MyTransform(Animation):
             now[i].set_color(interpolate_color(self.starting_mobject[i].get_color(), self.target[i].get_color(), alpha))
         self.mobject.become(now)
 
-class Logo_03(Scene):
+# final
+
+class Logo_black(Scene):
 
     CONFIG = {
         "font": "Orbitron",
@@ -302,6 +304,7 @@ class Logo_03(Scene):
             rate_func=rush_from, run_time=0.8
         )
         self.wait(1)
+        self.play(FadeOut(VGroup(*self.mobjects)))
 
 
 class Logo_white(Scene):
@@ -385,7 +388,7 @@ class Logo_white(Scene):
         self.play(*[ReplacementTransform(squares[i], logo[i]) for i in range(4)], 
             rate_func=rush_from, run_time=0.6)
         #self.play(ReplacementTransform(squares, logo), rate_func=linear, run_time=1.5)
-        self.wait(0.5)
+        self.wait(0.1)
         self.play(
             text.restore, logo.restore,
             rate_func=rush_from, run_time=0.8
