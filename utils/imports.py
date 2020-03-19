@@ -15,3 +15,5 @@ from manim_sandbox.utils.mobjects.ThreeBody import *
 from manim_sandbox.utils.scenes.bilibili import *
 from manim_sandbox.utils.scenes.parabola import *
 from manim_sandbox.utils.scenes.NewGraphScene import *
+
+from manim_sandbox.Logo.Logo import *
