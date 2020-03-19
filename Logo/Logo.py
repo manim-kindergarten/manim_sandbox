@@ -228,24 +228,52 @@ class Logo_03(Scene):
 
     def construct(self):
 
-        logo = Logo(size=5)
+        logo = Logo(size=3.5)
         squares = VGroup(*[Polygon(ORIGIN, UR, UL), Polygon(ORIGIN, UL, DL), Polygon(ORIGIN, DL, DR), Polygon(ORIGIN, DR, UR),])
         squares.set_fill(WHITE, 1).set_stroke(width=0.5, color=WHITE).rotate(np.arctan(0.5)).set_height(logo.inner_triangles.get_height())
         for s in squares:
             s.scale(0.8)
 
+        text = VGroup(
+            Text("Manim", font=self.font),
+            Text("Kindergarten", font=self.font)
+        ).arrange(DOWN, aligned_edge=LEFT, buff=0.3).set_height(2).next_to(logo, buff=1.2).shift(DOWN*0.2)
+        text[1][0].set_color(logo.color_2[2])
+        text[0][0].set_color(logo.color_1[2])
+        all_logo = VGroup(logo, text).center()
+
+        line = Line(UP, DOWN, stroke_width=8).move_to(mid(logo.get_right(), text.get_left()))
+        line.set_length(1.4)
+        text.add(line)
+
+        bg = Rectangle(height=10, width=10, fill_color=BLACK, fill_opacity=1, stroke_width=0)
+        bg.add_updater(lambda m: m.move_to(logo, aligned_edge=RIGHT).shift(RIGHT*0.2))
+
+        text.save_state()
+        text.shift((text.get_right()[0]-bg.get_right()[0]+0.2)*LEFT)
+        logo.save_state()
+        logo.move_to(ORIGIN)
+
         tris = logo.inner_triangles.copy().rotate(-PI)
+        self.add(text, bg)
         # square = Square().set_height(tris.get_height()).set_stroke(width=0.5, color=WHITE)
         # self.play(ReplacementTransform(square, tris), run_time=1)
         self.play(ShowSubmobjectsOneByOne(tris), rate_func=linear, run_time=0.4)
-        for i in range(4):
-            self.add(tris[i])
-            self.wait(0.075)
-        # self.play(*[ReplacementTransform(tris[i], squares[i]) for i in range(4)], rate_func=smooth, run_time=1)
-        self.play(ReplacementTransform(tris, squares), rate_func=linear, run_time=0.8)
-        # self.play(*[ReplacementTransform(squares[i], logo[i]) for i in range(4)], rate_func=smooth, run_time=2.)
-        self.play(ReplacementTransform(squares, logo), rate_func=linear, run_time=1.5)
-
+        for i in tris:
+            self.add(i)
+            self.wait(0.1)
+        self.play(*[ReplacementTransform(tris[i], squares[i]) for i in range(4)], 
+            rate_func=rush_from, run_time=0.75)
+        #self.play(ReplacementTransform(tris, squares), rate_func=linear, run_time=0.8)
+        self.wait(0.1)
+        self.play(*[ReplacementTransform(squares[i], logo[i]) for i in range(4)], 
+            rate_func=rush_from, run_time=1.2)
+        #self.play(ReplacementTransform(squares, logo), rate_func=linear, run_time=1.5)
+        self.wait(0.25)
+        self.play(
+            text.restore, logo.restore,
+            rate_func=rush_from, run_time=1
+        )
         self.wait(2)
 
 
