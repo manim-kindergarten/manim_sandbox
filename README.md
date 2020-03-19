@@ -1,4 +1,4 @@
-![logo](assets/logo.png)
+[![logo](assets/Logo.png)](https://github.com/manim-kindergarten)
 
 [![MIT License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](http://choosealicense.com/licenses/mit/)
 ![QQ](https://img.shields.io/badge/QQ-862671480-red.svg?style=flat)
