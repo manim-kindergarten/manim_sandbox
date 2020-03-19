@@ -21,8 +21,13 @@ class Logo(VGroup):
     CONFIG = {
         'color_1': [WHITE, BLUE_B, BLUE_D],
         'color_2': [WHITE, '#C59978', '#8D5630'],
+
         'color_3': [average_color("#CCCCCC", BLUE_C), BLUE_C, BLUE_D],
         'color_4': [average_color("#CCCCCC", "#C59978"), '#C59978', '#8D5630'],
+
+        # 'color_3': [average_color(WHITE, BLUE_C), BLUE_C, BLUE_D],
+        # 'color_4': [average_color(WHITE, "#C59978"), '#C59978', '#8D5630'],
+
         'center': ORIGIN,
         'size': 2,
         'shift_out': ORIGIN,
@@ -31,7 +36,6 @@ class Logo(VGroup):
     }
 
     def __init__(self, **kwargs):
-
         VGroup.__init__(self, **kwargs)
         self.create_logo()
 
@@ -225,14 +229,20 @@ class Logo_03(Scene):
     def construct(self):
 
         logo = Logo(size=5)
+        squares = VGroup(*[Polygon(ORIGIN, UR, UL), Polygon(ORIGIN, UL, DL), Polygon(ORIGIN, DL, DR), Polygon(ORIGIN, DR, UR),])
+        squares.set_fill(WHITE, 1).set_stroke(width=0.5, color=WHITE).rotate(np.arctan(0.5)).set_height(logo.inner_triangles.get_height())
+        for s in squares:
+            s.scale(0.8)
 
-        square = VGroup(*[Polygon(ORIGIN, UR, UL), Polygon(ORIGIN, UL, DL), Polygon(ORIGIN, DL, DR), Polygon(ORIGIN, DR, UR),])
-        square.set_fill(WHITE, 1).set_stroke(width=0.5, color=WHITE).rotate(np.arctan(0.5)).set_height(logo.inner_triangles.get_height())
-        squares = VGroup(square.copy(), square.copy(), square.copy(), square.copy())
+        tris = logo.inner_triangles.copy().rotate(-PI)
+        # square = Square().set_height(tris.get_height()).set_stroke(width=0.5, color=WHITE)
+        # self.play(ReplacementTransform(square, tris), run_time=1)
+        self.play(ShowSubmobjectsOneByOne(tris), rate_func=linear, run_time=0.5)
+        # self.play(*[ReplacementTransform(tris[i], squares[i]) for i in range(4)], rate_func=smooth, run_time=1)
+        self.play(ReplacementTransform(tris, squares), rate_func=linear, run_time=0.9)
+        # self.play(*[ReplacementTransform(squares[i], logo[i]) for i in range(4)], rate_func=smooth, run_time=2.)
+        self.play(ReplacementTransform(squares, logo), rate_func=linear, run_time=1.6)
 
-        # self.add(squares)
-        # self.wait()
-        self.play(*[ReplacementTransform(square[i], logo[i]) for i in range(4)], rate_func=smooth, run_time=3.)
         self.wait(2)
 
 
