@@ -82,6 +82,51 @@ class Logo_01(Scene):
 
         self.wait(4)
 
+class Logo_02(Scene):
+    CONFIG = {
+        "font": "Orbitron",
+    }
+
+    def construct(self):
+
+        logo = Logo(size=8/3)
+
+        text = VGroup(
+            Text("Manim", font=self.font),
+            Text("Kindergarten", font=self.font)
+        ).arrange(DOWN, aligned_edge=LEFT, buff=0.3).set_height(2).next_to(logo, buff=1.2).shift(DOWN*0.2)
+        text[1][0].set_color(logo.color_2[2])
+        text[0][0].set_color(logo.color_1[2])
+        all_logo = VGroup(logo, text).center()
+
+        line = Line(UP, DOWN, stroke_width=8).move_to(mid(logo.get_right(), text.get_left()))
+        line.set_length(1.4)
+        text.add(line)
+
+        bg = Rectangle(height=10, width=10, fill_color=BLACK, fill_opacity=1, stroke_width=0)
+        bg.add_updater(lambda m: m.move_to(logo, aligned_edge=RIGHT).shift(RIGHT*0.2))
+
+        text.save_state()
+        text.shift((text.get_right()[0]-bg.get_right()[0]+0.2)*LEFT)
+        logo.save_state()
+        logo.move_to(ORIGIN)
+        logo.scale(1.2)
+        logo.rotate(TAU, axis=IN)
+        
+        self.add(text, bg)
+        self.play(FadeIn(logo[0]))
+        self.wait(0.25)
+        for i in range(3):
+            self.play(MyTransform(logo[i], logo[i+1], about_point=logo.get_center()), run_time=0.2, rate_func=smooth)
+        self.wait(0.5)
+        self.play(
+            text.restore, logo.restore,
+            rate_func=smooth, run_time=1
+        )
+        self.wait()
+
+
+
 class Fractal_by_logo(Scene):
 
     def construct(self):
@@ -115,3 +160,31 @@ class Fractal_by_logo(Scene):
             to_be_replaced = to_be_replaced_new
         self.wait(4)
 
+class MyTransform(Animation):
+    CONFIG = {
+        "radians": PI/2,
+        "axis": OUT,
+        "about_point": None,
+        "remover": True,
+    }
+
+    def __init__(self, mobject, target, **kwargs):
+        digest_config(self, kwargs)
+        self.mobject = mobject.copy()
+        self.target = target
+
+    def clean_up_from_scene(self, scene):
+        if self.is_remover():
+            scene.remove(self.mobject)
+            scene.add(self.target)
+
+    def interpolate_mobject(self, alpha):
+        now = self.starting_mobject.copy()
+        now.rotate(
+            alpha * self.radians,
+            axis=self.axis,
+            about_point=self.about_point,
+        )
+        for i in range(3):
+            now[i].set_color(interpolate_color(self.starting_mobject[i].get_color(), self.target[i].get_color(), alpha))
+        self.mobject.become(now)
