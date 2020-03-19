@@ -273,6 +273,11 @@ class Logo_03(Scene):
         self.wait(0.1)
         self.remove(tris)
         
+        self.wait(0.075)
+        self.add(tris)
+        self.wait(0.075)
+        self.remove(tris)
+
         self.wait(0.05)
         self.add(tris)
         self.wait(0.05)
@@ -289,12 +294,12 @@ class Logo_03(Scene):
         #self.play(ReplacementTransform(tris, squares), rate_func=linear, run_time=0.8)
         self.wait(0.1)
         self.play(*[ReplacementTransform(squares[i], logo[i]) for i in range(4)], 
-            rate_func=rush_from, run_time=1)
+            rate_func=rush_from, run_time=0.6)
         #self.play(ReplacementTransform(squares, logo), rate_func=linear, run_time=1.5)
-        self.wait(0.15)
+        self.wait(0.1)
         self.play(
             text.restore, logo.restore,
-            rate_func=rush_from, run_time=1
+            rate_func=rush_from, run_time=0.8
         )
         self.wait(1)
 
