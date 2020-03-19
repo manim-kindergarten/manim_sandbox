@@ -22,11 +22,11 @@ class Logo(VGroup):
         'color_1': [WHITE, BLUE_B, BLUE_D],
         'color_2': [WHITE, '#C59978', '#8D5630'],
 
-        'color_3': [average_color("#CCCCCC", BLUE_C), BLUE_C, BLUE_D],
-        'color_4': [average_color("#CCCCCC", "#C59978"), '#C59978', '#8D5630'],
+        # 'color_3': [average_color("#CCCCCC", BLUE_C), BLUE_C, BLUE_D],
+        # 'color_4': [average_color("#CCCCCC", "#C59978"), '#C59978', '#8D5630'],
 
-        # 'color_3': [average_color(WHITE, BLUE_C), BLUE_C, BLUE_D],
-        # 'color_4': [average_color(WHITE, "#C59978"), '#C59978', '#8D5630'],
+        'color_3': [average_color(WHITE, BLUE_C), BLUE_C, BLUE_D],
+        'color_4': [average_color(WHITE, "#C59978"), '#C59978', '#8D5630'],
 
         'center': ORIGIN,
         'size': 2,
@@ -229,11 +229,15 @@ class Logo_03(Scene):
     def construct(self):
 
         logo = Logo(size=8/3)
+        squares = VGroup(*[Polygon(ORIGIN, UR, UL), Polygon(ORIGIN, UL, DL), Polygon(ORIGIN, DL, DR), Polygon(ORIGIN, DR, UR),])
+        squares.set_fill(WHITE, 1).set_stroke(width=0.5, color=WHITE).rotate(np.arctan(0.5)).set_height(logo.inner_triangles.get_height())
+        for s in squares:
+            s.scale(0.8)
 
         text = VGroup(
             Text("Manim", font=self.font),
             Text("Kindergarten", font=self.font)
-        ).arrange(DOWN, aligned_edge=LEFT, buff=0.3).set_height(2.2).next_to(logo, buff=1.5).shift(DOWN*0.2)
+        ).arrange(DOWN, aligned_edge=LEFT, buff=0.3).set_height(2.1).next_to(logo, buff=1.5).shift(DOWN*0.2)
         text[1][0].set_color(logo.color_2[2])
         text[0][0].set_color(logo.color_1[2])
         all_logo = VGroup(logo, text).center()
@@ -249,35 +253,30 @@ class Logo_03(Scene):
         text.shift((text.get_right()[0]-bg.get_right()[0]+0.2)*LEFT)
         logo.save_state()
         logo.move_to(ORIGIN)
-        logo.scale(15/8)
-        self.add(text, bg)
-        
-        squares = VGroup(*[Polygon(ORIGIN, UR, UL), Polygon(ORIGIN, UL, DL), Polygon(ORIGIN, DL, DR), Polygon(ORIGIN, DR, UR),])
-        squares.set_fill(WHITE, 1).set_stroke(width=0.5, color=WHITE).rotate(np.arctan(0.5)).set_height(logo.inner_triangles.get_height())
-        for s in squares:
-            s.scale(0.8)
+        logo.scale(1.5)
 
         tris = logo.inner_triangles.copy().rotate(-PI)
+        self.add(text, bg)
         # square = Square().set_height(tris.get_height()).set_stroke(width=0.5, color=WHITE)
         # self.play(ReplacementTransform(square, tris), run_time=1)
+        self.wait(0.2)
         self.play(ShowSubmobjectsOneByOne(tris), rate_func=linear, run_time=0.4)
-        for i in range(4):
-            self.add(tris[i])
-            self.wait(0.075)
-        # self.play(*[ReplacementTransform(tris[i], squares[i]) for i in range(4)], rate_func=smooth, run_time=1)
-        self.play(ReplacementTransform(tris, squares), rate_func=linear, run_time=0.8)
-        # self.play(*[ReplacementTransform(squares[i], logo[i]) for i in range(4)], rate_func=smooth, run_time=2.)
-        self.play(ReplacementTransform(squares, logo), rate_func=linear, run_time=1)
-
-        self.wait(2)
-
+        for i in tris:
+            self.add(i)
+            self.wait(0.1)
+        self.play(*[ReplacementTransform(tris[i], squares[i]) for i in range(4)], 
+            rate_func=rush_from, run_time=0.75)
+        #self.play(ReplacementTransform(tris, squares), rate_func=linear, run_time=0.8)
+        self.wait(0.1)
+        self.play(*[ReplacementTransform(squares[i], logo[i]) for i in range(4)], 
+            rate_func=rush_from, run_time=1)
+        #self.play(ReplacementTransform(squares, logo), rate_func=linear, run_time=1.5)
+        self.wait(0.5)
         self.play(
             text.restore, logo.restore,
-            rate_func=smooth, run_time=0.8
+            rate_func=rush_from, run_time=1
         )
-        self.wait()
-
-
+        self.wait(2)
 
 
 
