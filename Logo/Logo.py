@@ -19,8 +19,10 @@ from manimlib.imports import *
 class Logo(VGroup):
 
     CONFIG = {
-        'color_1': [WHITE, BLUE_B, BLUE_D, average_color(BLUE_D, BLACK)],
-        'color_2': [WHITE, '#C59978', '#8D5630', average_color('#8D5630', BLACK)],
+        'color_1': [WHITE, BLUE_B, BLUE_D],
+        'color_2': [WHITE, '#C59978', '#8D5630'],
+        'color_3': [average_color("#CCCCCC", BLUE_C), BLUE_C, BLUE_D],
+        'color_4': [average_color("#CCCCCC", "#C59978"), '#C59978', '#8D5630'],
         'center': ORIGIN,
         'size': 2,
         'shift_out': ORIGIN,
@@ -39,7 +41,7 @@ class Logo(VGroup):
         p2 = Polygon(1.5 * RIGHT, 3 * UR, 3 * UP, stroke_width=0).set_fill(self.color_1[1], 1)
         p3 = Polygon(2 * RIGHT, 3 * RIGHT, 3 * RIGHT + 2 * UP, stroke_width=0).set_fill(self.color_1[2], 1)
         if not self.black_bg:
-            p1.set_fill(self.color_1[-1], 1), p2.set_fill(self.color_1[-2], 1), p3.set_fill(self.color_1[-3], 1)
+            p1.set_fill(self.color_3[0], 1), p2.set_fill(self.color_3[1], 1), p3.set_fill(self.color_3[2], 1)
 
         self.bg = Square(stroke_width=0, fill_color=BLACK if self.black_bg else WHITE, fill_opacity=1).set_height(self.size * 2.5)
         if self.add_bg_square:
@@ -55,7 +57,7 @@ class Logo(VGroup):
         if self.black_bg:
             self.part_ur[0].set_fill(self.color_2[0], 1), self.part_ur[1].set_fill(self.color_2[1], 1), self.part_ur[2].set_fill(self.color_2[2], 1)
         else:
-            self.part_ur[0].set_fill(self.color_2[-1], 1), self.part_ur[1].set_fill(self.color_2[-2], 1), self.part_ur[2].set_fill(self.color_2[-3], 1)
+            self.part_ur[0].set_fill(self.color_4[0], 1), self.part_ur[1].set_fill(self.color_4[1], 1), self.part_ur[2].set_fill(self.color_4[2], 1)
 
         self.inner_triangles = VGroup(self.part_ur[0], self.part_ul[0], self.part_dl[0], self.part_dr[0])
         self.mid_triangles = VGroup(self.part_ur[1], self.part_ul[1], self.part_dl[1], self.part_dr[1])
