@@ -19,11 +19,13 @@ from manimlib.imports import *
 class Logo(VGroup):
 
     CONFIG = {
-        'color_1': [WHITE, BLUE_B, BLUE_D],
-        'color_2': [WHITE, '#C59978', '#8D5630'],
+        'color_1': [WHITE, BLUE_B, BLUE_D, average_color(BLUE_D, BLACK)],
+        'color_2': [WHITE, '#C59978', '#8D5630', average_color('#8D5630', BLACK)],
         'center': ORIGIN,
         'size': 2,
         'shift_out': ORIGIN,
+        'black_bg': True,
+        'add_bg_square': False,
     }
 
     def __init__(self, **kwargs):
@@ -36,6 +38,12 @@ class Logo(VGroup):
         p1 = Polygon(ORIGIN, RIGHT, 2 * UP, stroke_width=0).set_fill(self.color_1[0], 1)
         p2 = Polygon(1.5 * RIGHT, 3 * UR, 3 * UP, stroke_width=0).set_fill(self.color_1[1], 1)
         p3 = Polygon(2 * RIGHT, 3 * RIGHT, 3 * RIGHT + 2 * UP, stroke_width=0).set_fill(self.color_1[2], 1)
+        if not self.black_bg:
+            p1.set_fill(self.color_1[-1], 1), p2.set_fill(self.color_1[-2], 1), p3.set_fill(self.color_1[-3], 1)
+
+        self.bg = Square(stroke_width=0, fill_color=BLACK if self.black_bg else WHITE, fill_opacity=1).set_height(self.size * 2.5)
+        if self.add_bg_square:
+            self.add(self.bg)
 
         self.part_ur = VGroup(p1, p2, p3).move_to([2.5, 1., 0] + self.shift_out)
         self.part_ul = self.part_ur.copy().rotate(PI / 2, about_point=ORIGIN)
@@ -44,11 +52,32 @@ class Logo(VGroup):
 
         self.add(self.part_ur, self.part_ul, self.part_dl, self.part_dr)
         self.set_height(self.size).move_to(self.center)
-        self[0][0].set_fill(self.color_2[0], 1), self[0][1].set_fill(self.color_2[1], 1), self[0][2].set_fill(self.color_2[2], 1)
+        if self.black_bg:
+            self.part_ur[0].set_fill(self.color_2[0], 1), self.part_ur[1].set_fill(self.color_2[1], 1), self.part_ur[2].set_fill(self.color_2[2], 1)
+        else:
+            self.part_ur[0].set_fill(self.color_2[-1], 1), self.part_ur[1].set_fill(self.color_2[-2], 1), self.part_ur[2].set_fill(self.color_2[-3], 1)
 
         self.inner_triangles = VGroup(self.part_ur[0], self.part_ul[0], self.part_dl[0], self.part_dr[0])
         self.mid_triangles = VGroup(self.part_ur[1], self.part_ul[1], self.part_dl[1], self.part_dr[1])
         self.outer_triangles = VGroup(self.part_ur[2], self.part_ul[2], self.part_dl[2], self.part_dr[2])
+
+class Logo_image(Scene):
+
+    CONFIG = {
+        'camera_config': {
+            'background_color': GRAY,
+        }
+    }
+
+    def construct(self):
+
+        logo_black_bg = Logo(size=4.5, add_bg_square=True).shift(LEFT * 3)
+
+        logo_white_bg = Logo(size=4.5, black_bg=False, add_bg_square=True).shift(RIGHT * 3)
+
+        self.add(logo_white_bg, logo_black_bg)
+
+        self.wait(2)
 
 class Logo_01(Scene):
 
@@ -186,3 +215,5 @@ class MyTransform(Animation):
         for i in range(3):
             now[i].set_color(interpolate_color(self.starting_mobject[i].get_color(), self.target[i].get_color(), alpha))
         self.mobject.become(now)
+
+
