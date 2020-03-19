@@ -395,3 +395,112 @@ class Logo_white(Scene):
         )
         self.wait(1)
         self.play(FadeOut(VGroup(*self.mobjects)))
+
+
+class Logo_Rotate_Out(Scene):
+
+    CONFIG = {
+        "font": "Orbitron",
+    }
+
+    def construct(self):
+
+        logo = Logo(size=8/3)
+        squares = VGroup(*[Polygon(ORIGIN, UR, UL), Polygon(ORIGIN, UL, DL), Polygon(ORIGIN, DL, DR), Polygon(ORIGIN, DR, UR),])
+        squares.set_fill(WHITE, 1).set_stroke(width=0.5, color=WHITE).rotate(np.arctan(0.5)).set_height(logo.inner_triangles.get_height())
+        for s in squares:
+            s.scale(0.8)
+
+        text = VGroup(
+            VGroup(*[Text(t, font=self.font) for t in 'Manim']).arrange(direction=RIGHT * 0.5, aligned_edge=DOWN),
+            VGroup(*[Text(t, font=self.font) for t in 'Kindergarten']).arrange(direction=RIGHT * 0.5, aligned_edge=DOWN)
+        ).arrange(DOWN, aligned_edge=LEFT, buff=0.3).set_height(2.1).next_to(logo, buff=1.5).shift(DOWN*0.2)
+        text[1][6].align_to(text[1][5], DOWN)
+        text[1][0].set_color(logo.color_2[2])
+        text[0][0].set_color(logo.color_1[2])
+        all_logo = VGroup(logo, text).center()
+
+        line = Line(UP, DOWN, stroke_width=8).move_to(mid(logo.get_right(), text.get_left()))
+        line.set_length(1.4)
+        text.add(line)
+
+        bg = Rectangle(height=10, width=10, fill_color=BLACK, fill_opacity=1, stroke_width=0)
+        bg.add_updater(lambda m: m.move_to(logo, aligned_edge=RIGHT).shift(RIGHT*0.2))
+
+        text.save_state()
+        text.shift((text.get_right()[0]-bg.get_right()[0]+0.2)*LEFT)
+        logo.save_state()
+        logo.move_to(ORIGIN)
+        logo.scale(1.5)
+
+        tris = logo.inner_triangles.copy().rotate(-PI)
+        self.add(text, bg)
+
+        self.wait(0.3)
+        self.add(tris)
+        self.wait(0.3)
+        self.remove(tris)
+
+        self.wait(0.2)
+        self.add(tris)
+        self.wait(0.15)
+        self.remove(tris)
+
+        self.wait(0.1)
+        self.add(tris)
+        self.wait(0.1)
+        self.remove(tris)
+
+        self.wait(0.075)
+        self.add(tris)
+        self.wait(0.075)
+        self.remove(tris)
+
+        self.wait(0.05)
+        self.add(tris)
+        self.wait(0.05)
+        self.remove(tris)
+        # square = Square().set_height(tris.get_height()).set_stroke(width=0.5, color=WHITE)
+        # self.play(ReplacementTransform(square, tris), run_time=1)
+        self.wait(0.2)
+        self.play(ShowSubmobjectsOneByOne(tris), rate_func=linear, run_time=0.4)
+        for i in tris:
+            self.add(i)
+            self.wait(0.1)
+        self.play(*[ReplacementTransform(tris[i], squares[i]) for i in range(4)],
+            rate_func=rush_from, run_time=0.6)
+        #self.play(ReplacementTransform(tris, squares), rate_func=linear, run_time=0.8)
+        self.wait(0.1)
+        self.play(*[ReplacementTransform(squares[i], logo[i]) for i in range(4)],
+            rate_func=rush_from, run_time=0.6)
+        #self.play(ReplacementTransform(squares, logo), rate_func=linear, run_time=1.5)
+        self.wait(0.1)
+        self.play(
+            text.restore, logo.restore,
+            rate_func=rush_from, run_time=0.8
+        )
+
+        self.wait(2.5)
+        s = ValueTracker(-8)
+        def rotate_out(a, dt):
+            w = 0.6
+            if a.get_center()[0] < s.get_value() or a.get_center()[-1] != 0:
+                # a.rotate(w * (1 + 2.5 * np.random.random()) * DEGREES, axis=UP, about_point=RIGHT * s.get_value() + OUT * 0.25)
+                a.rotate(w * (1 + 2.75 * np.random.random()) * DEGREES, axis=UR, about_point=RIGHT * s.get_value() + OUT * 0.2)
+
+        for i in range(4):
+            for mob in logo[i]:
+                mob.add_updater(rotate_out)
+        for tex in text[0]:
+            tex.add_updater(rotate_out)
+        for tex in text[1]:
+            tex.add_updater(rotate_out)
+        line.add_updater(rotate_out)
+        self.remove(bg)
+        s_speed = 0.1
+        for i in range(200):
+            s.increment_value(s_speed)
+            self.wait(1/self.camera.frame_rate)
+
+        self.wait(1)
+
