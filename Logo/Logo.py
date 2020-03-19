@@ -237,11 +237,14 @@ class Logo_03(Scene):
         tris = logo.inner_triangles.copy().rotate(-PI)
         # square = Square().set_height(tris.get_height()).set_stroke(width=0.5, color=WHITE)
         # self.play(ReplacementTransform(square, tris), run_time=1)
-        self.play(ShowSubmobjectsOneByOne(tris), rate_func=linear, run_time=0.5)
+        self.play(ShowSubmobjectsOneByOne(tris), rate_func=linear, run_time=0.4)
+        for i in range(4):
+            self.add(tris[i])
+            self.wait(0.075)
         # self.play(*[ReplacementTransform(tris[i], squares[i]) for i in range(4)], rate_func=smooth, run_time=1)
-        self.play(ReplacementTransform(tris, squares), rate_func=linear, run_time=0.9)
+        self.play(ReplacementTransform(tris, squares), rate_func=linear, run_time=0.8)
         # self.play(*[ReplacementTransform(squares[i], logo[i]) for i in range(4)], rate_func=smooth, run_time=2.)
-        self.play(ReplacementTransform(squares, logo), rate_func=linear, run_time=1.6)
+        self.play(ReplacementTransform(squares, logo), rate_func=linear, run_time=1.5)
 
         self.wait(2)
 
