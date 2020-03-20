@@ -415,7 +415,7 @@ class Logo_Rotate_Out(Scene):
             VGroup(*[Text(t, font=self.font) for t in 'Manim']).arrange(direction=RIGHT * 0.5, aligned_edge=DOWN),
             VGroup(*[Text(t, font=self.font) for t in 'Kindergarten']).arrange(direction=RIGHT * 0.5, aligned_edge=DOWN)
         ).arrange(DOWN, aligned_edge=LEFT, buff=0.3).set_height(2.1).next_to(logo, buff=1.5).shift(DOWN*0.2)
-        text[1][6].align_to(text[1][5], DOWN)
+        text[1][6].align_to(text[1][5], UP)
         text[1][0].set_color(logo.color_2[2])
         text[0][0].set_color(logo.color_1[2])
         all_logo = VGroup(logo, text).center()
@@ -479,14 +479,15 @@ class Logo_Rotate_Out(Scene):
             text.restore, logo.restore,
             rate_func=rush_from, run_time=0.8
         )
-
-        self.wait(2.5)
-        s = ValueTracker(-8)
+        self.wait(0.75)
+        self.play(VGroup(*self.mobjects).shift, UP * 1.2)
+        self.wait(0.5)
+        s = ValueTracker(-7)
         def rotate_out(a, dt):
-            w = 0.6
+            w = 1.
             if a.get_center()[0] < s.get_value() or a.get_center()[-1] != 0:
-                # a.rotate(w * (1 + 2.5 * np.random.random()) * DEGREES, axis=UP, about_point=RIGHT * s.get_value() + OUT * 0.25)
-                a.rotate(w * (1 + 2.75 * np.random.random()) * DEGREES, axis=UR, about_point=RIGHT * s.get_value() + OUT * 0.2)
+                a.rotate(w * (1 + 2.5 * np.random.random()) * DEGREES, axis=UR, about_point=RIGHT * s.get_value() + OUT * 0.25)
+                # a.rotate(w * (1 + 2 * np.random.random()) * DEGREES, axis=UR, about_point=RIGHT * s.get_value() + OUT * (0.12+s.get_value()*0.2))
 
         for i in range(4):
             for mob in logo[i]:
@@ -497,10 +498,11 @@ class Logo_Rotate_Out(Scene):
             tex.add_updater(rotate_out)
         line.add_updater(rotate_out)
         self.remove(bg)
-        s_speed = 0.1
-        for i in range(200):
-            s.increment_value(s_speed)
-            self.wait(1/self.camera.frame_rate)
+        # s_speed = 0.16
+        # for i in range(160):
+        #     s.increment_value(s_speed)
+        #     self.wait(1/self.camera.frame_rate)
+        self.play(s.set_value, 10, rate_func=rush_into, run_time=3.6)
 
         self.wait(1)
 
