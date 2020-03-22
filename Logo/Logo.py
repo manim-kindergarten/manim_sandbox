@@ -119,7 +119,7 @@ class Logo_01(Scene):
 
 class Logo_02(Scene):
     CONFIG = {
-        "font": "Orbitron",
+        "font": "Orbitron Bold",
     }
 
     def construct(self):
@@ -225,7 +225,7 @@ class MyTransform(Animation):
 class Logo_black(Scene):
 
     CONFIG = {
-        "font": "Orbitron",
+        "font": "Orbitron Bold",
     }
 
     def construct(self):
@@ -309,7 +309,7 @@ class Logo_black(Scene):
 
 class Logo_white(Scene):
     CONFIG = {
-        "font": "Orbitron",
+        "font": "Orbitron Bold",
         "camera_config": {
             "background_color": WHITE,
         },
