@@ -12,6 +12,7 @@ from manim_sandbox.utils.mobjects.PeriodicTable import *
 from manim_sandbox.utils.mobjects.Shadow_around import *
 from manim_sandbox.utils.mobjects.ThreeBody import *
 from manim_sandbox.utils.mobjects.Rubik_Cube import *
+from manim_sandbox.utils.mobjects.Gear import *
 
 from manim_sandbox.utils.scenes.bilibili import *
 from manim_sandbox.utils.scenes.parabola import *
