@@ -81,7 +81,7 @@ manim_sandbox是由[manim-kindergarten](https://github.com/manim-kindergarten)�
 ## 关于manim的学习和交流
 
 我们有一个manim交流群（QQ群：862671480），欢迎大家加入交流。<br>
-对于manim学习中可能遇到的问题，可参考[manim常见问题 v2.1](https://github.com/manim-kindergarten/manim_sandbox/blob/master/documents/manim%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98v2.1.pdf)<br>
+对于manim学习中可能遇到的问题，可参考[manim常见问题 v2.2](https://github.com/manim-kindergarten/manim_sandbox/blob/master/documents/manim%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98v2.2.pdf)<br>
 
 ## 关于项目中的代码规范问题
 
