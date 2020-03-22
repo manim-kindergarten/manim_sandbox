@@ -11,9 +11,11 @@ from manim_sandbox.utils.mobjects.angle import *
 from manim_sandbox.utils.mobjects.PeriodicTable import *
 from manim_sandbox.utils.mobjects.Shadow_around import *
 from manim_sandbox.utils.mobjects.ThreeBody import *
+from manim_sandbox.utils.mobjects.Rubik_Cube import *
 
 from manim_sandbox.utils.scenes.bilibili import *
 from manim_sandbox.utils.scenes.parabola import *
 from manim_sandbox.utils.scenes.NewGraphScene import *
+from manim_sandbox.utils.scenes.Rubik_Cube_Scene import *
 
 from manim_sandbox.Logo.Logo import *
