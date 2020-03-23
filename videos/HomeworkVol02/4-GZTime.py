@@ -32,15 +32,17 @@ class CubicSum(Scene):
             self.play(ShowCreation(squares[i]),Write(texts[0][i][1]))
             self.wait(0.5)
             group.append(squares[i])
-            sqs = [squares[i].copy() for j in range(i)]
+            last = squares[i]
             for k in range(i):
-                self.play(sqs[k].shift,RIGHT * (k + 1) * (i + 1)/4,run_time=1/(i+1))
-                group.append(sqs[k])
+                sq = last.copy()
+                self.play(sq.shift,RIGHT * (i + 1)/4,run_time=1/(i+1))
+                group.append(sq)
+                last = sq
             self.play(Write(texts[0][i][0]))
             self.wait(0.5)
-            self.play(texts[0][i].move_to,LEFT * 5 + UP * (3 - i) )
+            self.play(texts[0][i].move_to,LEFT * 5 + UP * (3 - i),run_time=0.5,rate_func=smooth)
             texts[2].append(TexMobject(str(i + 1) + '^3').move_to(texts[0][i]))
-            self.play(ReplacementTransform(texts[0][i],texts[2][i + 1]))
+            self.play(ReplacementTransform(texts[0][i],texts[2][i + 1]),run_time=0.5)
             self.wait(0.5)
         
         self.play(Write(texts[2][0]))
@@ -57,8 +59,8 @@ class CubicSum(Scene):
         self.wait(0.5)
 
         for i in range(1,4):
-            parts.append(blues.copy().set_fill(color=colors[i]))
-            self.play(Rotating(parts[i],radians=i*PI/2,about_point=ORIGIN,run_time=0.5*i))
+            parts.append(parts[i-1].copy().set_fill(color=colors[i]))
+            self.play(Rotating(parts[i],radians=PI/2,about_point=ORIGIN,run_time=1,rate_func=smooth))
             self.wait(0.5)
         
         self.play(Write(texts[1][0][0:2]))
@@ -79,7 +81,7 @@ class CubicSum(Scene):
 
         big_square = Square(side_length=15/2).set_fill(color=WHITE,opacity=0.5)
 
-        self.play(ShowCreationThenDestruction(big_square,run_time=2,rate_func=lambda t: smooth(t,inflection=5)))
+        self.play(ShowCreationThenDestruction(big_square,run_time=3,rate_func=lambda t: smooth(t,inflection=20)))
 
         self.play(ReplacementTransform(VGroup(*brackets,texts[1][1],texts[1][2]),texts[3][0][1]))
         
@@ -88,14 +90,13 @@ class CubicSum(Scene):
             VGroup(*texts[3][0]).next_to,VGroup(*parts),RIGHT)
 
         result = TexMobject('\\sum_{k=1}^n k^3','=','\\frac{(n^2+n)^2}{4}')
-
         self.wait(2)
         self.play(ReplacementTransform(VGroup(VGroup(*texts[1][0]),VGroup(*texts[3][0])),result),
             FadeOut(VGroup(*parts)))
 
         self.wait(2)
-        self.play(FadeOut(result))
+        self.play(result.scale,2)
 
-        QED = TextMobject('QED.').scale(2)
+        QED = TextMobject('Q.E.D.').scale(2).next_to(result,DOWN,buff=0.5)
         self.play(Write(QED))
         self.wait(2)
