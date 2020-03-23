@@ -1,3 +1,5 @@
+# from @MATHEART_EVER & @我是害羞的向量
+
 # 由MATHEART_EVER和我是害羞的向量制作，使用该类做的视频请注明作者
 # 参考链接I：https://zh.wikipedia.org/wiki/%E5%86%85%E5%88%87%E5%9C%86
 # 参考链接II: https://www.cnblogs.com/BigBigLiang/p/4789086.html
