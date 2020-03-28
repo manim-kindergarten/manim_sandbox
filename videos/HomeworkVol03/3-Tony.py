@@ -7,7 +7,6 @@ class Homework_03(Scene):
     CONFIG = {
         "camera_config": {
             "background_color": WHITE,
-            "use_plot_depth": True,
         },
     }
     def construct(self):
