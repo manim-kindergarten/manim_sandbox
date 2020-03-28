@@ -32,17 +32,12 @@ class Gear_envelope_curve(Scene):
     def construct(self):
 
         r = 2
-
         gear = Gear_outline(pitch_circle_radius=2, tooth_hight=0.36, tooth_num=17, color=PINK)
-        # pitch_circle = Dashed_Circle(radius=r).set_stroke(color=GREEN, width=2)
         gear_02 = Gear_outline(pitch_circle_radius=2, tooth_hight=0.36, tooth_num=17, color=RED,
                                arc_segments=4, curve_segments=5, plot_depth=2).shift(2 * r * RIGHT)
-
         dot_center = Dot(color=RED)
 
         w = 1
-        # self.num=0
-
         g_group = VGroup()
         def rotate_gear_01(g, dt):
             g.rotate(w * DEGREES, about_point=ORIGIN)
@@ -51,11 +46,8 @@ class Gear_envelope_curve(Scene):
         def rotate_gear(g, dt):
             g.rotate(w * DEGREES, about_point=ORIGIN)
             g.rotate(w * DEGREES, about_point=g.get_center())
-            # self.num+=1
-            # if self.num % 4 == 0:
             g_group.add(g.copy().remove_updater(rotate_gear).set_stroke(color=ORANGE, width=1))
             g_n = len(g_group)
-
             max_num = 360 + 10
             if g_n < max_num:
                 for i in range(g_n):
@@ -65,16 +57,13 @@ class Gear_envelope_curve(Scene):
                 for i in range(g_n-1):
                     g_group[i].set_stroke(opacity=((i+1)/g_n))
 
-
         self.play(FadeIn(dot_center), ShowCreation(gear), run_time=1.5)
         self.play(ShowCreation(gear_02), run_time=1.5)
         self.wait()
         gear_02.add_updater(rotate_gear_01)
         self.wait(6)
-
         self.add(g_group)
         gear_02.remove_updater(rotate_gear_01)
         gear_02.add_updater(rotate_gear)
         self.play(FadeOut(gear), run_time=4)
-
         self.wait(12)
