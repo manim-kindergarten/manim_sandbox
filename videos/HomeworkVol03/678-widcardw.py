@@ -3,7 +3,7 @@
 from manimlib.imports import *
 
 
-class Test3(Scene):
+class Test6(Scene):
     CONFIG = {"camera_config": {"background_color": "#ffffff"}}
 
     def construct(self):
@@ -55,6 +55,7 @@ class Test3(Scene):
                                                            about_point=l_ab.get_start())
                 .move_to(l_ab.get_end()).scale(20)
             ))
+            self.add(l_b)
         anglea.clear_updaters()
         l_b.clear_updaters()
         self.play(FadeOut(anglea), FadeOut(l_b))
@@ -120,6 +121,108 @@ class Test7(Scene):
                 Circle(radius=get_line_long(dotp.get_center(),
                                             dota.get_center()), color="#559944").move_to(dota.get_center())
             ))
+            self.add(cira)
+        #attention: get_line_long is defined by Shy_Vector
+        #if it does not work, you can turn to "get_norm(...)" 
         cira.clear_updaters()
         self.play(FadeOut(cira))
         self.wait(2.5)
+
+
+class Test8(Scene):
+    CONFIG = {"camera_config": {"background_color": "#ffffff"}}
+
+    def construct(self):
+        doto = Dot(color="#000000", background_stroke_color="#ffffff",
+                   background_stroke_width=3, plot_depth=2).scale(0.7)
+        dota = Dot(LEFT*1.8, color="#000000", background_stroke_color="#ffffff",
+                   background_stroke_width=3, plot_depth=2).scale(0.7)
+        dotb = Dot(RIGHT*1.8, color="#000000", background_stroke_color="#ffffff",
+                   background_stroke_width=3, plot_depth=2).scale(0.7)
+        texto = TexMobject("O", color="#000000", background_stroke_color="#ffffff",
+                           background_stroke_width=6, plot_depth=2).scale(0.7).next_to(doto, RIGHT+DOWN, buff=SMALL_BUFF)
+        texta = TexMobject("A", color="#000000", background_stroke_color="#ffffff",
+                           background_stroke_width=6, plot_depth=2).scale(0.7).next_to(dota, LEFT, buff=SMALL_BUFF)
+        textb = TexMobject("B", color="#000000", background_stroke_color="#ffffff",
+                           background_stroke_width=6, plot_depth=2).scale(0.7).next_to(dotb, RIGHT, buff=SMALL_BUFF)
+        ciro = Circle(radius=1.8, color="#559944")
+        l_ab = Line(LEFT*1.8, RIGHT*1.8, color="#4488dd")
+        self.play(ShowCreation(ciro), Write(doto), Write(texto))
+        self.play(ShowCreation(l_ab), *[Write(obj)
+                                        for obj in [dota, dotb, texta, textb]])
+        self.wait(0.3)
+        t = ValueTracker(1)
+        dotp = Dot(color="#000000", background_stroke_color="#ffffff",
+                   background_stroke_width=3, plot_depth=2).scale(0.7)\
+            .add_updater(lambda d: d.move_to(np.array([
+                1.8*np.cos(t.get_value()), 1.8*np.sin(t.get_value()), 0
+            ])))
+        textp = TexMobject("P", color="#000000", background_stroke_color="#ffffff",
+                           background_stroke_width=6, plot_depth=2).scale(0.7)\
+            .add_updater(lambda p: p.next_to(dotp, UP+RIGHT, buff=SMALL_BUFF))
+        self.play(Write(dotp), Write(textp))
+        self.wait(0.2)
+        cirp = Circle(radius=2).add_updater(lambda c: c.become(
+            Circle(radius=abs(dotp.get_center()[1]), color="#dd7766")
+            .move_to(dotp.get_center())
+        ))
+        self.play(ShowCreation(cirp))
+        self.play(t.increment_value, 1)
+        self.play(t.increment_value, -2)
+        self.wait(0.2)
+        for i in range(40):
+            self.play(t.increment_value, TAU/40,
+                      rate_func=linear, run_time=0.2)
+            cirp.clear_updaters()
+            cirpc = cirp.copy().set_stroke(width=1.5, color="#715582")
+            self.add(cirpc)
+            cirp.add_updater(lambda c: c.become(
+                Circle(radius=abs(dotp.get_center()[1]), color="#dd7766")
+                .move_to(dotp.get_center())))
+            self.add(cirp)
+        cirp.clear_updaters()
+        textp.clear_updaters()
+        dotp.clear_updaters()
+        self.wait()
+        self.play(*[FadeOut(obj)
+                    for obj in [doto, dota, dotb, texta, textb, textp, textp, dotp, l_ab, ciro, texto]])
+        self.wait(2)
+
+
+
+'''
+
+to be completed...
+
+class Test5(Scene):
+    CONFIG = {"camera_config": {"background_color": "#ffffff"}}
+
+    def construct(self):
+        dotb = Dot(LEFT*2, color="#000000", background_stroke_color="#ffffff",
+                   background_stroke_width=3, plot_depth=2)
+        dotc = Dot(RIGHT*2, color="#000000", background_stroke_color="#ffffff",
+                   background_stroke_width=3, plot_depth=2)
+        dota = Dot(LEFT*2+UP*1.3, color="#000000", background_stroke_color="#ffffff",
+                   background_stroke_width=3, plot_depth=2)
+        texta = TexMobject("A", color="#000000", background_stroke_color="#ffffff",
+                           background_stroke_width=6, plot_depth=2).next_to(dota, UP+LEFT, buff=SMALL_BUFF)
+        textb = TexMobject("B", color="#000000", background_stroke_color="#ffffff",
+                           background_stroke_width=6, plot_depth=2).next_to(dotb, LEFT+DOWN, buff=SMALL_BUFF)
+        textc = TexMobject("C", color="#000000", background_stroke_color="#ffffff",
+                           background_stroke_width=6, plot_depth=2).next_to(dotc, RIGHT+DOWN, buff=SMALL_BUFF)
+        l_ab = Line(color="#559944")\
+            .put_start_and_end_on(dota.get_center(), dotb.get_center())
+        l_bc = Line(color="#559944")\
+            .put_start_and_end_on(dotc.get_center(), dotb.get_center())
+        self.play(*[ShowCreation(obj)
+                    for obj in [l_ab, l_bc, dota, dotb, dotc]])
+        self.play(*[Write(obj) for obj in [texta, textb, textc]])
+        self.wait(0.3)
+        t = ValueTracker(0)
+
+        def p_pos(t):
+            return np.array([0, 0, 0])
+        dotp = Dot(color="#000000", background_stroke_color="#ffffff",
+                   background_stroke_width=3, plot_depth=2)\
+            .add_updater(lambda d: d.move_to())'''
+
