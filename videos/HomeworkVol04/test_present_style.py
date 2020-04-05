@@ -106,13 +106,14 @@ class Emote_new(VGroup):
     }
     def __init__(self, **kwargs):
         VGroup.__init__(self, **kwargs)
-        self.emote = SVGMobject(self.file_name, height=2.5, **kwargs)
-        self.emote_02 = SVGMobject(self.file_name, height=2.5, **kwargs)
+        self.emote = SVGMobject(self.file_name, **kwargs).set_height(self.height)
+        self.emote_02 = SVGMobject(self.file_name, **kwargs).set_height(self.height)
+        self.center_dot = Dot().move_to(self.emote.get_center()).shift((DOWN + RIGHT*0.4) * self.height * 0.18).set_opacity(0)
         list = [0, 1, 2, 3, 5, 6, 9]
         for i in list:
             self.emote[i].set_fill(self.shake_color, 0)
             self.emote_02[i].set_fill(self.shake_color, 0)
-        self.add(self.emote_02, self.emote)
+        self.add(self.emote_02, self.center_dot, self.emote)
         self.attribute_list = [self.get_height(), self.get_width(), self.get_center()]
         self.emote_02.add_updater(self.update_emote)
 
@@ -128,7 +129,14 @@ class Emote_new(VGroup):
         else:
             mob.set_opacity(0)
 
-class Test_Emote(Scene):
+    def shake_on(self):
+        self.emote_02.set_opacity(1)
+        return self
+    def shake_off(self):
+        self.emote_02.set_opacity(0)
+        return self
+
+class 代码风格测试(Scene):
 
     CONFIG = {
         'camera_config': {
@@ -192,4 +200,40 @@ class Test_Emote(Scene):
         self.play(Write(tex_annotation), FadeOut(caption_scale_2), run_time=4)
 
         self.wait(5)
+
+class Emote_bounce_around(Scene):
+
+    CONFIG = {
+        'camera_config': {
+            'background_color': WHITE,
+        }
+    }
+
+    def construct(self):
+
+        emote = Emote_new(height=3.2, plot_depth=-1, color=BLACK).shift(UP * 1.234) #.set_opacity(0.12)
+        emote.emote_02.remove_updater(emote.update_emote)
+        self.emote_velocity = (RIGHT * 2 + UP * 1.25) * 2.4e-2
+        self.rotate_speed = 2.5 * DEGREES
+
+        def update_emote(l, dt):
+            l.shift(self.emote_velocity)
+            l.rotate(self.rotate_speed, about_point=l.center_dot.get_center())
+            self.emote_velocity += (RIGHT * 2 + UP * 1.25) * 2.8e-5 * np.sign(self.emote_velocity)
+
+            if abs(l.get_center()[1]) > (FRAME_HEIGHT - l.get_height())/2:
+                self.emote_velocity *= DR # or we can use self.emote_velocity[1] *= -1
+                self.rotate_speed *= -1
+                l.shake_on()
+            if abs(l.get_center()[0]) > (FRAME_WIDTH - l.get_width())/2:
+                self.emote_velocity *= UL # or we can use self.emote_velocity[0] *= -1
+                self.rotate_speed *= -1
+                l.shake_on()
+            else:
+                l.emote_02.set_opacity(l.emote_02.get_fill_opacity() - 0.02 if l.emote_02.get_fill_opacity() > 0 else 0)
+
+        emote.add_updater(update_emote)
+        self.add(emote)
+
+        self.wait(24)
 
