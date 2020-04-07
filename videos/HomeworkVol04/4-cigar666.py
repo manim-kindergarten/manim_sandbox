@@ -303,11 +303,11 @@ class Explain_Flip(ThreeDScene):
             "通过axis我们可以修改翻转时对称轴的方向",
             "比如我们将axis设为RIGHT，那么对称轴为水平向右，物体则被上下翻转",
             "通过about_point我们能定义对称轴的位置",
-            "如我们使axis=RIGHT且about_point=ORIGIN，",
+            "比如我们使axis=RIGHT且about_point=ORIGIN，",
             "则对称轴为水平过原点的直线，此时mob沿对称轴被上下翻转",
-            "我们也可以同时修改这两个参数来得到沿任意轴的翻折效果，如图所示",
+            "我们也可以同时修改这两个参数来得到沿任意对称轴的翻折效果，如图所示",
             ]
-        t2c_02 = {'axis': PINK, 'about_point': PINK, '对称轴': ORANGE}
+        t2c_02 = {'axis': PINK, 'about_point': PINK, '对称轴': ORANGE, "翻转": BLUE_D}
         captions_mob = VGroup(
             *[
                 CodeLine(cap, font='思源黑体 Bold', size=0.32).to_edge(DOWN * 1.2).set_color_by_t2c(t2c_02)
@@ -356,9 +356,9 @@ class Explain_Flip(ThreeDScene):
         self.play(FadeInFromLarge(dot), ShowCreation(axis_line), run_time=1.2)
         self.wait(1)
         self.play(FadeOut(axis_line), FadeOut(dot), run_time=1.2)
-        self.wait(1.2)
+        self.wait(0.8)
         self.play(ReplacementTransform(captions_mob[2], captions_mob[3]), run_time=1.2)
-        self.wait(2.4)
+        self.wait(2.2)
 
         # 上下翻转
         direction = RIGHT
@@ -378,7 +378,7 @@ class Explain_Flip(ThreeDScene):
         self.play(FadeOut(axis_line), FadeOut(dot), run_time=1.2)
         self.wait(0.8)
         self.play(ReplacementTransform(captions_mob[5], captions_mob[6]), run_time=1.2)
-        self.wait(1.5)
+        self.wait(2)
 
         # 关于y=0上下翻转
         direction = RIGHT * 2.
@@ -447,9 +447,6 @@ class Explain_Flip(ThreeDScene):
 
         emote = Emote_new(color=BLACK, height=2.4).shift(LEFT * 3 + UP * 1.6)
 
-        tex_bg = Rectangle(stroke_width=1, stroke_color=GRAY, fill_color=LIGHT_GREY, fill_opacity=0.25, plot_depth=2)
-        tex_bg.set_height(6.2, stretch=True).set_width(5.4, stretch=True)
-        tex_bg.to_corner(RIGHT * 1.25 + UP * 1.25)
         loc = UP * 2.9 + RIGHT * 2.64
         tex_add = CodeLine('self.add(mob)').move_to(loc)
         tex_flip = CodeLine('mob.flip()').next_to(tex_add, DOWN).align_to(tex_add, LEFT)
@@ -461,14 +458,13 @@ class Explain_Flip(ThreeDScene):
         tex_group = VGroup(tex_bg, tex_add, tex_flip, tex_flip_1, tex_flip_2, tex_flip_2_, tex_flip_3, tex_flip_3_)
         self.camera.add_fixed_in_frame_mobjects(tex_group)
 
-
         self.play(ReplacementTransform(captions_mob[0], captions_mob[1]), run_time=1.)
-        self.wait(2)
-        self.play(ReplacementTransform(captions_mob[1], captions_mob[2]), run_time=1.)
-        self.wait(0.6)
+        self.wait()
         self.play(Write(tex_add), run_time=0.9)
-        self.wait(0.1)
+        self.wait(0.2)
         self.play(WiggleOutThenIn(emote), run_time=0.9)
+        self.wait(0.5)
+        self.play(ReplacementTransform(captions_mob[1], captions_mob[2]), run_time=1.)
         self.wait(0.5)
         self.move_camera(phi=54*DEGREES, theta=-140*DEGREES)
 
