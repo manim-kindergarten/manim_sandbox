@@ -424,7 +424,6 @@ class Explain_Flip(ThreeDScene):
         self.play(FadeOut(captions_mob[-1]))
         self.wait(0.5)
 
-
         captions = [
             "flip变换实际上是用在三维空间中的旋转变换实现的",
             "这样在降维打击后的二维场景中就反映出对称翻折的效果",
@@ -532,3 +531,54 @@ class Explain_Flip(ThreeDScene):
         self.move_camera(phi=0*DEGREES, theta=-90*DEGREES)
         self.wait(2.5)
 
+from my_manim_projects.my_utils.anim_effects import *
+
+class Opening_Scene(Scene):
+
+    CONFIG = {
+        "camera_config": {
+            "background_color": WHITE,
+        }
+    }
+
+    def construct(self):
+
+        t2c = {"manim-kindergarten": average_color(PINK, RED), "manim": average_color(PINK, RED),
+               "物体变换方法": BLUE_D}
+        text_color = DARK_GRAY
+
+        font = "庞门正道标题体"
+        text_1 = Text("大家好!", font=font, color=text_color, size=1, t2c=t2c).to_edge(UP * 2, buff=1)
+        text_2 = Text("欢迎来到manim视频教程", font=font,
+                      color=text_color, size=1, t2c=t2c).to_edge(UP * 3.2, buff=1)
+        text_3 = Text("这一期我们将学习manim中", font=font, color=text_color, size=1, t2c=t2c).to_edge(UP * 1.8, buff=1)
+        text_4 = Text("常见的物体变换方法", font=font, color=text_color, size=1, t2c=t2c).to_edge(UP * 3., buff=1)
+        text_34, text_12 = VGroup(text_3, text_4), VGroup(text_1, text_2)
+
+        picture = ImageMobject(r'E:\GitHub\manim\my_manim_projects\my_projects\resource\images\ciyun_01.png', plot_depth=-1)
+        picture.scale(2).to_corner(DL * 0.5, buff=1)
+
+        methods = [['shift', 'move_to', 'scale', 'rotate'],
+                   ['flip', 'stretch', 'to_corner', 'to_edge'],
+                   ['align_to, ', 'next_to, ', 'set_width, ', 'set_height']]
+        m_group_1 = VGroup(*[Text(tex + ', ', size=0.42, font='Consolas', stroke_width=2, color=BLUE_D) for tex in methods[0]]).arrange(RIGHT)
+        m_group_2 = VGroup(*[Text(tex + ', ', size=0.42, font='Consolas', stroke_width=2, color=BLUE_D) for tex in methods[1]]).arrange(RIGHT)
+        m_group_3 = VGroup(*[Text(tex, size=0.42, font='Consolas', stroke_width=2, color=BLUE_D) for tex in methods[2]]).arrange(RIGHT)
+        m_group = VGroup(m_group_1, m_group_2, m_group_3).arrange(DOWN, aligned_edge=LEFT, buff=0.42)
+        methodes_group = VGroup(*m_group_1, *m_group_2, *m_group_3).next_to(picture, RIGHT * 0.6)
+
+        # self.add(picture)
+        self.wait(0.5)
+        self.play(Write(text_1))
+        self.wait(0.5)
+        self.play(WriteRandom(text_2), run_time=1.5)
+        self.wait(1.8)
+        self.play(ReplacementTransform(text_12, text_34), run_time=1.2)
+        self.wait(1.2)
+        self.play(FadeInFromPoint(picture, picture.get_center()))
+        self.wait(0.3)
+        self.play(FadeInRandom(methodes_group), run_time=2.4)
+        self.wait(2.6)
+        self.play(FadeOutRandom(methodes_group), FadeOutRandom(text_3),
+                  FadeOutRandom(text_4), FadeOut(picture), run_time=1.8)
+        self.wait(1)
