@@ -582,3 +582,45 @@ class Opening_Scene(Scene):
         self.play(FadeOutRandom(methodes_group), FadeOutRandom(text_3),
                   FadeOutRandom(text_4), FadeOut(picture), run_time=1.8)
         self.wait(1)
+
+class 空降标记(Scene):
+
+    CONFIG = {
+        "camera_config": {
+            "background_color": WHITE,
+        }
+    }
+
+    def construct(self):
+
+        methods_dict = {
+            '序言': '0025', 'shift+move_to': '0210', 'scale': '0402',
+            'rotate': '0504', 'flip': '0712', 'stretch': '0910',
+            'to_corner': '1024', 'align_to': '1129',
+            'next_to': '1227', 'set_width+set_height': '1500',
+        }
+        total_time = '1712'
+        func_time = lambda t: int(t[0:2]) * 60 + int(t[2:])
+        func_loc = lambda t: func_time(t)/func_time(total_time) * FRAME_WIDTH * RIGHT + FRAME_WIDTH * LEFT / 2
+        p_list = [FRAME_WIDTH * LEFT / 2]
+        for v in methods_dict.values():
+            p_list.append(func_loc(v))
+        p_list.append(func_loc(total_time))
+
+        colors = color_gradient([BLUE, PINK, RED, ORANGE, GREEN], len(methods_dict)+1)
+
+
+
+        lines = VGroup(*[Line(p_list[i], p_list[i+1]-0.02*RIGHT, color=colors[i], stroke_width=20) for i in range(len(methods_dict)+1)])
+        lines.to_edge(DOWN * 0.22, buff=1)
+        texts = VGroup(*[Text(t, color=WHITE, font='思源黑体 Bold', size=0.15) for t in methods_dict.keys()], plot_depth=1)
+        text = Text('空降\n标记', color=WHITE, font='庞门正道标题体', size=0.22).to_edge(DOWN * 0.132, buff=1).to_edge(LEFT, buff=0.125)
+        text[0:2].set_color(average_color(PINK, RED))
+        for i in range(len(methods_dict)):
+            texts[i].move_to(lines[i+1])
+
+        self.add(lines, texts, text)
+        self.wait(5)
+
+
+
