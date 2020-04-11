@@ -78,6 +78,11 @@ manim_sandbox是由[manim-kindergarten](https://github.com/manim-kindergarten)�
   </tr>
 </table>
 
+manim-幼儿园的项目成员也利用manim合作制作了许多非常amazing的视频，目前已有三期合作视频在[B站](https://www.bilibili.com/)投稿：
+* [自然数立方和公式的七种妙证](https://www.bilibili.com/video/BV1P741117QQ)
+* [十二例amazing的包络线欣赏](https://www.bilibili.com/video/BV1zC4y147T3)
+* [manim教程-物体的位置与坐标变换](https://www.bilibili.com/video/BV1p54y197cC)
+
 ## 关于manim的学习和交流
 
 我们有一个manim交流群（QQ群：862671480），欢迎大家加入交流。<br>
