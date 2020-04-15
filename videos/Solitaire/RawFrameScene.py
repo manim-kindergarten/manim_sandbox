@@ -29,8 +29,8 @@ class RawFrameScene(Scene):
     def print_frame_message(self):
         print("Capturing raw frame: {}\r".format(self.num_plays), end="")
 
-    def add_plays(self):
-        self.num_plays += 1
+    def add_plays(self, plays=1):
+        self.num_plays += plays
 
     def write_frame(self, frame):
         self.file_writer.write_frame(frame)
