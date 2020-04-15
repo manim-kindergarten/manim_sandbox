@@ -104,8 +104,7 @@ class Heart(Sign):
 
 
 def get_handle(pattern):
-    handle = Handle().move_to(pattern.get_critical_point(DOWN))
-    return handle
+    return Handle().move_to(pattern.get_critical_point(DOWN))
 
 
 class Spade(Sign):
