@@ -152,10 +152,10 @@ class Club(Sign):
 
 
 def frame_lines(ins, pos_s, pos_e, width=1.5, color=BLACK):
-    def fix_instance(_ins, fix_ratio=1 / 0.98):
-        return _ins.copy().scale(fix_ratio)
+    def fix_instance(fix_ratio=1 / 0.98):
+        return ins.copy().scale(fix_ratio)
 
-    instance = fix_instance(ins)
+    instance = fix_instance()
     start, end = instance.get_critical_point(pos_s), instance.get_critical_point(pos_e)
     return Line(start, end, stroke_width=width).set_color(color)
 

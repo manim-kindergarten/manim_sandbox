@@ -10,18 +10,18 @@ from FreeFallEngine import *
 from RawFrameScene import *
 
 
-def rand_gen(a, b, boundary=None):
-    def add_boundary(value, _boundary):
-        if 0 < value < boundary:
-            value += boundary
-        elif -boundary < value <= 0:
-            value -= boundary
-        return value
+def add_boundary(value, boundary):
+    assert (boundary > 0)
+    if 0 < value < boundary:
+        value += boundary
+    elif -boundary < value <= 0:
+        value -= boundary
+    return value
 
+
+def rand(a, b, boundary=None):
     if boundary is None:
         return random.uniform(a, b)
-
-    assert (boundary > 0)
     return add_boundary(random.uniform(a, b), boundary)
 
 
@@ -63,8 +63,8 @@ class SolitaireScene(RawFrameScene):
         obj.move_to(position)
         return self.capture(obj.copy())
 
-    def setup_engine(self):
-        setattr(self, "engine", FreeFallEngine())
+    def setup_engine(self, engine=FreeFallEngine()):
+        setattr(self, "engine", engine)
         return self
 
     def refresh_seed(self):
@@ -81,7 +81,7 @@ class SolitaireScene(RawFrameScene):
         for point in range(self.ACE, self.KING + 1):
             for sign in range(self.SPADE, self.DIAMOND + 1):
                 card = cards[sign][-point]
-                ap = self.engine.approximation_points(card, rand_gen(-3, 1.5, 1.5), rand_gen(-4, 0))
+                ap = self.engine.approximation_points(card, rand(-3, 1.5, 1.5), rand(-4, 0))
                 for position in ap:
                     self.trace_move(card, position)
         self.append_to_mobjects()
