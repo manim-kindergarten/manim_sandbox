@@ -63,8 +63,8 @@ class SolitaireScene(RawFrameScene):
         obj.move_to(position)
         return self.capture(obj.copy())
 
-    def setup_engine(self, engine=FreeFallEngine()):
-        setattr(self, "engine", engine)
+    def setup_engine(self, _name, engine=FreeFallEngine()):
+        setattr(self, _name, engine)
         return self
 
     def refresh_seed(self):
@@ -72,7 +72,7 @@ class SolitaireScene(RawFrameScene):
         return self
 
     def setup(self):
-        self.setup_engine()
+        self.setup_engine("engine")
         self.refresh_seed()
 
     def random_waterfall(self):
@@ -95,7 +95,7 @@ class SolitaireDemoScene(SolitaireScene):
     INIT_VX = -3
 
     def get_one_demo_card(self, corner_pos=RIGHT + UP):
-        return self.point_constructor(self.KING)(self.HEART).to_corner(corner_pos)
+        return self.point_constructor(self.JACK)(self.HEART).to_corner(corner_pos)
 
     def demo(self, vx, vy=0):
         card = self.get_one_demo_card()
