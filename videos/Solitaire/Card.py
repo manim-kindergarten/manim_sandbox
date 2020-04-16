@@ -205,19 +205,21 @@ class Card(Pattern):
         self.paint(fill_rec)
         self.paint_frame_lines(fill_rec)
 
+    def get_sample(self):
+        return TextMobject(self.get_text_from_dict("King")).scale(self.text_scale * self.get_ratio())
+
     def get_text_by_name(self, _name, color):
         text = TextMobject(self.get_text_from_dict(_name), **fill_dict(color))
         text.scale(self.text_scale * self.get_ratio()).set_stroke(color, opacity=1, background=True)
-        sample = TextMobject(self.get_text_from_dict("King")).scale(self.text_scale * self.get_ratio())
-        text.set_width(sample.get_width(), stretch=True)
-        return text.next_to(self.get_critical_point(UP + LEFT), close_to(DOWN + RIGHT))
+        sample = self.get_sample().next_to(self.get_critical_point(UP + LEFT), close_to(DOWN + RIGHT))
+        return text.move_to(sample.get_center())
 
     def get_text(self, color):
         return self.get_text_by_name(self.__class__.__name__, color)
 
     def get_text_and_sign(self, constructor, color):
         text = self.get_text(color)
-        text_sign = constructor().set_width(text.get_width()).next_to(text, close_to(DOWN))
+        text_sign = constructor().set_width(self.get_sample().get_width()).next_to(text, close_to(DOWN))
         return text, text_sign
 
     def get_sign(self, constructor):
