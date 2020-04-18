@@ -4,6 +4,9 @@
 # Copyright: 2020 niedong
 # Solitaire random waterfall design
 #
+# See the original video at:
+# https://www.bilibili.com/video/BV12a4y1x78t
+#
 
 from Card import *
 from FreeFallEngine import *
@@ -54,8 +57,8 @@ class SolitaireScene(RawFrameScene):
         return cards
 
     def four_deck_of_cards(self, corner_pos=RIGHT + UP):
-        return VGroup(*[
-            VGroup(*self.deck_of_cards(sign))
+        return Group(*[
+            Group(*self.deck_of_cards(sign))
             for sign in range(self.SPADE, self.DIAMOND + 1)
         ]).arrange(RIGHT * 2).to_corner(corner_pos)
 
