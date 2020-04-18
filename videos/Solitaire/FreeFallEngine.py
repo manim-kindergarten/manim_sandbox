@@ -13,16 +13,16 @@ from manimlib.imports import *
 class PhysicsEngine(Container):
     CONFIG = {
         "boundary": [FRAME_X_RADIUS, FRAME_Y_RADIUS, 0],
-        "tick": 1 / DEFAULT_FRAME_RATE
+        "tick": 1 / 40
     }
 
-    def valid_boundary_check(self):
+    def validate(self):
         for boundary in self.boundary:
             assert (boundary >= 0)
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.valid_boundary_check()
+        self.validate()
 
     def approximation_points(self, *args, **kwargs):
         pass
@@ -43,16 +43,16 @@ class AbstractFreeFallEngine(PhysicsEngine):
     def accelerate(self, *args, **kwargs):
         pass
 
-    def hit_upper_bound(self, *args, **kwargs):
+    def hit_up(self, *args, **kwargs):
         pass
 
-    def hit_lower_bound(self, *args, **kwargs):
+    def hit_down(self, *args, **kwargs):
         pass
 
-    def hit_right_bound(self, *args, **kwargs):
+    def hit_left(self, *args, **kwargs):
         pass
 
-    def hit_left_bound(self, *args, **kwargs):
+    def hit_right(self, *args, **kwargs):
         pass
 
 
@@ -66,29 +66,37 @@ class FreeFallEngine(AbstractFreeFallEngine):
     def accelerate(self, vy, t):
         return vy * t + self.gravity / 2 * (t ** 2)
 
-    def hit_lower_bound(self, instance):
+    def hit_down(self, instance):
         return instance.get_bottom()[1] < -self.boundary[1]
 
-    def out_left_bound(self, instance):
+    def out_left(self, instance):
         return instance.get_right()[0] < -self.boundary[0]
 
-    def out_right_bound(self, instance):
+    def within_left(self, instance):
+        return not self.out_left(instance)
+
+    def out_right(self, instance):
         return instance.get_left()[0] > self.boundary[0]
 
-    def approximation_points(self, _instance, vx, vy):
-        assert (isinstance(_instance, Mobject))
+    def within_right(self, instance):
+        return not self.out_right(instance)
+
+    def within_x(self, instance):
+        return self.within_left(instance) and self.within_right(instance)
+
+    def approximation_points(self, instance, vx, vy):
+        assert (isinstance(instance, Mobject))
         points = []
-        instance = _instance.copy()
-        while True:
-            if self.out_right_bound(instance) or self.out_left_bound(instance):
-                return points
-            if self.hit_lower_bound(instance):
+        ins = instance.copy()
+        while self.within_x(ins):
+            if self.hit_down(ins):
                 vy *= -self.lost_ratio
-                instance.shift(np.array([0, - self.boundary[1] - instance.get_bottom()[1], 0]))
+                ins.shift(np.array([0, - self.boundary[1] - ins.get_bottom()[1], 0]))
             else:
-                instance.shift(np.array([self.uniform(vx, self.tick), -self.accelerate(vy, self.tick), 0]))
+                ins.shift(np.array([self.uniform(vx, self.tick), -self.accelerate(vy, self.tick), 0]))
                 vy += self.gravity * self.tick
-                points.append(copy.deepcopy(instance.get_center()))
+                points.append(copy.deepcopy(ins.get_center()))
+        return points
 
 
 class ThreeDFreeFallEngine(AbstractFreeFallEngine):
