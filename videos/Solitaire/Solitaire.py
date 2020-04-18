@@ -10,14 +10,19 @@ from FreeFallEngine import *
 from RawFrameScene import *
 
 
-def random_boundary(a, b, boundary=None):
+def add_boundary(value, boundary):
     assert (boundary > 0)
-    val = random.uniform(a, b)
-    if 0 < val < boundary:
-        val += boundary
-    elif -boundary < val <= 0:
-        val -= boundary
-    return val
+    if 0 < value < boundary:
+        value += boundary
+    elif -boundary < value <= 0:
+        value -= boundary
+    return value
+
+
+def rand(a, b, boundary=None):
+    if boundary is None:
+        return random.uniform(a, b)
+    return add_boundary(random.uniform(a, b), boundary)
 
 
 SOLITAIRE_CONSTANT = {
@@ -58,8 +63,8 @@ class SolitaireScene(RawFrameScene):
         obj.move_to(position)
         return self.capture(obj.copy())
 
-    def setup_engine(self):
-        setattr(self, "engine", FreeFallEngine())
+    def setup_engine(self, _name, engine=FreeFallEngine()):
+        setattr(self, _name, engine)
         return self
 
     def refresh_seed(self):
@@ -67,7 +72,7 @@ class SolitaireScene(RawFrameScene):
         return self
 
     def setup(self):
-        self.setup_engine()
+        self.setup_engine("engine")
         self.refresh_seed()
 
     def random_waterfall(self):
@@ -75,8 +80,8 @@ class SolitaireScene(RawFrameScene):
         self.trace_move(cards, cards.get_center())
         for point in range(self.ACE, self.KING + 1):
             for sign in range(self.SPADE, self.DIAMOND + 1):
-                card = cards[sign][-1 - point + 1]
-                ap = self.engine.approximation_points(card, random_boundary(-3, 1.5, 1.5), random.uniform(-4, 0))
+                card = cards[sign][-point]
+                ap = self.engine.approximation_points(card, rand(-3, 1.5, 1.5), rand(-4, 0))
                 for position in ap:
                     self.trace_move(card, position)
         self.append_to_mobjects()
@@ -90,12 +95,12 @@ class SolitaireDemoScene(SolitaireScene):
     INIT_VX = -3
 
     def get_one_demo_card(self, corner_pos=RIGHT + UP):
-        return self.point_constructor(self.KING)(self.HEART).to_corner(corner_pos)
+        return self.point_constructor(self.JACK)(self.HEART).to_corner(corner_pos)
 
-    def demo(self, vx):
+    def demo(self, vx, vy=0):
         card = self.get_one_demo_card()
         self.trace_move(card, card.get_center())
-        ap = self.engine.approximation_points(card, vx, 0)
+        ap = self.engine.approximation_points(card, vx, vy)
         for position in ap:
             self.trace_move(card, position)
         self.append_to_mobjects()
