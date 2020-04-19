@@ -1,8 +1,6 @@
 #from author @Micoael_Primo
 from manimlib.imports import *
-
 class CodeLine(Text):
-    
     CONFIG = {
         't2c': {
             'y': average_color(BLUE, PINK),
@@ -74,7 +72,6 @@ class CodeLine(Text):
         'color': DARK_GRAY,
         'plot_depth': 2,
     }
-
     def __init__(self, text, **kwargs):
         Text.__init__(self, text, **kwargs)
 
