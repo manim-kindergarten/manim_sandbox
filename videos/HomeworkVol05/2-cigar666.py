@@ -21,7 +21,6 @@ class Explain_Arc(Scene):
             "stroke_width用来控制Arc的线条粗细",
             "start_angle用来控制Arc的起始角度",
             "angle用来控制Arc的圆心角大小",
-
             ]
 
         # pinkred = average_color(PINK, RED)
@@ -57,7 +56,7 @@ class Explain_Arc(Scene):
                                 center.get_center(), center.get_center() + RIGHT, radius=0.5, color=ORANGE)))
 
         arc_angle = Angle(p0+1, p0, p0-1).add_updater(lambda a: a.become(Angle(center.get_center() + complex_to_R3(np.exp((sa.get_value() + theta.get_value()) * 1j)),
-                    center.get_center(), center.get_center() + complex_to_R3(np.exp(sa.get_value() * 1j)), radius=0.5, color=PINK)))
+                    center.get_center(), center.get_center() + complex_to_R3(np.exp(sa.get_value() * 1j)), radius=0.5, color=PINK, below_180=True if theta.get_value()<PI else False)))
 
         line_0 = DashedLine().add_updater(lambda l: l.become(DashedLine(center.get_center(), center.get_center() + r.get_value() * RIGHT * 1.6, color=BLUE_D)))
         line_1 = DashedLine().add_updater(lambda l: l.become(DashedLine(center.get_center(), center.get_center() + r.get_value() * complex_to_R3(np.exp(sa.get_value() * 1j)) * 1.6, color=BLUE_D)))
@@ -90,8 +89,8 @@ class Explain_Arc(Scene):
         tex_angle = CodeLine('angle=').next_to(tex_sa, DOWN).align_to(tex_sa, LEFT).set_color_by_t2c(t2c_02)
         angle_value = CodeLine('xgnb').add_updater(lambda t: t.become(CodeLine('%.f*DEGREES,' % (theta.get_value()/DEGREES)).next_to(tex_angle, RIGHT * 0.08, buff=1)))
 
-        tex_color = CodeLine('color=BLACK').next_to(tex_angle, DOWN).align_to(tex_angle, LEFT).set_color_by_t2c(t2c_02)
-        tex_color_02 = CodeLine('# 默认是白色', font='思源黑体 Bold', color=GREEN, size=0.25).next_to(tex_color, RIGHT, buff=0.15)
+        tex_color = CodeLine('color=BLACK)').next_to(tex_angle, DOWN).align_to(tex_angle, LEFT).set_color_by_t2c(t2c_02)
+        tex_color_02 = CodeLine('#~默认是白色', font='思源黑体 Bold', color=GREEN, size=0.25).next_to(tex_color, RIGHT, buff=0.15)
 
         new_arc_tex = VGroup(tex_arc_01, tex_center, tex_r, r_value, tex_sw, sw_value,
                              tex_sa, sa_value, tex_angle, angle_value, tex_color, tex_color_02)
@@ -205,14 +204,222 @@ class Explain_Arc(Scene):
         self.wait(0.25)
         self.play(theta.set_value, 30*DEGREES, rate_func=linear, run_time=1.5)
         self.wait(0.25)
-        self.play(theta.set_value, 179.9*DEGREES, rate_func=linear, run_time=1.6)
-        self.wait(0.08)
+        self.play(theta.set_value, 360*DEGREES, rate_func=linear, run_time=2.4)
+        self.wait(0.4)
         self.play(theta.set_value, 90*DEGREES, rate_func=linear, run_time=1.2)
         self.wait(0.8)
         self.play(Uncreate(surround), run_time=1.2)
 
-        self.wait(2)
-        self.play(FadeOut(VGroup(*self.mobjects)), run_time=1.6)
+        self.wait(2.5)
+        # for mob in self.mobjects:
+        #     mob.clear_updaters()
+        # self.play(FadeOut(Group(*self.mobjects)), run_time=1.6)
+        rect_bg = Rectangle(color=WHITE, fill_color=WHITE, fill_opacity=0).scale(20)
+        self.play(rect_bg.set_opacity, 1, run_time=1.6)
         self.wait(1)
 
+from my_manim_projects.my_utils.anim_effects import *
 
+class Subclass_of_Arc(Scene):
+
+    CONFIG = {
+        "camera_config": {
+            "background_color": WHITE,
+        }
+    }
+
+    def construct(self):
+
+        captions = [
+            "Arc类也有很多有用的子类",
+            "比如用来表示环扇形的AnnularSector类",
+            "用来表示两点加角度画弧的ArcBetweenPoints类",
+            "通过添加add_tip方法建立的子类CurvedArrow和CurvedDoubleArrow",
+            "以及通过修改Arc起始终止角度而建立的Circle类",
+            "当然这些类的各个参数、方法及它们的子类，可以通过源代码继续深入学习"
+            ]
+
+        # pinkred = average_color(PINK, RED)
+        t2c_02 = {'Arc': ORANGE, '环扇形': ORANGE, 'AnnularSector': ORANGE, "ArcBetweenPoints": ORANGE,
+                  "add_tip": ORANGE,  "CurvedArrow": ORANGE, 'CurvedDoubleArrow': ORANGE, 'Circle': ORANGE, '源代码': BLUE_D}
+
+        captions_mob = VGroup(
+            *[
+                CodeLine(cap, font='思源黑体 Bold', size=0.32).to_edge(DOWN * 1.2).set_color_by_t2c(t2c_02)
+                for cap in captions
+            ]
+        )
+
+        arc = Arc(color=BLUE, plot_depth=2).scale(1.4)
+
+        circle = Circle(color=BLUE).scale(0.85)
+
+        annular_sector = AnnularSector(color=BLUE).scale(0.8)
+
+        arc_02 = ArcBetweenPoints(LEFT, RIGHT, color=BLUE).scale(1.25)
+
+        curved_arrow = CurvedArrow(LEFT, RIGHT, color=BLUE).scale(1.25)
+
+        curved_double_arrow = CurvedDoubleArrow(LEFT, RIGHT, color=BLUE).scale(1.25)
+
+        r_round = 0.16
+        tex_arc = CodeLine('Arc()', size=0.3).next_to(arc, DOWN * 0.6)
+        sr_a = SurroundingRectangle(VGroup(tex_arc, arc), color=GRAY).scale(1.1).round_corners(r_round)
+        group_a = VGroup(tex_arc, arc, sr_a)
+
+        tex_circle = CodeLine('Circle()', size=0.3).next_to(circle, DOWN * 0.6)
+        sr_c = SurroundingRectangle(VGroup(tex_circle, circle), color=GRAY).scale([1.08, 1.05, 1]).round_corners(r_round)
+        group_c = VGroup(tex_circle, circle, sr_c)
+
+        tex_as = CodeLine('AnnularSector()', size=0.25).next_to(annular_sector, DOWN * 0.6)
+        sr_as = SurroundingRectangle(VGroup(tex_as, annular_sector), color=GRAY).scale(1.08).round_corners(r_round)
+        group_as = VGroup(tex_as, annular_sector, sr_as)
+
+        tex_arc_02 = CodeLine('ArcBetweenPoints(p1, p2, angle)', size=0.22).next_to(arc_02, DOWN * 0.6)
+        sr_a2 = SurroundingRectangle(VGroup(tex_arc_02, arc_02), color=GRAY).scale(1.08).round_corners(r_round)
+        group_a2 = VGroup(tex_arc_02, arc_02, sr_a2).scale(1.05)
+
+        tex_curved_arrow = CodeLine('CurvedArrow(p1, p2, angle)', size=0.24).next_to(curved_arrow, DOWN * 0.6)
+        sr_ca = SurroundingRectangle(VGroup(tex_curved_arrow, curved_arrow), color=GRAY).scale(1.08).round_corners(r_round)
+        group_ca = VGroup(tex_curved_arrow, curved_arrow, sr_ca)
+
+        tex_curved_double_arrow = CodeLine('CurvedDoubleArrow(p1, p2, angle)', size=0.21).next_to(curved_double_arrow, DOWN * 0.6)
+        sr_cda = SurroundingRectangle(VGroup(tex_curved_double_arrow, curved_double_arrow), color=GRAY).scale(1.08).round_corners(r_round)
+        group_cda = VGroup(tex_curved_double_arrow, curved_double_arrow, sr_cda)
+
+        dots_01 = CodeLine('...', size=0.5)
+        sr_d_01 = SurroundingRectangle(dots_01, color=GRAY).scale([1.6, 2, 1])
+        sr_d_01.round_corners(sr_d_01.get_height()/2.001)
+        group_d1 = VGroup(sr_d_01, dots_01)
+        dots_02 = CodeLine('...', size=0.5)
+        sr_d_02 = SurroundingRectangle(dots_02, color=GRAY).scale([1.6, 2, 1])
+        sr_d_02.round_corners(sr_d_02.get_height()/2.001)
+        group_d2 = VGroup(sr_d_02, dots_02)
+
+        # tex_circle_subclass = CodeLine('')
+
+        group_a.move_to(LEFT* 5.4 + UP * 0.5)
+
+        group_a2.next_to(group_a, RIGHT, buff=0.8)
+        group_as.next_to(group_a2, UP).align_to(group_a2, LEFT)
+        group_c.next_to(group_a2, DOWN).align_to(group_a2, LEFT)
+
+        group_d1.next_to(group_as, RIGHT, buff=0.8)
+        group_d2.next_to(group_c, RIGHT, buff=0.8)
+
+        group_ca.set_width(group_cda.get_width()).next_to(group_a2, RIGHT, buff=0.8).shift(UP * 0.9)
+        group_cda.next_to(group_ca, DOWN).align_to(group_ca, LEFT)
+
+        ##
+        line_01 = self.link(group_a, group_as, color=GRAY)
+        line_02 = self.link(group_a, group_a2, color=GRAY)
+        line_03 = self.link(group_a, group_c, color=GRAY)
+
+        line_04 = self.link(group_a2, group_ca, color=GRAY)
+        line_05 = self.link(group_a2, group_cda, color=GRAY)
+
+        line_06 = self.link(group_as, group_d1, color=GRAY)
+        line_07 = self.link(group_c, group_d2, color=GRAY)
+
+        # line_group = VGroup(line_01, line_02, line_03, line_04, line_05, line_06, line_07)
+
+        # self.add(group_a, group_c, group_a2, group_as, group_ca, group_cda, line_group)
+
+        self.wait(0.5)
+        self.play(WriteRandom(captions_mob[0]), run_time=1.5)
+        self.wait(0.3)
+        self.play(FadeInFromLarge(group_a), run_time=1.5)
+        # self.play(WiggleOutThenIn(group_a[1], scale_value=1.15, rotation_angle=0.02 * TAU), run_time=1.2)
+        self.wait(1.6)
+
+        self.play(ReplacementTransform(captions_mob[0], captions_mob[1]), run_time=1.)
+        self.wait(0.4)
+        self.play(FadeInFromLarge(group_as), run_time=1.2)
+        self.play(ShowCreation(line_01), run_time=0.6)
+        self.play(WiggleOutThenIn(group_as[1], scale_value=1.15, rotation_angle=0.02 * TAU), run_time=1.2)
+        self.wait(1.8)
+
+        self.play(ReplacementTransform(captions_mob[1], captions_mob[2]), run_time=1.)
+        self.wait(0.4)
+        self.play(FadeInFromLarge(group_a2), run_time=1.2)
+        self.play(ShowCreation(line_02), run_time=0.6)
+        self.play(WiggleOutThenIn(group_a2[1], scale_value=1.15, rotation_angle=0.02 * TAU), run_time=1.2)
+        self.wait(1.8)
+
+        self.play(ReplacementTransform(captions_mob[2], captions_mob[3]), run_time=1.)
+        self.wait(0.4)
+        self.play(FadeInFromLarge(group_ca), run_time=1.2)
+        self.play(ShowCreation(line_04), run_time=0.6)
+        self.play(WiggleOutThenIn(group_ca[1], scale_value=1.15, rotation_angle=0.02 * TAU), run_time=1.2)
+        self.wait(0.5)
+
+        self.play(FadeInFromLarge(group_cda), run_time=1.2)
+        self.play(ShowCreation(line_05), run_time=0.6)
+        self.play(WiggleOutThenIn(group_cda[1], scale_value=1.15, rotation_angle=0.02 * TAU), run_time=1.2)
+        self.wait(1.8)
+
+        self.play(ReplacementTransform(captions_mob[3], captions_mob[4]), run_time=1.)
+        self.wait(0.4)
+        self.play(FadeInFromLarge(group_c), run_time=1.2)
+        self.play(ShowCreation(line_03), run_time=0.6)
+        self.play(WiggleOutThenIn(group_c[1], scale_value=1.15, rotation_angle=0.025 * TAU), run_time=1.2)
+        self.wait(1.8)
+
+        self.play(ReplacementTransform(captions_mob[4], captions_mob[5]), run_time=1.)
+        self.wait(0.2)
+
+        self.play(ShowCreation(line_06), run_time=0.5)
+        self.play(ShowCreation(group_d1), run_time=0.8)
+        self.wait(0.2)
+        self.play(ShowCreation(line_07), run_time=0.5)
+        self.play(ShowCreation(group_d2), run_time=0.8)
+        self.wait(4)
+
+    def link(self, mob_a, mob_b, **kwargs):
+        return Line(mob_a.get_right(), mob_b.get_left(), **kwargs)
+
+class Staff(Scene):
+    CONFIG = {
+        "font": "Orbitron",
+        "camera_config": {
+            "background_color": WHITE,
+        },
+    }
+    def construct(self):
+        title = Text("制作人员", font="庞门正道标题体", color=RED_D, size=0.75).to_edge(UP)
+        line = Line(LEFT_SIDE, RIGHT_SIDE, color=RED_D).next_to(title, DOWN)
+        title.add(line)
+        staff = [
+            ["Ⅰ. Line+arrow", " ", "@widcardw"],
+            ["Ⅱ. Arc", " ", "@cigar666"],
+            ["Ⅲ. Circle+Dot+Ellipse", " ", "@Wings希冀"],
+            ["Ⅳ. Annulus+AnnulusScetor+Scetor", " ", "@Shy_Vector"],
+            ["Ⅴ. Polygon+RegularPolygon+Triangle", " ", "@二茂铁Fe"],
+            ["Ⅵ. Rectangle+Square+RoundedRectangle", " ", "@_emat_"],
+            ["Ⅶ. VGroup", " ", "@鹤翔万里"],
+        ]
+        staff_mob = VGroup(*[VGroup() for _ in range(2)])
+        for i in range(7):
+            staff_mob[0].add(Text(staff[i][0], font="庞门正道标题体", size=0.36, color=DARK_GRAY))
+            staff_mob[1].add(Text(staff[i][2], font="思源黑体 Bold", size=0.3, color=BLUE_D))
+        for i in range(2):
+            staff_mob[i].arrange(DOWN, aligned_edge=LEFT, buff=0.5)
+        for i in range(7):
+            staff_mob[1][i].align_to(staff_mob[0][i], DOWN)
+        staff_mob.arrange(RIGHT)
+        staff_mob[0].shift(LEFT * 0.5 + DOWN * 0.4)
+        staff_mob[1].shift(RIGHT * 0.5 + DOWN * 0.4)
+
+        self.wait()
+        self.play(Write(title))
+        self.wait()
+        for i in range(7):
+            self.play(
+                Write(VGroup(staff_mob[0][i], staff_mob[1][i])),
+                run_time=0.5
+            )
+            self.wait(0.1)
+
+        self.wait(4.5)
+        self.play(FadeOut(VGroup(*self.mobjects)), run_time=1.6)
+        self.wait()
