@@ -2,6 +2,9 @@
 
 [![MIT License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](http://choosealicense.com/licenses/mit/)
 ![QQ](https://img.shields.io/badge/QQ-862671480-red.svg?style=flat)
+[![README-en](https://img.shields.io/badge/README-en-brightgreen)](https://github.com/manim-kindergarten/manim_sandbox/blob/master/README-EN.md)
+
+[Here is the way to the README in English](https://github.com/manim-kindergarten/manim_sandbox/blob/master/README-EN.md)
 
 manim_sandbox是由[manim-kindergarten](https://github.com/manim-kindergarten)的成员所管理维护的一个代码仓库，目的在于汇总整合各成员提供的[manim](https://github.com/3b1b/manim)代码和模块。
 
