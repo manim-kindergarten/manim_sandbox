@@ -66,8 +66,11 @@ class FreeFallEngine(AbstractFreeFallEngine):
     def accelerate(self, vy, t):
         return vy * t + self.gravity / 2 * (t ** 2)
 
+    def get_pos(self, instance):
+        return -self.boundary[1] - instance.get_bottom()[1]
+
     def hit_down(self, instance):
-        return instance.get_bottom()[1] < -self.boundary[1]
+        return self.get_pos(instance) > 0
 
     def out_left(self, instance):
         return instance.get_right()[0] < -self.boundary[0]
@@ -91,7 +94,7 @@ class FreeFallEngine(AbstractFreeFallEngine):
         while self.within_x(ins):
             if self.hit_down(ins):
                 vy *= -self.lost_ratio
-                ins.shift(np.array([0, - self.boundary[1] - ins.get_bottom()[1], 0]))
+                ins.shift(np.array([0, self.get_pos(ins), 0]))
             else:
                 ins.shift(np.array([self.uniform(vx, self.tick), -self.accelerate(vy, self.tick), 0]))
                 vy += self.gravity * self.tick
