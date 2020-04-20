@@ -392,7 +392,7 @@ class Staff(Scene):
         staff = [
             ["Ⅰ. Line+arrow", " ", "@widcardw"],
             ["Ⅱ. Arc", " ", "@cigar666"],
-            ["Ⅲ. Circle+Dot+Ellipse", " ", "@Wings希冀"],
+            ["Ⅲ. Circle+Dot+Ellipse", " ", "@深蓝初衷"],
             ["Ⅳ. Annulus+AnnulusScetor+Scetor", " ", "@Shy_Vector"],
             ["Ⅴ. Polygon+RegularPolygon+Triangle", " ", "@二茂铁Fe"],
             ["Ⅵ. Rectangle+Square+RoundedRectangle", " ", "@_emat_"],
@@ -423,3 +423,126 @@ class Staff(Scene):
         self.wait(4.5)
         self.play(FadeOut(VGroup(*self.mobjects)), run_time=1.6)
         self.wait()
+
+class Opening_Scene(Scene):
+
+    CONFIG = {
+        "camera_config": {
+            "background_color": WHITE,
+        }
+    }
+
+    def construct(self):
+
+        t2c = {"manim-kindergarten": average_color(PINK, RED), "manim": average_color(PINK, RED),
+               "几何类": ORANGE}
+        text_color = DARK_GRAY
+
+        font = "庞门正道标题体"
+        text_1 = Text("大家好!", font=font, color=text_color, size=1, t2c=t2c).to_edge(UP * 2, buff=1)
+        text_2 = Text("欢迎来到manim视频教程", font=font,
+                      color=text_color, size=1, t2c=t2c).to_edge(UP * 3.2, buff=1)
+        text_3 = Text("这一期我们将学习manim中", font=font, color=text_color, size=1, t2c=t2c).to_edge(UP * 1.8, buff=1)
+        text_4 = Text("常见的几何类", font=font, color=text_color, size=1, t2c=t2c).to_edge(UP * 3., buff=1)
+        text_34, text_12 = VGroup(text_3, text_4), VGroup(text_1, text_2)
+
+        # self.add(picture)
+        self.wait(0.5)
+        self.play(Write(text_1))
+        self.wait(0.5)
+        self.play(WriteRandom(text_2), run_time=1.5)
+        self.wait(1.8)
+        self.play(ReplacementTransform(text_12, text_34), run_time=1.2)
+        self.wait(4)
+        self.play(FadeOutRandom(text_3),
+                  FadeOutRandom(text_4), run_time=1.8)
+        self.wait(1)
+
+from manim_sandbox.utils.imports import *
+class Ending(Scene):
+    CONFIG = {
+        "camera_config": {
+            "background_color": WHITE,
+        }
+    }
+    def construct(self):
+
+        text_01 = Text("感 谢 观 看", font='庞门正道标题体', color=BLUE_D, size=1.25)
+        text_02 = Text('代码见~https://github.com/manim-kindergarten/manim_sandbox',
+                       font='思源黑体 Bold', color=ORANGE, size=0.36, t2c={'~': WHITE}).next_to(text_01, DOWN * 1.2, buff=1)
+
+        self.play(Write(text_01), run_time=2)
+        self.wait(0.8)
+        self.play(WriteRandom(text_02), run_time=2)
+
+        self.wait(6)
+
+class Progress_Bar(Scene):
+
+    CONFIG = {
+        "camera_config": {
+            "background_color": WHITE,
+        }
+    }
+
+    def construct(self):
+
+        chapters_dict={
+            ' ': '0040',
+            'Line+arrow': '0258',
+            'Arc': '0459',
+            'Circle+Dot+Ellipse': '0707',
+            'Annulus+AnnulusScetor+Scetor': '0922',
+            'Polygon': '1015',
+            'Rectangle': '1312',
+            'VGroup': '1526',
+        }
+
+        vpr = VideoProgressBar(methods_dict=chapters_dict, total_hight='1549')
+        self.add(vpr)
+        self.wait()
+
+class 空降标记(Scene):
+
+    CONFIG = {
+        "camera_config": {
+            "background_color": WHITE,
+        }
+    }
+
+    def construct(self):
+
+        chapters_dict={
+            'Line+arrow': '0040',
+            'Arc': '0258',
+            'Circle+Dot+Ellipse': '0459',
+            'Annulus+AnnulusScetor': '0707',
+            'Polygon': '0922',
+            'Rectangle': '1015',
+            'VGroup': '1312',
+            ' ': '1526',
+        }
+
+        total_time = '1549'
+        func_time = lambda t: int(t[0:2]) * 60 + int(t[2:])
+        func_loc = lambda t: func_time(t)/func_time(total_time) * FRAME_WIDTH * RIGHT + FRAME_WIDTH * LEFT / 2
+        p_list = [FRAME_WIDTH * LEFT / 2]
+        for v in chapters_dict.values():
+            p_list.append(func_loc(v))
+        p_list.append(func_loc(total_time))
+
+        colors = color_gradient([BLUE, PINK, RED, ORANGE, GREEN], len(chapters_dict)+1)
+
+        lines = VGroup(*[Line(p_list[i], p_list[i+1]-0.02*RIGHT, color=colors[i], stroke_width=20) for i in range(len(chapters_dict)+1)])
+        lines.to_edge(DOWN * 0.22, buff=1)
+        texts = VGroup(*[Text(t, color=WHITE, font='Consolas', size=0.14) for t in chapters_dict.keys()], plot_depth=1)
+        # texts[0].become(Text(' ', color=WHITE, font='思源黑体 CN Bold', size=0.15))
+        # text = Text('空降', color=WHITE, font='庞门正道标题体', size=0.22).to_edge(DOWN * 0.132, buff=1).to_edge(LEFT, buff=0.125)
+        # text[1].shift(RIGHT*0.03)
+        # text[0].shift(LEFT*0.01)
+        for i in range(len(chapters_dict)):
+            texts[i].move_to(lines[i+1])
+
+        self.add(lines, texts)
+        self.wait(5)
+
