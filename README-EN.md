@@ -115,7 +115,7 @@ Commit to `videos` folder
 
 Commit to `assets` folder
 
-  1. 保证图片可以正常打开
+  1. make sure the picture can be opened properly
 
 #### Ⅴ. Changes to manim source code
 
