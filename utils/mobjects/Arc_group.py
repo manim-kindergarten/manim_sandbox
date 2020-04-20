@@ -7,7 +7,7 @@ class Arcs(VGroup):
     CONFIG = {
         'colors': [RED, YELLOW, BLUE, PINK],
         'radius': 1,
-        'start_angle':0,
+        'start_angle': 0,
         'angle_list': [30 * DEGREES, 60 * DEGREES, 90 * DEGREES],
         'stroke_width': 40,
 
@@ -49,20 +49,22 @@ class Angle(VGroup):
         'color': RED,
         'opacity': 0.4,
         'stroke_width': 10,
-        # 'below_180': True,
+        'below_180': True,
     }
 
     def __init__(self, A, O, B, **kwargs):
 
         VMobject.__init__(self, **kwargs)
         OA, OB = A-O, B-O
-        theta = np.angle(complex(*OA[:2])/complex(*OB[:2])) # angle of OB to OA
+        if self.below_180:
+            theta = np.angle(complex(*OA[:2])/complex(*OB[:2])) # angle of OB to OA
+        else:
+            theta = TAU + np.angle(complex(*OA[:2])/complex(*OB[:2]))
 
-        self.add(Arc(start_angle=Line(O,B).get_angle(), angle=theta, radius=self.radius/2,
-                     stroke_width=100 * self.radius, color=self.color).set_stroke(opacity=self.opacity).move_arc_center_to(O))
-        self.add(Arc(start_angle=Line(O,B).get_angle(), angle=theta, radius=self.radius,
-                     stroke_width=self.stroke_width, color=self.color).move_arc_center_to(O))
-
+        self.add(Arc(start_angle=Line(O, B).get_angle(), angle=theta, radius=self.radius/2,
+                     stroke_width=100 * self.radius, color=self.color, arc_center=O).set_stroke(opacity=self.opacity))
+        self.add(Arc(start_angle=Line(O, B).get_angle(), angle=theta, radius=self.radius,
+                     stroke_width=self.stroke_width, color=self.color, arc_center=O))
 
 class Angles_tag(Scene):
 
