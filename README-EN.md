@@ -79,7 +79,7 @@ Below are links to some of our member's [bilibili](https://www.bilibili.com/) ho
   </tr>
 </table>
 
-We also work together and produce some amazing videos:
+We also work together and produced some amazing videos:
 
 * [Cubical formulars](https://www.bilibili.com/video/BV1P741117QQ)
 * [Envelope](https://www.bilibili.com/video/BV1zC4y147T3)
