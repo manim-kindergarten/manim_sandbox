@@ -81,12 +81,12 @@ manim_sandbox是由[manim-kindergarten](https://github.com/manim-kindergarten)�
   </tr>
 </table>
 
-manim-幼儿园的项目成员也利用manim合作制作了许多非常amazing的视频，目前已有三期合作视频在[B站](https://www.bilibili.com/)投稿：
+manim-幼儿园的项目成员也利用manim合作制作了许多非常amazing的视频以及十分有用的manim教程，目前已有多期视频在[B站](https://www.bilibili.com/)投稿：
 * [自然数立方和公式的七种妙证](https://www.bilibili.com/video/BV1P741117QQ)
 * [十二例amazing的包络线欣赏](https://www.bilibili.com/video/BV1zC4y147T3)
 * [manim教程一-物体的位置与坐标变换](https://www.bilibili.com/video/BV1p54y197cC)
 * [manim教程二-manim常用几何类](https://www.bilibili.com/video/BV1kA411b7kq)
-* [manim教程三-颜色的表示、运算与设置](https://www.bilibili.com/video/BV1vZ4y1x7hT)
+* [manim教程三-颜色的表示、运算与设置](https://www.bilibili.com/video/BV1vZ4y1x7hT '这个是翔鸽单独完成哒')
 
 ## 关于manim的学习和交流
 
