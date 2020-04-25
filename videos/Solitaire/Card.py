@@ -36,13 +36,10 @@ class Card(Pattern):
     def get_card_height(self):
         return self.card_width * self.ratio
 
-    def set_width_and_height(self):
-        self.set_width(self.card_width, stretch=True)
-        self.set_height(self.get_card_height(), stretch=True)
-
     def __init__(self, sign, folder_name="Poker", suffix=".png", **kwargs):
         super().__init__(self.get_full_file_name(sign, folder_name, suffix), **kwargs)
-        self.set_width_and_height()
+        self.set_width(self.card_width, stretch=True)
+        self.set_height(self.get_card_height(), stretch=True)
 
 
 class Ace(Card):
