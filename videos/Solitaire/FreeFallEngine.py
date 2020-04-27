@@ -13,7 +13,7 @@ from manimlib.imports import *
 class PhysicsEngine(Container):
     CONFIG = {
         "boundary": [FRAME_X_RADIUS, FRAME_Y_RADIUS, 0],
-        "tick": 1 / 40
+        "tick": 1 / DEFAULT_FRAME_RATE
     }
 
     def validate(self):

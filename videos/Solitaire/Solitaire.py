@@ -28,6 +28,17 @@ def rand(a, b, boundary=None):
     return add_boundary(random.uniform(a, b), boundary)
 
 
+def decoration(card, **kwargs):
+    rectangle = Rectangle(width=card.get_width(), height=card.get_height(), stroke_width=2)
+    annulus = Annulus(**kwargs)
+    rectangle.set_color(BLACK).move_to(annulus.get_center())
+    return Group(rectangle, annulus).to_corner(LEFT + UP)
+
+
+def radius_dict(outer, inner):
+    return {"outer_radius": outer, "inner_radius": inner}
+
+
 SOLITAIRE_CONSTANT = {
     "SPADE": 0, "HEART": 1, "CLUB": 2, "DIAMOND": 3,
     "ACE": 1, "TWO": 2, "THREE": 3, "FOUR": 4,
@@ -42,7 +53,7 @@ class SolitaireScene(RawFrameScene):
 
     CONFIG = {
         "camera_config": {
-            "background_color": GREEN
+            "background_color": GREEN_E
         },
         **SOLITAIRE_CONSTANT,
     }
@@ -66,8 +77,8 @@ class SolitaireScene(RawFrameScene):
         obj.move_to(position)
         return self.capture(obj.copy())
 
-    def setup_engine(self, _name, engine=FreeFallEngine()):
-        setattr(self, _name, engine)
+    def setup_engine(self, _name, **kwargs):
+        setattr(self, _name, FreeFallEngine(**kwargs))
         return self
 
     def refresh_seed(self):
@@ -77,10 +88,12 @@ class SolitaireScene(RawFrameScene):
     def setup(self):
         self.setup_engine("engine")
         self.refresh_seed()
+        return self
 
     def random_waterfall(self):
         cards = self.four_deck_of_cards()
-        self.trace_move(cards, cards.get_center())
+        init_bg = Group(cards, decoration(cards[0][0], **radius_dict(0.5, 0.3), color="#00FF00"))
+        self.trace_move(init_bg, init_bg.get_center())
         for point in range(self.ACE, self.KING + 1):
             for sign in range(self.SPADE, self.DIAMOND + 1):
                 card = cards[sign][-point]
@@ -95,14 +108,15 @@ class SolitaireScene(RawFrameScene):
 
 
 class SolitaireDemoScene(SolitaireScene):
-    INIT_VX = -3
+    INIT_VX = -2
 
     def get_one_demo_card(self, corner_pos=RIGHT + UP):
         return self.point_constructor(self.JACK)(self.HEART).to_corner(corner_pos)
 
     def demo(self, vx, vy=0):
         card = self.get_one_demo_card()
-        self.trace_move(card, card.get_center())
+        init_bg = Group(card, decoration(card, **radius_dict(0.5, 0.3), color="#00FF00"))
+        self.trace_move(init_bg, init_bg.get_center())
         ap = self.engine.approximation_points(card, vx, vy)
         for position in ap:
             self.trace_move(card, position)
