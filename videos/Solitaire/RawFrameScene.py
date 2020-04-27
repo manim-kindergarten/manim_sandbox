@@ -17,17 +17,17 @@ from manimlib.imports import *
 
 class RawFrameScene(Scene):
     CONFIG = {
-        "objects_buffer": []
+        "objects_buffer": [],
     }
+
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
 
     def open_pipe(self):
         self.file_writer.open_movie_pipe()
 
     def close_pipe(self):
         self.file_writer.close_movie_pipe()
-
-    def print_frame_message(self):
-        print("Capturing raw frame: {}\r".format(self.num_plays), end="")
 
     def add_plays(self, plays=1):
         self.num_plays += plays
@@ -43,7 +43,6 @@ class RawFrameScene(Scene):
         self.update_frame(capture_objects, self.get_frame())
         self.append_to_buffer(capture_objects)
         self.write_frame(self.get_frame())
-        self.print_frame_message()
 
     def capture(self, capture_objects):
         self.open_pipe()
