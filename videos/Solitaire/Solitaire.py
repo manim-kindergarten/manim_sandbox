@@ -10,7 +10,7 @@
 
 from Card import *
 from FreeFallEngine import *
-from RawFrameScene import *
+from raw_frame_scene import *
 
 
 def add_boundary(value, boundary):
@@ -86,6 +86,7 @@ class SolitaireScene(RawFrameScene):
         return self
 
     def setup(self):
+        self.__setup()
         self.setup_engine("engine")
         self.refresh_seed()
         return self
@@ -100,11 +101,9 @@ class SolitaireScene(RawFrameScene):
                 ap = self.engine.approximation_points(card, rand(-3, 1.5, 1.5), rand(-4, 0))
                 for position in ap:
                     self.trace_move(card, position)
-        self.append_to_mobjects()
 
     def construct(self):
         self.random_waterfall()
-        self.wait(10)
 
 
 class SolitaireDemoScene(SolitaireScene):
@@ -120,8 +119,6 @@ class SolitaireDemoScene(SolitaireScene):
         ap = self.engine.approximation_points(card, vx, vy)
         for position in ap:
             self.trace_move(card, position)
-        self.append_to_mobjects()
 
     def construct(self):
         self.demo(self.INIT_VX)
-        self.wait(10)
