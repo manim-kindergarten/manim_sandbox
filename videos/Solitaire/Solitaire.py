@@ -86,7 +86,7 @@ class SolitaireScene(RawFrameScene):
         return self
 
     def setup(self):
-        super().setup()
+        self.__setup()
         self.setup_engine("engine")
         self.refresh_seed()
         return self
