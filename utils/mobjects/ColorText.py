@@ -52,7 +52,7 @@ class DecimalNumberText(VMobject):
         "edge_to_fix": LEFT,
         "text_config": {
             "font": "Consolas",
-            "size": 0.4,
+            "size": 0.8,
             "color": GOLD,
         }
     }
