@@ -20,7 +20,7 @@ class VideoProgressBar(VGroup):
         'text_font': "思源黑体 Bold",
         'color_list': [BLUE, PINK, RED, ORANGE, GREEN],
         'bar_width': 20,
-        'text_size': 0.15,
+        'text_size': 0.30,
     }
 
     def __init__(self, **kwargs):
@@ -83,19 +83,19 @@ class LeftProgressBar(Scene):
 
         texts = VGroup(
             *[
-                Text(text, color=WHITE, font=self.text_font, size=0.2, background_stroke_color=WHITE).scale(self.text_scale_factor)
+                Text(text, color=WHITE, font=self.text_font, size=0.4, background_stroke_color=WHITE).scale(self.text_scale_factor)
                 for text in methods_dict.keys()
             ]
         )
         texts[-1].become(
             VGroup(
-                Text('set_width', color=WHITE, font=self.text_font, size=0.2, background_stroke_color=WHITE).scale(self.text_scale_factor),
-                Text('set_height', color=WHITE, font=self.text_font, size=0.2, background_stroke_color=WHITE).scale(self.text_scale_factor)
+                Text('set_width', color=WHITE, font=self.text_font, size=0.4, background_stroke_color=WHITE).scale(self.text_scale_factor),
+                Text('set_height', color=WHITE, font=self.text_font, size=0.4, background_stroke_color=WHITE).scale(self.text_scale_factor)
             ).arrange(DOWN, buff=0.04)
         )
         times = VGroup(
             *[
-                Text("{}:{}".format(time[:2], time[2:]), color=WHITE, font=self.text_font, size=0.2, background_stroke_color=WHITE).scale(0.55)
+                Text("{}:{}".format(time[:2], time[2:]), color=WHITE, font=self.text_font, size=0.4, background_stroke_color=WHITE).scale(0.55)
                 for time in methods_dict.values()
             ]
         )

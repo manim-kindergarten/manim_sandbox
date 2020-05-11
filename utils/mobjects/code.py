@@ -5,7 +5,7 @@ from manimlib.imports import *
 class Code(Text):
     CONFIG = {
         'font'         : 'Monaco for Powerline',
-        'size'         : 0.5,
+        'size'         : 1,
         'color'        : WHITE,
         'stroke_color' : WHITE,
         'stroke_weight': 0,
@@ -21,7 +21,7 @@ class Code(Text):
 class LinedCode(Text):
     CONFIG = {
         'font'         : 'Consolas',
-        'size'         : 0.5,
+        'size'         : 1,
         'color'        : WHITE,
         'stroke_color' : WHITE,
         'stroke_weight': 0,
