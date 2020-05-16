@@ -4,7 +4,9 @@
 from manimlib.imports import *
 from datetime import *
 
-class Mandbelbrot(Scene):
+# update from @dudubao2007
+# correct an amazing typo error
+class Mandelbrot(Scene):
     def construct(self):
         st_t = datetime.now()
         scale = 2
