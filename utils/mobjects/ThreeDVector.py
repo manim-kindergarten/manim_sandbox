@@ -1,9 +1,8 @@
 # from @魔与方
 
-
 from manimlib.imports import *
 
-### This is the newest (2020.05.16) ThreeDVector clasee by @魔与方
+### This is the newest (2020.05.16) ThreeDVector class by @魔与方
 
 class ThreeDVector(VMobject):
 
@@ -478,7 +477,6 @@ class ThreeDVector_Old(VMobject):
 ### some test scenes ###
 
 class Test1(ThreeDScene):
-
 
 	def construct(self):
 
