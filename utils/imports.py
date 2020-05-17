@@ -1,7 +1,6 @@
 from manim_sandbox.utils.functions.calculation import *
 from manim_sandbox.utils.functions.debugTeX import *
 
-from manim_sandbox.utils.mobjects.code import *
 from manim_sandbox.utils.mobjects.Arc_group import *
 from manim_sandbox.utils.mobjects.MyText import *
 from manim_sandbox.utils.mobjects.Trail import *
