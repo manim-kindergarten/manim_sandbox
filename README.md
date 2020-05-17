@@ -82,12 +82,57 @@ manim_sandbox是由[manim-kindergarten](https://github.com/manim-kindergarten)�
 </table>
 
 manim-幼儿园的项目成员也利用manim合作制作了许多非常amazing的视频以及十分有用的manim教程，目前已有多期视频在[B站](https://www.bilibili.com/)投稿：
-* [自然数立方和公式的七种妙证](https://www.bilibili.com/video/BV1P741117QQ)
-* [十二例amazing的包络线欣赏](https://www.bilibili.com/video/BV1zC4y147T3)
-* [manim教程一-物体的位置与坐标变换](https://www.bilibili.com/video/BV1p54y197cC)
-* [manim教程二-manim常用几何类](https://www.bilibili.com/video/BV1kA411b7kq)
-* [manim教程三-颜色的表示、运算与设置](https://www.bilibili.com/video/BV1vZ4y1x7hT '这个是翔鸽单独完成哒')
-* [manim教程四-SVG、图片与文字](https://www.bilibili.com/video/BV1CC4y1H7kp '这个也是翔鸽单独完成哒')
+
+<table>
+  <tr>
+    <td>
+      <a href="https://www.bilibili.com/video/BV1P741117QQ" target="_blank">
+        <img src="https://i2.hdslb.com/bfs/archive/d178fe90ac1baef6e73ea2a2721394131a8794e1.jpg@380w_240h_100Q_1c.webp" width="95" height="60">
+      </a>
+    </td>
+    <td><a href="https://www.bilibili.com/video/BV1P741117QQ">自然数立方和公式的七种妙证</a></td>
+  </tr>
+  <tr>
+    <td>
+      <a href="https://www.bilibili.com/video/BV1zC4y147T3" target="_blank">
+        <img src="https://i1.hdslb.com/bfs/archive/b4c992889f88dbda1c940c8c3705f46d58de3962.jpg@380w_240h_100Q_1c.webp" width="95" height="60">
+      </a>
+    </td>
+    <td><a href="https://www.bilibili.com/video/BV1zC4y147T3">十二例amazing的包络线欣赏</a></td>
+  </tr>
+  <tr>
+    <td>
+      <a href="https://www.bilibili.com/video/BV1p54y197cC" target="_blank">
+        <img src="https://i2.hdslb.com/bfs/archive/cdb967d3a2191130fa649a220d79ec54f2d4fcbb.jpg@380w_240h_100Q_1c.webp" width="95" height="60">
+      </a>
+    </td>
+    <td><a href="https://www.bilibili.com/video/BV1p54y197cC">manim教程 第一讲 物体的位置与坐标变换</a></td>
+  </tr>
+  <tr>
+    <td>
+      <a href="https://www.bilibili.com/video/BV1kA411b7kq" target="_blank">
+        <img src="https://i1.hdslb.com/bfs/archive/fdacbf3a0a301e3d91e45e26c5bd2e79cf512292.jpg@380w_240h_100Q_1c.webp" width="95" height="60">
+      </a>
+    </td>
+    <td><a href="https://www.bilibili.com/video/BV1kA411b7kq">manim教程 第二讲 manim常用几何类</a></td>
+  </tr>
+  <tr>
+    <td>
+      <a href="https://www.bilibili.com/video/BV1vZ4y1x7hT" target="_blank">
+        <img src="https://i1.hdslb.com/bfs/archive/2076509b9257d9549cb24a18c8bd52664aff7c61.jpg@380w_240h_100Q_1c.webp" width="95" height="60">
+      </a>
+    </td>
+    <td><a href="https://www.bilibili.com/video/BV1vZ4y1x7hT" title="这个是翔鸽单独完成哒">manim教程 第三讲 颜色的表示、运算与设置</a></td>
+  </tr>
+  <tr>
+    <td>
+      <a href="https://www.bilibili.com/video/BV1CC4y1H7kp" target="_blank">
+        <img src="https://i2.hdslb.com/bfs/archive/77b304cd3bee503872e1107cffb5e3b73be745cf.jpg@380w_240h_100Q_1c.webp" width="95" height="60">
+      </a>
+    </td>
+    <td><a href="https://www.bilibili.com/video/BV1CC4y1H7kp" title="这个也是翔鸽单独完成哒">manim教程 第四讲 SVG、图片与文字</a></td>
+  </tr>
+</table>
 
 ## 关于manim的学习和交流
 
