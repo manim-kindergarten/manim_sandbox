@@ -86,6 +86,7 @@ We also work together and produced some amazing videos:
 * [manim tutorial 1: position and coordinate transform](https://www.bilibili.com/video/BV1p54y197cC)
 * [manim tutorial 2: geometric classes](https://www.bilibili.com/video/BV1kA411b7kq)
 * [manim tutorial 3: color representation, operation, and settings](https://www.bilibili.com/video/BV1vZ4y1x7hT 'Tony made this by himself')
+* [manim tutorial 4: insert SVG, images, and texts](https://www.bilibili.com/video/BV1CC4y1H7kp 'Tony made this by himself')
 
 ## About code specification & location
 

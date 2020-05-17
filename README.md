@@ -87,6 +87,7 @@ manim-幼儿园的项目成员也利用manim合作制作了许多非常amazing�
 * [manim教程一-物体的位置与坐标变换](https://www.bilibili.com/video/BV1p54y197cC)
 * [manim教程二-manim常用几何类](https://www.bilibili.com/video/BV1kA411b7kq)
 * [manim教程三-颜色的表示、运算与设置](https://www.bilibili.com/video/BV1vZ4y1x7hT '这个是翔鸽单独完成哒')
+* [manim教程四-SVG、图片与文字](https://www.bilibili.com/video/BV1CC4y1H7kp '这个也是翔鸽单独完成哒')
 
 ## 关于manim的学习和交流
 
