@@ -1,10 +1,11 @@
 # from @cigar666
 # 曼德勃罗集
+# Warning: 这个代码实现的不好，不要轻易尝试
 
 from manimlib.imports import *
 from datetime import *
 
-class Mandbelbrot(Scene):
+class Mandelbrot(Scene):
     def construct(self):
         st_t = datetime.now()
         scale = 2
