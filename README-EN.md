@@ -79,14 +79,58 @@ Below are links to some of our member's [bilibili](https://www.bilibili.com/) ho
   </tr>
 </table>
 
-We also work together and produced some amazing videos:
+We also work together and produced some amazing videos on [bilibili](https://www.bilibili.com):
 
-* [Cubical formulars](https://www.bilibili.com/video/BV1P741117QQ)
-* [Envelope](https://www.bilibili.com/video/BV1zC4y147T3)
-* [manim tutorial 1: position and coordinate transform](https://www.bilibili.com/video/BV1p54y197cC)
-* [manim tutorial 2: geometric classes](https://www.bilibili.com/video/BV1kA411b7kq)
-* [manim tutorial 3: color representation, operation, and settings](https://www.bilibili.com/video/BV1vZ4y1x7hT 'Tony made this by himself')
-* [manim tutorial 4: insert SVG, images, and texts](https://www.bilibili.com/video/BV1CC4y1H7kp 'Tony made this by himself')
+<table>
+  <tr>
+    <td>
+      <a href="https://www.bilibili.com/video/BV1P741117QQ" target="_blank">
+        <img src="https://i2.hdslb.com/bfs/archive/d178fe90ac1baef6e73ea2a2721394131a8794e1.jpg@380w_240h_100Q_1c.webp" width="95" height="60">
+      </a>
+    </td>
+    <td><a href="https://www.bilibili.com/video/BV1P741117QQ">Cubical formulars</a></td>
+  </tr>
+  <tr>
+    <td>
+      <a href="https://www.bilibili.com/video/BV1zC4y147T3" target="_blank">
+        <img src="https://i1.hdslb.com/bfs/archive/b4c992889f88dbda1c940c8c3705f46d58de3962.jpg@380w_240h_100Q_1c.webp" width="95" height="60">
+      </a>
+    </td>
+    <td><a href="https://www.bilibili.com/video/BV1zC4y147T3">Envelope</a></td>
+  </tr>
+  <tr>
+    <td>
+      <a href="https://www.bilibili.com/video/BV1p54y197cC" target="_blank">
+        <img src="https://i2.hdslb.com/bfs/archive/cdb967d3a2191130fa649a220d79ec54f2d4fcbb.jpg@380w_240h_100Q_1c.webp" width="95" height="60">
+      </a>
+    </td>
+    <td><a href="https://www.bilibili.com/video/BV1p54y197cC">manim tutorial 1: position and coordinate transform</a></td>
+  </tr>
+  <tr>
+    <td>
+      <a href="https://www.bilibili.com/video/BV1kA411b7kq" target="_blank">
+        <img src="https://i1.hdslb.com/bfs/archive/fdacbf3a0a301e3d91e45e26c5bd2e79cf512292.jpg@380w_240h_100Q_1c.webp" width="95" height="60">
+      </a>
+    </td>
+    <td><a href="https://www.bilibili.com/video/BV1kA411b7kq">manim tutorial 2: geometric classes</a></td>
+  </tr>
+  <tr>
+    <td>
+      <a href="https://www.bilibili.com/video/BV1vZ4y1x7hT" target="_blank">
+        <img src="https://i1.hdslb.com/bfs/archive/2076509b9257d9549cb24a18c8bd52664aff7c61.jpg@380w_240h_100Q_1c.webp" width="95" height="60">
+      </a>
+    </td>
+    <td><a href="https://www.bilibili.com/video/BV1vZ4y1x7hT" title="Tony made this by himself">manim tutorial 3: color settings</a></td>
+  </tr>
+  <tr>
+    <td>
+      <a href="https://www.bilibili.com/video/BV1CC4y1H7kp" target="_blank">
+        <img src="https://i2.hdslb.com/bfs/archive/77b304cd3bee503872e1107cffb5e3b73be745cf.jpg@380w_240h_100Q_1c.webp" width="95" height="60">
+      </a>
+    </td>
+    <td><a href="https://www.bilibili.com/video/BV1CC4y1H7kp" title="Tony made this by himself">manim tutorial 4: insert SVG, images, and texts</a></td>
+  </tr>
+</table>
 
 ## About code specification & location
 
