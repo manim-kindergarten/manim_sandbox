@@ -4,7 +4,7 @@ from manimlib.imports import *
 
 class ColorText(Text):
     CONFIG = {
-        "size": 0.4,
+        "size": 0.8,
         "font": "Consolas",
         "t2c": {
             '"': YELLOW_E,

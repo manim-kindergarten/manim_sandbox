@@ -10,7 +10,7 @@ class Nameplate4K_white(Scene):
         "text_sheen_dir": RIGHT,
     }
     def construct(self):
-        k = Text("4K", font="Orbitron").scale(2.6).shift(UP*0.6).set_color(self.text_color).set_sheen_direction(self.text_sheen_dir)
+        k = Text("4K", font="Orbitron").scale(5.2).shift(UP*0.6).set_color(self.text_color).set_sheen_direction(self.text_sheen_dir)
         rec1 = RoundedRectangle(height=4, width=7, color=GOLD, fill_opacity=0, stroke_width=30)
         rec2 = Rectangle(height=1.3, width=6.8, color=GOLD, fill_opacity=1).next_to(rec1.get_bottom(), UP, buff=0.1)
         recs = SVGMobject("manim_sandbox/assets/svg_images/boundary.svg").set_height(4)
@@ -19,8 +19,8 @@ class Nameplate4K_white(Scene):
         clip_in_place(light_color, 0, 1)
         recs.set_color([GOLD_E, rgb_to_color(light_color), GOLD_E])
         ultraHD = VGroup(
-            Text("ULTRA", font="Source Han Sans CN Light", color=BLACK).scale(1.2),
-            Text("HD", font="Source Han Sans CN Bold", color=BLACK).scale(1.2)
+            Text("ULTRA", font="Source Han Sans CN Light", color=BLACK).scale(2.4),
+            Text("HD", font="Source Han Sans CN Bold", color=BLACK).scale(2.4)
         ).arrange(RIGHT, buff=0.5).move_to(rec2).shift(UP*0)
 
         self.add(recs, k, ultraHD)
