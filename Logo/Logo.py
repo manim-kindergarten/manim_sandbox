@@ -107,9 +107,9 @@ class Logo_01(Scene):
         big_black_rect_02 = big_black_rect.copy()
         big_black_rect_02.add_updater(lambda b: b.align_to(logo, RIGHT).shift(RIGHT * 0.15))
         text_font = '思源黑体 Bold'
-        text_manim = Text('Manim', font=text_font, size=1.15).align_to(LEFT * 1.4, LEFT).align_to(logo.part_ur, DOWN)
+        text_manim = Text('Manim', font=text_font, size=2.3).align_to(LEFT * 1.4, LEFT).align_to(logo.part_ur, DOWN)
         text_manim.set_color_by_t2c({'M': logo.color_2[2]})
-        text_kindergarten = Text('Kindergarten', font=text_font, size=1.15).align_to(logo.part_dr, UP).align_to(text_manim, LEFT)
+        text_kindergarten = Text('Kindergarten', font=text_font, size=2.3).align_to(logo.part_dr, UP).align_to(text_manim, LEFT)
         text_kindergarten.set_color_by_t2c({'K': logo.color_1[2]})
         text = VGroup(text_manim, text_kindergarten).shift(LEFT * 8).set_plot_depth(-2)
         self.add(text, big_black_rect, big_black_rect_02)

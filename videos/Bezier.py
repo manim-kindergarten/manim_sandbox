@@ -22,7 +22,7 @@ class LinearBezierCurve(Scene):
 
         path = TracedPath(B.get_center, stroke_width=7, stroke_color=RED)
 
-        label = Text("线性贝塞尔曲线", font="Source Han Serif CN").scale(0.9).set_color(BLACK).shift(DOWN * 3)
+        label = Text("线性贝塞尔曲线", font="Source Han Serif CN").scale(1.8).set_color(BLACK).shift(DOWN * 3)
         self.add(label)
         self.add(P, P0_P1, B, path)
         self.wait()
@@ -58,7 +58,7 @@ class QuadraticBezierCurve(Scene):
 
         path = TracedPath(B.get_center, stroke_width=7, stroke_color=RED)
 
-        label = Text("二次贝塞尔曲线", font="Source Han Serif CN").scale(0.9).set_color(BLACK).shift(DOWN * 3)
+        label = Text("二次贝塞尔曲线", font="Source Han Serif CN").scale(1.8).set_color(BLACK).shift(DOWN * 3)
         self.add(label)
         self.add(P, P_lines)
         self.add(Q, Q0_Q1)
@@ -107,7 +107,7 @@ class CubicBezierCurve(Scene):
 
         path = TracedPath(B.get_center, stroke_width=7, stroke_color=RED)
 
-        label = Text("三次贝塞尔曲线", font="Source Han Serif CN").scale(0.9).set_color(BLACK).shift(DOWN * 3)
+        label = Text("三次贝塞尔曲线", font="Source Han Serif CN").scale(1.8).set_color(BLACK).shift(DOWN * 3)
         self.add(label)
         self.add(P, P_lines)
         self.add(Q, Q_lines)
@@ -170,7 +170,7 @@ class FourthOrderBezierCurve(Scene):
 
         path = TracedPath(B.get_center, stroke_width=7, stroke_color=RED)
 
-        label = Text("四次贝塞尔曲线", font="Source Han Serif CN").scale(0.9).set_color(BLACK).shift(DOWN * 3)
+        label = Text("四次贝塞尔曲线", font="Source Han Serif CN").scale(1.8).set_color(BLACK).shift(DOWN * 3)
         self.add(label)
         self.add(P, P_lines)
         self.add(Q, Q_lines)
@@ -249,7 +249,7 @@ class FifthOrderBezierCurve(Scene):
 
         path = TracedPath(B.get_center, stroke_width=7, stroke_color=RED)
 
-        label = Text("五次贝塞尔曲线", font="Source Han Serif CN").scale(0.9).set_color(BLACK).shift(DOWN * 3)
+        label = Text("五次贝塞尔曲线", font="Source Han Serif CN").scale(1.8).set_color(BLACK).shift(DOWN * 3)
         self.add(label)
         self.add(P, P_lines)
         self.add(Q, Q_lines)

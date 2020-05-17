@@ -321,12 +321,12 @@ class SpirographScene(Scene):
 
     def add_parameter_info(self):
 
-        text_big_num = Text('定轮齿数：', font='新蒂小丸子体', color=self.gear_color[0]).scale(0.64).to_corner(UP * 2 + LEFT * 18)
-        text_small_num = Text('动轮齿数：', font='新蒂小丸子体', color=self.gear_color[1]).scale(0.64).to_corner(UP * 4.5 + LEFT * 18)
-        text_ratio = Text('齿数比：', font='新蒂小丸子体', color=average_color(*self.gear_color)).scale(0.64).to_corner(UP * 7 + LEFT * 18)
-        big_num = Text('%d' % self.tooth_num_big, font='Comic Sans MS', color=self.gear_color[0]).scale(0.64).next_to(text_big_num, RIGHT * 1.5)
-        small_num = Text('%d' % self.tooth_num_small, font='Comic Sans MS', color=self.gear_color[1]).scale(0.64).next_to(text_small_num, RIGHT * 1.5).align_to(big_num, LEFT)
-        ratio = Text(self.ratio_str, font='Comic Sans MS', color=average_color(*self.gear_color)).scale(0.64).next_to(text_ratio, RIGHT * 1.5)
+        text_big_num = Text('定轮齿数：', font='新蒂小丸子体', color=self.gear_color[0]).scale(1.28).to_corner(UP * 2 + LEFT * 18)
+        text_small_num = Text('动轮齿数：', font='新蒂小丸子体', color=self.gear_color[1]).scale(1.28).to_corner(UP * 4.5 + LEFT * 18)
+        text_ratio = Text('齿数比：', font='新蒂小丸子体', color=average_color(*self.gear_color)).scale(1.28).to_corner(UP * 7 + LEFT * 18)
+        big_num = Text('%d' % self.tooth_num_big, font='Comic Sans MS', color=self.gear_color[0]).scale(1.28).next_to(text_big_num, RIGHT * 1.5)
+        small_num = Text('%d' % self.tooth_num_small, font='Comic Sans MS', color=self.gear_color[1]).scale(1.28).next_to(text_small_num, RIGHT * 1.5).align_to(big_num, LEFT)
+        ratio = Text(self.ratio_str, font='Comic Sans MS', color=average_color(*self.gear_color)).scale(1.28).next_to(text_ratio, RIGHT * 1.5)
         self.add(text_big_num, text_small_num)
         self.wait(0.2)
         self.play(FadeIn(big_num))
