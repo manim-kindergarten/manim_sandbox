@@ -15,7 +15,7 @@ class ThreeDVector(VMobject):
 	The parameter "bottom_radius" means the base radius of the cylinder
 	The parameter "circle_side_width" means the width of the side of the base circle of the cone and the base circle of the cylinder
 	The parameter "circle_side_color" means the color of the side of the base circle of the cone and the base circle of the cylinder
-	"""
+	 """
 
 
 	CONFIG = {
