@@ -53,7 +53,7 @@ manim_sandbox是由[manim-kindergarten](https://github.com/manim-kindergarten)�
     <td><a href="https://space.bilibili.com/171431343/">鹤翔万里的B站主页</a></td>
   </tr>
   <tr>
-    <td><a href="https://github.com/Tony031218/manim-projects">GitHub中manim项目</a></td>
+    <td><a href="https://github.com/Tony031218/manim_projects">GitHub中manim项目</a></td>
   </tr>
   <tr>
     <td rowspan="2">

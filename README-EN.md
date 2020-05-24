@@ -51,7 +51,7 @@ Below are links to some of our member's [bilibili](https://www.bilibili.com/) ho
     <td><a href="https://space.bilibili.com/171431343/">bilibili homepage</a></td>
   </tr>
   <tr>
-    <td><a href="https://github.com/Tony031218/manim-projects">manim project on GitHub</a></td>
+    <td><a href="https://github.com/Tony031218/manim_projects">manim project on GitHub</a></td>
   </tr>
   <tr>
     <td rowspan="2">
