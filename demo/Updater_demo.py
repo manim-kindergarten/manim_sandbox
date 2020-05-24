@@ -235,4 +235,32 @@ class Intro_lnX(GraphScene):
         area = Polygon(point_0, *curve_vertices, point_1, color=BLUE, stroke_width=2.5, fill_color=BLUE, fill_opacity=0.5)
         return area
 
+class Endocycloid(Scene):
+
+    def construct(self):
+
+        R, r = 3.2, 3.2 * 0.6
+        big_circle = Circle(radius=R, color=BLUE, stroke_width=8)
+        small_circle = Circle(radius=r, color=YELLOW, stroke_width=8)
+        dot = Dot(color=RED).scale(1.6).shift(r * LEFT)
+        w = ValueTracker(0.)
+
+        def update_rotating(rg, dt):
+            rg.rotate(w.get_value(), about_point=ORIGIN)
+            rg.rotate(-R/r * w.get_value(), about_point=rg[0].get_center())
+
+        rotate_group = VGroup(small_circle, dot, plot_depth=2).shift((R - r) * RIGHT).add_updater(update_rotating)
+        path = TracedPath(dot.get_center, stroke_color=RED, stroke_width=5, min_distance_to_new_point=0.02)
+        self.add(big_circle, rotate_group, path)
+        self.wait(1)
+        self.play(w.set_value, 2.5 * DEGREES, run_time=4)
+        self.wait(16)
+
+
+
+
+
+
+
+
 # TODO 有空继续写一些
