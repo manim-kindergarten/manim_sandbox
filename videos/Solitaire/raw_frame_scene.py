@@ -1,10 +1,3 @@
-# from @RY-Givenchy
-
-#
-# Copyright: 2020 niedong
-# Raw frame operation scene
-#
-
 from manimlib.scene.scene import Scene
 import threading
 import time
@@ -44,7 +37,9 @@ class RawFrameScene(Scene):
         thread = threading.Thread(target=thread_func, daemon=True)
         setattr(self, "msg_thread", thread)
 
-    def __setup(self):
+    # Normally, 'self.setup' method is called automatically before 'self.construct'.
+    # However, if 'self.setup' method is override, call 'super().setup' manually.
+    def setup(self):
         """
         Setup method for RawFrameScene. A must call before using this scene.
         """
@@ -52,12 +47,9 @@ class RawFrameScene(Scene):
         self.setup_thread()
         self.msg_thread.start()
 
-    # Normally, 'self.setup' method is called automatically before 'self.construct'.
-    # However, if 'self.setup' method is override, call 'self.__setup' manually.
-    def setup(self):
-        self.__setup()
-
-    def __end(self):
+    # Normally, 'self.tear_down' method is called automatically after 'self.construct'.
+    # However, if 'self.tear_down' method is override, call 'super().setup' manually.
+    def tear_down(self):
         """
         Finish method for RawFrameScene. A must call after using this scene.
         """
@@ -66,11 +58,6 @@ class RawFrameScene(Scene):
         self.msg_thread.join()
         self.print_frame_message(msg_end="\n")
         self.num_plays += 1
-
-    # Normally, 'self.tear_down' method is called automatically after 'self.construct'.
-    # However, if 'self.tear_down' method is override, call 'self.__end' manually.
-    def tear_down(self):
-        self.__end()
 
     def play(self, *args, **kwargs):
         """
