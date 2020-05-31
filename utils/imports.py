@@ -22,4 +22,6 @@ from manim_sandbox.utils.scenes.parabola import *
 from manim_sandbox.utils.scenes.NewGraphScene import *
 from manim_sandbox.utils.scenes.Rubik_Cube_Scene import *
 
+from manim_sandbox.utils.animations.paperclip import *
+
 from manim_sandbox.Logo.Logo import *
