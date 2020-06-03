@@ -141,6 +141,8 @@ manim-幼儿园的项目成员也利用manim合作制作了许多非常amazing�
 
 ## 关于项目中的代码规范问题
 
+所有代码要尽量符合[PEP-8](https://www.python.org/dev/peps/pep-0008/)规范，并且最好添加符合[PEP-257](https://www.python.org/dev/peps/pep-0257/)规范的文档字符串(DocString)
+
 #### Ⅰ. 一些实用函数/类代码
 提交到`utils`文件夹中
   1. 需要在文件头加上`# from @author`一行
