@@ -48,7 +48,7 @@ class RawFrameScene(Scene):
         self.msg_thread.start()
 
     # Normally, 'self.tear_down' method is called automatically after 'self.construct'.
-    # However, if 'self.tear_down' method is override, call 'super().setup' manually.
+    # However, if 'self.tear_down' method is override, call 'super().tear_down' manually.
     def tear_down(self):
         """
         Finish method for RawFrameScene. A must call after using this scene.
