@@ -85,12 +85,15 @@ class CodeLine(Text):
             '8': average_color(BLUE, PINK),
             '9': average_color(BLUE, PINK),
             'True': average_color(BLUE, PINK),
+            'False': average_color(BLUE, PINK),
 
             '2D': RED_B,
             '3D': RED_B,
+
+            '~': "#EBEBEB"
         },
         'font': 'Consolas',
-        'size': 0.36,
+        'size': 0.72,
         'color': DARK_GRAY,
         'plot_depth': 2,
     }
@@ -99,11 +102,11 @@ class CodeLine(Text):
 
 
 class CodeLines(VGroup):
-    def __init__(self, *text, **kwargs):
+    def __init__(self, *text, buff=0.2, **kwargs):
         VGroup.__init__(self)
         for each in text:
             self.add(CodeLine(each, **kwargs))
-        self.arrange(DOWN, aligned_edge=LEFT)
+        self.arrange(DOWN, aligned_edge=LEFT, buff=buff)
 
 
 class CodeBackground(BackgroundRectangle):
@@ -283,7 +286,7 @@ class Scene_(Scene):
         "camera_config": {
             "background_color": WHITE,
             "use_plot_depth": True,
-        }
+        },
         "fade_all": True,
     }
     
