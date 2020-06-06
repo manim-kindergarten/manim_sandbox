@@ -24,9 +24,43 @@ numberline_t2c = {
 }
 
 axes_t2c = {
-    
+    "Axes": BLUE_D,
+    "c2p": BLUE_D,
+    "p2c": BLUE_D,
+    "coords_to_point": BLUE_D,
+    "point_to_coords": BLUE_D,
+    "number_line_config": ORANGE,
+    "x_axis_config": ORANGE,
+    "y_axis_config": ORANGE,
+    "x(y)_axis_config": ORANGE,
+    "center_point": ORANGE,
+    "add_coordinates": BLUE_D,
+    "get_axis_labels": BLUE_D,
+    "y_min": ORANGE,
+    "y_max": ORANGE,
+    '"unit_size"': GOLD_D,
+    '"tick_frequency"': GOLD_D,
 }
 
+numberplane_t2c = {
+    "NumberPlane": BLUE_D,
+    "axis_config": ORANGE,
+    '"stroke_color"': GOLD_D,
+    "apply_function": BLUE_D,
+    "matrix": BLUE_D,
+    "prepare_for_nonlinear_transform": BLUE_D,
+    "ComplexPlane": BLUE_D,
+    "apply_complex_function": BLUE_D,
+    "lambda": BLUE,
+    "sin": BLUE,
+    "cos": BLUE,
+    "exp": BLUE,
+    "2j": average_color(BLUE, PINK),
+}
+
+pf_t2c = {
+    
+}
 
 class OpeningScene(Scene_):
     def construct(self):
@@ -222,7 +256,7 @@ class NumberLineTutorial(Scene_):
 
 class AxesTutorial(Scene_):
     CONFIG = {
-        "fade_all": False,
+        # "fade_all": False,
     }
     def start(self):
         t2c = {"manim": GOLD,
@@ -237,8 +271,364 @@ class AxesTutorial(Scene_):
         self.play(FadeOutAndShiftDown(title))
     def construct(self):
         self.start()
+        CodeLine.CONFIG["t2c"].update(numberline_t2c)
         CodeLine.CONFIG["t2c"].update(axes_t2c)
-        CodeLine.CONFIG["size"] = 0.55
+        CodeLine.CONFIG["size"] = 0.48
+        captions = [
+            "使用Axes构建一个直角坐标系，默认全屏带箭头",
+            "通过x_min,x_max,y_min,y_max来更改最大最小值",
+            "传入center_point可以指定原点在屏幕上的位置",
+            "通过number_line_config传入一个字典，表示两个轴的通用属性（见上部分）",
+            "还可以使用x(y)_axis_config传入字典表示某个轴的特有属性",
+            "Axes可以使用add_coordinates传入两个列表(表示x/y轴坐标)来手动添加两轴上的坐标数字",
+            "如果没有传入列表，则默认添加出所有数字",
+            "通过get_axis_labels方法返回xy轴的标签(一个VGroup包含两个label)",
+            "和NumberLine类似，Axes含有c2p和p2c两个常用方法",
+            "c2p即coords_to_point，根据Axes坐标系内坐标返回屏幕坐标系内该点坐标",
+            "p2c即point_to_coords，是c2p的逆操作",
+        ]
+        self.caps = VGroup(
+            *[
+                CodeLine(cap, font='Source Han Sans CN Bold', size=0.64).to_edge(DOWN * 1.2)
+                for cap in captions
+            ]
+        )
+
+        codes = CodeLines(
+            ">>> axes = Axes(",
+            "~~~~~~~~x_min=-2, x_max=2,",
+            "~~~~~~~~y_min=-2, y_max=2,",
+            "~~~~~~~~center_point=LEFT*3",
+            "~~~~~~~~number_line_config={",
+            "~~~~~~~~~~~~\"unit_size\": 1.5,",
+            "~~~~~~~~},",
+            "~~~~~~~~x_axis_config={",
+            "~~~~~~~~~~~~\"tick_frequency\": 0.5",
+            "~~~~~~~~},",
+            "~~~~)",
+            ">>> axes.add_coordinates(",
+            "~~~~~~~~[-1, 2], [-2, 1] )",
+            ">>> axes.add_coordinates()",
+            ">>> self.add(axes.get_axis_labels())",
+            ">>> dot = Dot(axes.c2p(1, 2))",
+            ">>> axes.p2c(dot.get_center())",
+            "(1, 2)",
+            buff=0.12,
+        )
+        codebg = CodeBackground(codes, buff=0.25)
+        VGroup(codes, codebg).to_edge(RIGHT, buff=0.7).shift(UP*0.35)
+
+        nlc = {"color": BLACK}
+        axes = Axes(number_line_config=nlc, plot_depth=-5)
+        axes1 = Axes(
+            number_line_config=nlc,
+            x_min=-2, x_max=2, y_min=-2, y_max=2,
+            center_point=LEFT*3,
+            plot_depth=-5,
+        )
+        nlc2 = {"color": BLACK, "unit_size": 1.5}
+        axes2 = Axes(
+            number_line_config=nlc2,
+            x_min=-2, x_max=2, y_min=-2, y_max=2,
+            center_point=LEFT*3,
+            plot_depth=-5,
+        )
+        axes3 = Axes(
+            number_line_config=nlc2,
+            x_min=-2, x_max=2, y_min=-2, y_max=2,
+            center_point=LEFT*3,
+            x_axis_config={"tick_frequency": 0.5},
+            plot_depth=-5,
+        )
+        nlc3 = {"color": BLACK, "unit_size": 1.5, "include_numbers": True}
+        axes4 = Axes(
+            number_line_config=nlc2,
+            x_min=-2, x_max=2, y_min=-2, y_max=2,
+            center_point=LEFT*3,
+            x_axis_config={"tick_frequency": 0.5},
+            plot_depth=-5,
+        ).add_coordinates([-1, 2], [-2, 1], number_config={"color": BLACK})
+        # self.add(codebg, codes)
+
+        self.wait()
+        self.play(Write(self.caps[0]))
+        self.wait()
+        self.play(FadeInFromDown(codebg))
+        self.play(Write(VGroup(codes[0], codes[10])))
+        self.wait()
+        self.play(ShowCreation(axes))
+        self.wait(3)
+
+        self.next_caps()
+        self.play(Write(codes[1]))
+        self.play(Write(codes[2]))
+        self.wait(0.5)
+
+        self.next_caps()
+        self.play(Write(codes[3]))
+        self.wait()
+        self.play(Transform(axes, axes1))
+        self.wait(3)
+
+        self.next_caps()
+        self.play(Write(VGroup(codes[4], codes[6])))
+        self.wait(0.5)
+        self.play(Write(codes[5]))
+        self.wait()
+        self.play(Transform(axes, axes2))
+        self.wait(3)
+        
+        self.next_caps()
+        self.play(Write(VGroup(codes[7], codes[9])))
+        self.wait(0.5)
+        self.play(Write(codes[8]))
+        self.wait()
+        self.play(Transform(axes, axes3))
+
+        self.next_caps()
+        self.play(Write(VGroup(codes[11], codes[12])))
+        self.wait()
+        nc = {"color": BLACK}
+        # labels1 = axes.get_coordinate_labels([-1, 2], [-2, 1], number_config=nc)
+        self.play(FadeOut(axes), FadeIn(axes4))
+        self.wait(3)
+        
+        self.next_caps()
+        self.play(Write(codes[13]))
+        self.wait()
+        # labels2 = axes.get_coordinate_labels(number_config=nc)
+        axes = Axes(
+            number_line_config=nlc2,
+            x_min=-2, x_max=2, y_min=-2, y_max=2,
+            center_point=LEFT*3,
+            x_axis_config={"tick_frequency": 0.5},
+            plot_depth=-5,
+        ).add_coordinates(number_config=nc)
+        self.play(FadeOut(axes4), FadeIn(axes))
+        self.wait(3)
+
+        self.next_caps()
+        self.play(Write(codes[14]))
+        self.wait()
+        xy_labels = axes.get_axis_labels().set_color(BLACK)
+        self.play(Write(xy_labels))
+        self.wait(3)
+        
+        self.next_caps()
+        self.wait(2)
+        self.next_caps()
+        self.play(Write(codes[15]))
+        dot = Dot(axes.c2p(1, 2), color=BLUE_D, radius=0.1)
+        self.wait()
+        self.play(Write(dot))
+        self.wait(2)
+
+        self.next_caps()
+        self.play(Write(codes[16]))
+        self.wait(1)
+        self.play(Write(codes[17]))
+        self.wait(4)
+
+
+class NumberPlaneTutorial(Scene_):
+    CONFIG = {
+        # "fade_all": False,
+    }
+    def start(self):
+        t2c = {"manim": GOLD,
+               "NumberPlane": GREEN}
+        title = VGroup(
+            Text("Chapter III.", font="Monaco for Powerline", color=BLUE_D, size=1, t2c=t2c),
+            Text("使用NumberPlane构建坐标网格", font="Source Han Sans CN Bold", color=DARK_GRAY, size=1, t2c=t2c),
+        ).arrange(RIGHT, buff=0.5, aligned_edge=DOWN)
+        self.wait()
+        self.play(DrawBorderThenFill(title))
+        self.wait(2)
+        self.play(FadeOutAndShiftDown(title))
+    def construct(self):
+        self.start()
+        CodeLine.CONFIG["t2c"].update(numberline_t2c)
+        CodeLine.CONFIG["t2c"].update(axes_t2c)
+        CodeLine.CONFIG["t2c"].update(numberplane_t2c)
+        CodeLine.CONFIG["size"] = 0.48
+        captions = [
+            "NumberPlane构建的坐标系默认带网格，用法和Axes相同，但一般不做更改",
+            "同样使用add_coordinates添加数字标签，c2p与p2c也同样适用",
+            "NumberPlane常用于进行变换，可以直接使用apply_function(matrix)进行线性变换",
+            "在进行非线性变换前，需要调用prepare_for_nonlinear_transform方法",
+            "它有一个子类，ComplexPlane用于展示复平面，用法相同，但是纵轴标签为b·i的形式",
+            "使用n2p和p2n来转换坐标与复数（c2p/p2c同时适用）",
+            "使用apply_complex_function来施加复变换",
+        ]
+        self.caps = VGroup(
+            *[
+                CodeLine(cap, font='Source Han Sans CN Bold', size=0.64).to_edge(DOWN * 1.2)\
+                    .add_background_rectangle(color=WHITE, buff=0.1, opacity=0.85)
+                for cap in captions
+            ]
+        )
+
+        codes = CodeLines(
+            ">>> grid = NumberPlane(",
+            "~~~~~~~~axis_config={\"stroke_color\": BLACK}",
+            "~~~~)",
+            ">>> grid.add_coordinates()",
+            ">>> grid.apply_function(",
+            "~~~~~~~~lambda p: p+RIGHT*p[1]",
+            "~~~~)",
+            ">>> grid.prepare_for_nonlinear_transform()",
+            ">>> grid.apply_function(",
+            "~~~~~~~~lambda p: p + np.array([",
+            "~~~~~~~~~~~~np.sin(p[1]),",
+            "~~~~~~~~~~~~np.sin(p[0]),",
+            "~~~~~~~~~~~~0,",
+            "~~~~~~~~])",
+            "~~~~)",
+            buff=0.13
+        )
+        codebg = CodeBackground(codes, buff=0.25)
+        VGroup(codes, codebg).to_edge(RIGHT, buff=0.7).shift(UP*0.3)
+
+        grid = NumberPlane(axis_config={"stroke_color": BLACK}, plot_depth=-5)
+
+        self.wait()
+        self.play(Write(self.caps[0]))
+        self.wait()
+        self.play(FadeInFromDown(codebg))
+        self.play(Write(codes[:3]))
+        self.wait()
+        self.play(ShowCreation(grid))
+        self.wait(3)
+
+        self.next_caps()
+        self.play(Write(codes[3]))
+        self.wait()
+        labels = grid.get_coordinate_labels(number_config={"color": BLACK})
+        labels.set_plot_depth(-5)
+        self.play(Write(labels))
+        self.wait(3)
+        lines = VGroup()
+        lines.add(Line(codes[3][4:].get_left(), codes[3][4:].get_right(), color=GRAY, stroke_width=2.5))
+        self.play(
+            FadeOut(labels),
+            ShowCreation(lines[-1])
+        )
+        
+        self.next_caps()
+        self.play(Write(VGroup(codes[4], codes[6])))
+        self.wait(0.5)
+        self.play(Write(codes[5]))
+        self.wait(1.5)
+        self.play(grid.apply_function,
+            lambda p: p + RIGHT*p[1],
+            run_time=2
+        )
+        self.wait(3)
+        lines.add(Line(codes[4][4:].get_left(), codes[4][4:].get_right(), color=GRAY, stroke_width=2.5))
+        lines.add(Line(codes[5][8:].get_left(), codes[5][8:].get_right(), color=GRAY, stroke_width=2.5))
+        lines.add(Line(codes[6][4:].get_left(), codes[6][4:].get_right(), color=GRAY, stroke_width=2.5))
+        self.play(
+            grid.apply_function,
+            lambda p: p - RIGHT*p[1],
+            ShowCreation(lines[1]),
+            ShowCreation(lines[2]),
+            ShowCreation(lines[3]),
+            run_time=1
+        )
+
+        self.next_caps()
+        self.play(Write(codes[7]))
+        self.play(WiggleOutThenIn(codes[7]))
+        self.wait(2)
+        self.play(Write(codes[8:]))
+        self.wait()
+        grid.prepare_for_nonlinear_transform()
+        self.play(
+            grid.apply_function,
+            lambda p: p + np.array([
+                np.sin(p[1]),
+                np.sin(p[0]),
+                0,
+            ]),
+            run_time=3,
+        )
+        self.wait(3)
+        self.play(FadeOut(grid), FadeOut(codes), FadeOut(lines), codebg.shift, RIGHT*0.3)
+        
+        codes = CodeLines(
+            ">>> grid = ComplexPlane(",
+            "~~~~~~~~axis_config={\"stroke_color\": BLACK}",
+            "~~~~)",
+            ">>> grid.add_coordinates()",
+            ">>> dot = Dot(grid.n2p(-3+2j))",
+            ">>> grid.p2n(dot.get_center())",
+            "(-3+2j)",
+            ">>> grid.prepare_for_nonlinear_transform()",
+            ">>> grid.apply_complex_function(",
+            "~~~~~~~~lambda z: np.exp(z)",
+            "~~~~)",
+            buff=0.13
+        ).next_to(codebg.get_corner(UL), DR, aligned_edge=UL, buff=0.25)
+        self.next_caps()
+        self.play(Write(codes[:3]))
+        self.wait()
+        grid = ComplexPlane(axis_config={"stroke_color": BLACK}, plot_depth=-5)
+        self.play(ShowCreation(grid))
+        self.wait(2)
+        self.play(Write(codes[3]))
+        self.wait()
+        labels = grid.get_coordinate_labels(number_config={"color": BLACK})
+        labels.set_plot_depth(-5)
+        self.play(Write(labels))
+        self.wait(3)
+        self.play(
+            FadeOut(labels),
+            ShowCreation(Line(codes[3][4:].get_left(), codes[3][4:].get_right(), color=GRAY, stroke_width=2.5))
+        )
+        self.next_caps()
+        self.play(Write(codes[4]))
+        self.wait()
+        dot = Dot(grid.n2p(-3+2j), radius=0.1, color=BLUE_D)
+        self.play(Write(dot))
+        self.wait(2)
+        self.play(Write(codes[5]))
+        self.wait()
+        self.play(Write(codes[6]), FadeOut(dot))
+        self.wait(3)
+        self.next_caps()
+        self.play(Write(codes[7:]))
+        self.wait()
+        grid.prepare_for_nonlinear_transform()
+        self.play(
+            grid.apply_complex_function,
+            lambda z: np.exp(z),
+            run_time=5
+        )
+        self.wait(4)
+
+
+class ParametricFunctionTutorial(Scene_):
+    CONFIG = {
+        "fade_all": False,
+    }
+    def start(self):
+        t2c = {"manim": GOLD,
+               "ParametricFunction": GREEN}
+        title = VGroup(
+            Text("Chapter IV.", font="Monaco for Powerline", color=BLUE_D, size=1, t2c=t2c),
+            Text("使用ParametricFunction绘制参数方程图像", font="Source Han Sans CN Bold", color=DARK_GRAY, size=1, t2c=t2c),
+        ).arrange(RIGHT, buff=0.5, aligned_edge=DOWN)
+        self.wait()
+        self.play(DrawBorderThenFill(title))
+        self.wait(2)
+        self.play(FadeOutAndShiftDown(title))
+    def construct(self):
+        self.start()
+        CodeLine.CONFIG["t2c"].update(numberline_t2c)
+        CodeLine.CONFIG["t2c"].update(axes_t2c)
+        CodeLine.CONFIG["t2c"].update(numberplane_t2c)
+        CodeLine.CONFIG["t2c"].update(pf_t2c)
+        CodeLine.CONFIG["size"] = 0.48
         captions = [
             
         ]
@@ -248,4 +638,5 @@ class AxesTutorial(Scene_):
                 for cap in captions
             ]
         )
+
 
