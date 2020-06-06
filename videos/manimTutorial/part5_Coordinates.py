@@ -59,7 +59,13 @@ numberplane_t2c = {
 }
 
 pf_t2c = {
-    
+    "ParametricFunction": BLUE_D,
+    "FunctionGraph": BLUE_D,
+    "t_min": ORANGE,
+    "t_max": ORANGE,
+    "def": BLUE_D,
+    "PI": average_color(BLUE, PINK),
+    "func2": DARK_GRAY,
 }
 
 class OpeningScene(Scene_):
@@ -609,7 +615,7 @@ class NumberPlaneTutorial(Scene_):
 
 class ParametricFunctionTutorial(Scene_):
     CONFIG = {
-        "fade_all": False,
+        # "fade_all": False,
     }
     def start(self):
         t2c = {"manim": GOLD,
@@ -628,9 +634,12 @@ class ParametricFunctionTutorial(Scene_):
         CodeLine.CONFIG["t2c"].update(axes_t2c)
         CodeLine.CONFIG["t2c"].update(numberplane_t2c)
         CodeLine.CONFIG["t2c"].update(pf_t2c)
-        CodeLine.CONFIG["size"] = 0.48
+        CodeLine.CONFIG["size"] = 0.55
         captions = [
-            
+            "绘制函数图像可以使用ParametricFunction",
+            "传入一个参数方程，自变量为参数，返回值为一个点，可以使用def定义函数或者lambda语句",
+            "传入t_min和t_max表示参数范围",
+            "它有一个子类FunctionGraph，传入一个函数，给出x返回y，并且默认x范围为画面宽度",
         ]
         self.caps = VGroup(
             *[
@@ -638,5 +647,70 @@ class ParametricFunctionTutorial(Scene_):
                 for cap in captions
             ]
         )
+
+        codes = CodeLines(
+            ">>> func = ParametricFunction(",
+            "~~~~~~~~lambda t: np.array([",
+            "~~~~~~~~~~~~2*np.sin(3*t)*np.cos(t),",
+            "~~~~~~~~~~~~2*np.sin(3*t)*np.sin(t),",
+            "~~~~~~~~~~~~0,",
+            "~~~~~~~~]),",
+            "~~~~~~~~t_min=0, t_max=2*PI",
+            "~~~~).shift(LEFT*3)",
+            ">>> func2 = FunctionGraph(",
+            "~~~~~~~~lambda x: x**2",
+            "~~~~)",
+            buff=0.16
+        )
+        codebg = CodeBackground(codes, buff=0.25)
+        VGroup(codes, codebg).to_edge(RIGHT, buff=0.5).shift(UP*0.3)
+        # self.add(codebg, codes)
+
+        self.wait()
+        self.play(Write(self.caps[0]))
+        self.wait()
+        self.play(FadeInFromDown(codebg))
+        self.play(Write(VGroup(codes[0], codes[7])))
+        self.wait(2)
+        self.next_caps()
+        self.play(Write(codes[1:6]))
+        self.wait(3)
+        self.next_caps()
+        self.play(Write(codes[6]))
+        self.wait()
+
+        t = ValueTracker(0)
+        dot = Dot(color=BLACK, background_stroke_color=WHITE, background_stroke_width=2, radius=0.05)
+        dot.add_updater(lambda m: m.move_to(
+            np.array([
+                2*np.sin(3*t.get_value())*np.cos(t.get_value()),
+                2*np.sin(3*t.get_value())*np.sin(t.get_value()),
+                0
+            ])+LEFT*3
+        ))
+        path = TracedPath(dot.get_center, stroke_color=BLACK, stroke_width=4, plot_depth=-2)
+        progress = NumberLine(x_min=0, x_max=2, unit_size=3, tick_frequency=1, color=BLACK).move_to(LEFT*3+DOWN*2.6)
+        tick = Triangle(fill_opacity=1).scale(0.2).rotate(PI)
+        tick.add_updater(lambda m: m.move_to(progress.n2p(t.get_value() / PI), aligned_edge=DOWN))
+        label = VGroup(
+            TexMobject("t=", color=BLACK),
+            DecimalNumber(0, color=BLACK),
+        ).arrange(RIGHT).next_to(progress, RIGHT)
+        label[1].add_updater(lambda m: m.set_value(t.get_value()))
+
+        self.add(path)
+        self.play(Write(dot))
+        self.play(ShowCreation(progress), Write(tick), Write(label))
+        self.wait()
+        self.play(t.set_value, 2*PI, run_time=10, rate_func=linear)
+        self.wait(3)
+        self.play(FadeOut(VGroup(dot, progress, tick, label)))
+        self.next_caps()
+        self.play(Write(codes[8:]))
+        self.wait()
+        func2 = FunctionGraph(lambda x: x**2, color=GOLD, plot_depth=-5)
+        self.play(ShowCreation(func2))
+        self.wait(4)
+        
 
 
