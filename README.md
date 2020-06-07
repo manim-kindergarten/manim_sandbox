@@ -2,6 +2,8 @@
 
 [![MIT License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](http://choosealicense.com/licenses/mit/)
 ![QQ](https://img.shields.io/badge/QQ-862671480-red.svg?style=flat)
+[![manim](https://img.shields.io/badge/manim-ver.MK-orange.svg)](https://github.com/manim-kindergarten/manim)
+[![tutorial](https://img.shields.io/badge/tutorial-on_bilibili-ff69b4.svg)](https://space.bilibili.com/171431343/favlist?fid=947158443)
 [![README-en](https://img.shields.io/badge/README-en-brightgreen)](https://github.com/manim-kindergarten/manim_sandbox/blob/master/README-EN.md)
 
 [Here is the way to the README in English](https://github.com/manim-kindergarten/manim_sandbox/blob/master/README-EN.md)
@@ -132,12 +134,20 @@ manim-幼儿园的项目成员也利用manim合作制作了许多非常amazing�
     </td>
     <td><a href="https://www.bilibili.com/video/BV1CC4y1H7kp" title="这个也是翔鸽单独完成哒">manim教程 第四讲 SVG、图片与文字</a></td>
   </tr>
+  <tr>
+    <td>
+      <a href="https://www.bilibili.com/video/BV1ug4y1q7nu/" target="_blank">
+        <img src="https://i1.hdslb.com/bfs/archive/43e1395c6e463535e7b445510a0e6479275c28cf.jpg@380w_240h_100Q_1c.webp" width="95" height="60">
+      </a>
+    </td>
+    <td><a href="https://www.bilibili.com/video/BV1ug4y1q7nu/" title="这个还是翔鸽单独完成哒">manim教程 第五讲 坐标系统与图像</a></td>
+  </tr>
 </table>
 
 ## 关于manim的学习和交流
 
 我们有一个manim交流群（QQ群：862671480），欢迎大家加入交流。<br>
-对于manim学习中可能遇到的问题，可参考[manim常见问题 v2.2](https://github.com/manim-kindergarten/manim_sandbox/blob/master/documents/manim%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98v2.2.pdf)<br>
+对于manim学习中可能遇到的问题，可参考[manim常见问题 v2.3](https://github.com/manim-kindergarten/manim_sandbox/blob/master/documents/manim%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98v2.3.pdf)，如果不方便在线查看，[点此下载](https://github.com/manim-kindergarten/manim_sandbox/blob/master/documents/manim%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98v2.3.pdf?raw=True)<br>
 
 ## 关于项目中的代码规范问题
 

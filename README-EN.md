@@ -2,6 +2,8 @@
 
 [![MIT License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](http://choosealicense.com/licenses/mit/)
 ![QQ](https://img.shields.io/badge/QQ-862671480-red.svg?style=flat)
+[![manim](https://img.shields.io/badge/manim-ver.MK-orange.svg)](https://github.com/manim-kindergarten/manim)
+[![tutorial](https://img.shields.io/badge/tutorial-on_bilibili-ff69b4.svg)](https://space.bilibili.com/171431343/favlist?fid=947158443)
 
 manim_sandbox is a code repository managed and maintained by [manim-kindergarten](https://github.com/manim-kindergarten), with the aim of consolidating [manim](https://github.com/3b1b/manim) code and modules provided by us.
 
@@ -129,6 +131,14 @@ We also work together and produced some amazing videos on [bilibili](https://www
       </a>
     </td>
     <td><a href="https://www.bilibili.com/video/BV1CC4y1H7kp" title="Tony made this by himself">manim tutorial 4: insert SVG, images, and texts</a></td>
+  </tr>
+  <tr>
+    <td>
+      <a href="https://www.bilibili.com/video/BV1ug4y1q7nu/" target="_blank">
+        <img src="https://i1.hdslb.com/bfs/archive/43e1395c6e463535e7b445510a0e6479275c28cf.jpg@380w_240h_100Q_1c.webp" width="95" height="60">
+      </a>
+    </td>
+    <td><a href="https://www.bilibili.com/video/BV1ug4y1q7nu/" title="Tony made this by himself">manim tutorial 5: coordinate systems and graph</a></td>
   </tr>
 </table>
 
