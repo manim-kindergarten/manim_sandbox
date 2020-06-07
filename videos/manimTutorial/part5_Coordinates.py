@@ -713,4 +713,174 @@ class ParametricFunctionTutorial(Scene_):
         self.wait(4)
         
 
+class DownProgressBar(Scene_):
+    CONFIG = {
+        "fade_all": False,
+    }
+    def construct(self):
+        methods_dict = {
+            'NumberLine': '0022', 
+            'Axes': '0216', 
+            'NumberPlane': '0359',
+            'ParametricFunction': '0547', 
+            'a': '0643'
+        }
+        total_time = '0655'
+        func_time = lambda t: int(t[0:2]) * 60 + int(t[2:])
+        func_loc = lambda t: func_time(t)/func_time(total_time) * FRAME_WIDTH * RIGHT + FRAME_WIDTH * LEFT / 2
+        p_list = [FRAME_WIDTH * LEFT / 2]
+        for v in methods_dict.values():
+            p_list.append(func_loc(v))
+        p_list.append(func_loc(total_time))
 
+        colors = color_gradient([BLUE, PINK, RED, ORANGE, GREEN], len(methods_dict)+1)
+
+        lines = VGroup(*[Line(p_list[i], p_list[i+1]-0.02*RIGHT, color=colors[i], stroke_width=20) for i in range(len(methods_dict)+1)])
+        lines.to_edge(DOWN * 0.22, buff=1)
+        texts = VGroup(*[Text(t, color=WHITE, font='Consolas', size=0.33) for t in methods_dict.keys()], plot_depth=1)
+        texts[-1].set_color(colors[-1])
+        text = Text('空降', color=WHITE, font='庞门正道标题体', size=0.44).to_edge(DOWN * 0.132, buff=1).to_edge(LEFT, buff=0.53)
+        text[1].shift(RIGHT*0.03)
+        text[0].shift(LEFT*0.01)
+        for i in range(len(methods_dict)):
+            texts[i].move_to(lines[i+1])
+
+        self.add(lines, texts, text)
+
+
+class VideoCover(Scene):
+    def construct(self):
+        background = Polygon(
+            LEFT_SIDE * 2 + BOTTOM, BOTTOM, LEFT_SIDE / 2 + TOP, LEFT_SIDE * 2 + TOP,
+            fill_opacity=0.7, fill_color=BLACK, stroke_width=0
+        ).shift(RIGHT)
+        text = VGroup(
+            Text("manim教程", font="庞门正道标题体", color=BLUE, size=2).scale(0.9),
+            Text("第五讲", font="庞门正道标题体", color=BLUE, size=2).scale(1.1),
+            Text("坐标系统与图像", font="庞门正道标题体", color=ORANGE, size=2).scale(1.5)
+        ).arrange(DOWN, aligned_edge=LEFT, buff=0.4)
+        text[2].shift(DOWN*0.4)
+        text.center().to_edge(LEFT, buff=0.8).shift(UP*0.5)
+        text2 = VGroup(
+            Text("manim教程", font="庞门正道标题体", color=BLUE, size=2).scale(0.9).set_stroke(width=12, opacity=0.4),
+            Text("第五讲", font="庞门正道标题体", color=BLUE, size=2).scale(1.1).set_stroke(width=12, opacity=0.4),
+            Text("坐标系统与图像", font="庞门正道标题体", color=ORANGE, size=2).scale(1.5).set_stroke(width=13, opacity=0.4)
+        ).arrange(DOWN, aligned_edge=LEFT, buff=0.4)
+        text2[2].shift(DOWN*0.4)
+        text2.center().to_edge(LEFT, buff=0.8).shift(UP*0.5)
+        self.add(background, text2, text)
+
+
+class PreView(Scene_):
+    CONFIG = {
+        "fade_all": False
+    }
+    def construct(self):
+        grid = NumberPlane(plot_depth=-5)
+        self.wait(0.5)
+        self.play(ShowCreation(grid, run_time=3, lag_ratio=0.1))
+
+        t = ValueTracker(0)
+        dot = Dot(color=BLACK, background_stroke_color=WHITE, background_stroke_width=2, radius=0.06)
+        dot.add_updater(lambda m: m.move_to(
+            np.array([
+                2*np.sin(3*t.get_value())*np.cos(t.get_value()),
+                2*np.sin(3*t.get_value())*np.sin(t.get_value()),
+                0
+            ])
+        ))
+        path = TracedPath(dot.get_center, stroke_color=BLACK, stroke_width=6, plot_depth=-2)
+        progress = NumberLine(x_min=0, x_max=2, unit_size=3, tick_frequency=1, color=BLACK).move_to(DOWN*2.6)
+        tick = Triangle(fill_opacity=1).scale(0.2).rotate(PI)
+        tick.add_updater(lambda m: m.move_to(progress.n2p(t.get_value() * 2 / PI), aligned_edge=DOWN))
+        label = VGroup(
+            TexMobject("t=", color=BLACK),
+            DecimalNumber(0, color=BLACK),
+        ).arrange(RIGHT).next_to(progress, RIGHT)
+        label[1].add_updater(lambda m: m.set_value(t.get_value()))
+
+        self.add(path)
+        self.play(Write(dot))
+        self.play(ShowCreation(progress), Write(tick), Write(label))
+        self.wait(0.5)
+        self.play(t.set_value, PI, run_time=6, rate_func=linear)
+        self.wait()
+        self.play(FadeOut(VGroup(dot, progress, tick, label)))
+
+        func = FunctionGraph(lambda x: x**2-4, stroke_width=6, color=GOLD)
+        func2 = FunctionGraph(lambda x: 2*np.exp(1)**(-0.25*x**2), stroke_width=6, color=RED)
+        self.play(ShowCreation(func), run_time=2)
+        self.wait(0.5)
+        self.play(ShowCreation(func2), run_time=2)
+        self.wait()
+        title = VGroup(
+            Text("NumberLine()", font="Consolas", color=BLUE_D, t2c={"()": DARK_GRAY}, size=2),
+            Text("Axes()", font="Consolas", color=BLUE_D, t2c={"()": DARK_GRAY}, size=2),
+            Text("NumberPlane()", font="Consolas", color=BLUE_D, t2c={"()": DARK_GRAY}, size=2),
+            Text("ParametricFunction()", font="Consolas", color=BLUE_D, t2c={"()": DARK_GRAY}, size=2),
+        ).arrange(DOWN, aligned_edge=LEFT).center()
+        bg = BackgroundRectangle(title, color=WHITE, fill_opacity=0.85, buff=0.25)
+        self.play(
+            FadeInFromDown(bg),
+            *[
+                FadeInFromDown(each) for each in title
+            ],
+            run_time=2, lag_ratio=0.5
+        )
+        self.wait(3)
+
+
+class NPBG(Scene_):
+    CONFIG = {
+        "fade_all": False,
+    }
+    def construct(self):
+        grid = NumberPlane(axis_config={"stroke_color": BLACK})
+        func = FunctionGraph(lambda x: x**2-4, stroke_width=6, color=GOLD)
+        func2 = FunctionGraph(lambda x: 2*np.exp(1)**(-0.25*x**2), stroke_width=6, color=RED)
+        self.add(grid, func2)
+
+
+class NPBG2(Scene):
+    CONFIG = {
+        "camera_config": {
+            "background_color": "#EBEBEB"
+        }
+    }
+    def construct(self):
+        grid = NumberPlane(axis_config={"stroke_color": BLACK})
+        grid.prepare_for_nonlinear_transform()
+        grid.apply_function(
+            lambda p: p + np.array([
+                np.sin(p[1]),
+                np.sin(p[0]),
+                0,
+            ])
+        )
+        self.add(grid)
+
+
+class NPBG3(Scene):
+    CONFIG = {
+        "camera_config": {
+            "background_color": "#EBEBEB"
+        }
+    }
+    def construct(self):
+        grid = NumberPlane(axis_config={"stroke_color": BLACK})
+        grid.prepare_for_nonlinear_transform()
+        grid.apply_complex_function(
+            lambda z: np.exp(z)
+        )
+        self.add(grid)
+
+
+class NPBG4(Scene):
+    CONFIG = {
+        "camera_config": {
+            "background_color": "#EBEBEB"
+        }
+    }
+    def construct(self):
+        rec = ScreenRectangle(color=DARK_GRAY, height=6)
+        self.add(rec)
