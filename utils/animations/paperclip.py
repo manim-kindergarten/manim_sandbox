@@ -23,6 +23,7 @@ from manimlib.utils.rate_functions import *
 
 
 class PassingRectangle(Animation):
+    """一个矩形从 ``mobject`` 的左边生成滑到右边结束"""
     CONFIG = {
         "rate_func": smooth,
         "buff": 0.05,
@@ -65,6 +66,7 @@ class PassingRectangle(Animation):
 
 
 class PassingRectangleWithBound(AnimationGroup):
+    """``PassingRectangle`` 和 ``LaggedCreation``"""
     def __init__(self, mob, rec, **kwargs):
         AnimationGroup.__init__(
             self,
@@ -76,6 +78,7 @@ class PassingRectangleWithBound(AnimationGroup):
 
 
 class LaggedCreation(Animation):
+    """起点和终点不同的Creation，只对Rectangle效果好"""
     CONFIG = {
         "lag_ratio": 1,
         "start_ratio": 1 / 6,
@@ -100,6 +103,7 @@ class LaggedCreation(Animation):
 
 
 class HighLightWithLines(AnimationGroup):
+    """突出显示，并且上下边有直线"""
     CONFIG = {
         "color": RED,
         "rec_opacity": 0.5,
@@ -141,6 +145,7 @@ class HighLightWithLines(AnimationGroup):
 
 
 class UnHighLightWithLines(AnimationGroup):
+    """``HighLightWithLines`` 的逆操作"""
     def __init__(self, mobject, **kwargs):
         assert(isinstance(mobject, Mobject))
         digest_config(self, kwargs)
