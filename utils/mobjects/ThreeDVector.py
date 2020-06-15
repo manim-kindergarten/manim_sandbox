@@ -13,15 +13,22 @@ def cross_product(v1,v2):
 
 
 class ThreeDVector(VMobject):
-	"""
-	This vector has two parts
+	"""This vector has two parts
+
 	The top part is a cone (tip)
+
 	The bottom part is a circular cone 
+
 	The parameter "tip_length" means the height of the cone (tip)
+
 	The parameter "tip_radius" means the base radius of the cone (tip)
+
 	The parameter "bottom_radius" means the bottom base radius of the truncated cone
+	
 	The parameter "top_radius"means the top base radius of the truncated cone
+	
 	The parameter "circle_side_width" means the width of the side of the base circle of the cone and the base circles of the truncated cone
+	
 	The parameter "circle_side_color" means the color of the side of the base circle of the cone and the base circles of the truncated cone
 	"""
 	CONFIG = {
