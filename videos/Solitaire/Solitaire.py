@@ -10,7 +10,6 @@
 
 from Card import *
 from FreeFallEngine import *
-from raw_frame_scene import *
 
 
 def add_boundary(value, boundary):
@@ -26,17 +25,6 @@ def rand(a, b, boundary=None):
     if boundary is None:
         return random.uniform(a, b)
     return add_boundary(random.uniform(a, b), boundary)
-
-
-def decoration(card, **kwargs):
-    rectangle = Rectangle(width=card.get_width(), height=card.get_height(), stroke_width=2)
-    annulus = Annulus(**kwargs)
-    rectangle.set_color(BLACK).move_to(annulus.get_center())
-    return Group(rectangle, annulus).to_corner(LEFT + UP)
-
-
-def radius_dict(outer, inner):
-    return {"outer_radius": outer, "inner_radius": inner}
 
 
 SOLITAIRE_CONSTANT = {
@@ -65,11 +53,11 @@ class SolitaireScene(RawFrameScene):
         cards = []
         for i in range(self.ACE, self.KING + 1):
             cards.append(self.point_constructor(i)(sign))
-        return cards
+        return Group(*cards)
 
     def four_deck_of_cards(self, corner_pos=RIGHT + UP):
         return Group(*[
-            Group(*self.deck_of_cards(sign))
+            self.deck_of_cards(sign)
             for sign in range(self.SPADE, self.DIAMOND + 1)
         ]).arrange(RIGHT * 2).to_corner(corner_pos)
 
@@ -91,19 +79,22 @@ class SolitaireScene(RawFrameScene):
         self.refresh_seed()
         return self
 
-    def random_waterfall(self):
-        cards = self.four_deck_of_cards()
-        init_bg = Group(cards, decoration(cards[0][0], **radius_dict(0.5, 0.3), color="#00FF00"))
-        self.trace_move(init_bg, init_bg.get_center())
-        for point in range(self.ACE, self.KING + 1):
-            for sign in range(self.SPADE, self.DIAMOND + 1):
-                card = cards[sign][-point]
-                ap = self.engine.approximation_points(card, rand(-3, 1.5, 1.5), rand(-4, 0))
-                for position in ap:
-                    self.trace_move(card, position)
+    def random_waterfall(self, card, vx, vy):
+        ap = self.engine.approximation_points(card, vx, vy)
+        for position in ap:
+            self.trace_move(card, position)
+        return self
+
+    def init_background(self, *captured):
+        background = Group(*captured)
+        self.trace_move(background, background.get_center())
 
     def construct(self):
-        self.random_waterfall()
+        cards = self.four_deck_of_cards()
+        self.init_background(cards)
+        for point in range(self.ACE, self.KING + 1):
+            for sign in range(self.SPADE, self.DIAMOND + 1):
+                self.random_waterfall(cards[sign][-point], rand(-3, 1.5, 1.5), rand(-4, 0))
 
 
 class SolitaireDemoScene(SolitaireScene):
@@ -114,11 +105,8 @@ class SolitaireDemoScene(SolitaireScene):
 
     def demo(self, vx, vy=0):
         card = self.get_one_demo_card()
-        init_bg = Group(card, decoration(card, **radius_dict(0.5, 0.3), color="#00FF00"))
-        self.trace_move(init_bg, init_bg.get_center())
-        ap = self.engine.approximation_points(card, vx, vy)
-        for position in ap:
-            self.trace_move(card, position)
+        self.init_background(card)
+        self.random_waterfall(card, vx, vy)
 
     def construct(self):
         self.demo(self.INIT_VX)
