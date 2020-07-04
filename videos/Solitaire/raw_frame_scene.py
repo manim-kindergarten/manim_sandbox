@@ -1,10 +1,3 @@
-# from @RY-Givenchy
-
-#
-# Copyright: 2020 niedong
-# Raw frame operation scene for manim
-#
-
 from manimlib.scene.scene import Scene
 import threading
 import time

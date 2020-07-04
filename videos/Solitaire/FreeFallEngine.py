@@ -66,11 +66,11 @@ class FreeFallEngine(AbstractFreeFallEngine):
     def accelerate(self, vy, t):
         return vy * t + self.gravity / 2 * (t ** 2)
 
-    def get_pos(self, instance):
+    def get_dim(self, instance):
         return -self.boundary[1] - instance.get_bottom()[1]
 
     def hit_down(self, instance):
-        return self.get_pos(instance) > 0
+        return self.get_dim(instance) > 0
 
     def out_left(self, instance):
         return instance.get_right()[0] < -self.boundary[0]
@@ -89,17 +89,15 @@ class FreeFallEngine(AbstractFreeFallEngine):
 
     def approximation_points(self, instance, vx, vy):
         assert (isinstance(instance, Mobject))
-        points = []
         ins = instance.copy()
         while self.within_x(ins):
             if self.hit_down(ins):
                 vy *= -self.lost_ratio
-                ins.shift(np.array([0, self.get_pos(ins), 0]))
+                ins.shift(np.array([0, self.get_dim(ins), 0]))
             else:
                 ins.shift(np.array([self.uniform(vx, self.tick), -self.accelerate(vy, self.tick), 0]))
                 vy += self.gravity * self.tick
-                points.append(copy.deepcopy(ins.get_center()))
-        return points
+            yield copy.deepcopy(ins.get_center())
 
 
 class ThreeDFreeFallEngine(AbstractFreeFallEngine):

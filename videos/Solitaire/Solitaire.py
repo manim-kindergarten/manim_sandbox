@@ -10,6 +10,7 @@
 
 from Card import *
 from FreeFallEngine import *
+from raw_frame_scene import *
 
 
 def add_boundary(value, boundary):
@@ -41,7 +42,7 @@ class SolitaireScene(RawFrameScene):
 
     CONFIG = {
         "camera_config": {
-            "background_color": GREEN_E
+            "background_color": GREEN
         },
         **SOLITAIRE_CONSTANT,
     }
@@ -80,8 +81,7 @@ class SolitaireScene(RawFrameScene):
         return self
 
     def random_waterfall(self, card, vx, vy):
-        ap = self.engine.approximation_points(card, vx, vy)
-        for position in ap:
+        for position in self.engine.approximation_points(card, vx, vy):
             self.trace_move(card, position)
         return self
 
