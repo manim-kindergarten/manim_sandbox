@@ -95,6 +95,7 @@ class SolitaireScene(RawFrameScene):
         for point in range(self.ACE, self.KING + 1):
             for sign in range(self.SPADE, self.DIAMOND + 1):
                 self.random_waterfall(cards[sign][-point], rand(-3, 1.5, 1.5), rand(-4, 0))
+        self.wait(4)
 
 
 class SolitaireDemoScene(SolitaireScene):
@@ -110,3 +111,4 @@ class SolitaireDemoScene(SolitaireScene):
 
     def construct(self):
         self.demo(self.INIT_VX)
+        self.wait(4)

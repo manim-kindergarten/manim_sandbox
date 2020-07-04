@@ -1,4 +1,5 @@
 from manimlib.scene.scene import Scene
+from manimlib.constants import *
 import threading
 import time
 
@@ -68,11 +69,6 @@ class RawFrameScene(Scene):
             Use 'self.capture(...)' instead
         """)
 
-    def wait(self, *args, **kwargs):
-        """
-        'self.wait' method fails in this scene. Do not use it.
-        """
-        raise Exception("""
-            'self.wait' method is not allowed to use in this scene
-            Use 'self.capture(...)' instead
-        """)
+    def wait(self, duration=DEFAULT_WAIT_TIME, stop_condition=None):
+        for i in range(int(duration * self.camera.frame_rate)):
+            self.write_frame(self.get_frame())
