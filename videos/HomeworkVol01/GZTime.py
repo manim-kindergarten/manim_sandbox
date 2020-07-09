@@ -4,6 +4,7 @@ from manimlib.imports import *
 
 class TriangleSquare(Scene):
     def construct(self):
+        # 新建一个三角形,假设称之为三角形ABC
         triangle = Polygon(
             np.array([-1.4,-1.6,0]),
             np.array([2,0.7,0]),
@@ -13,15 +14,23 @@ class TriangleSquare(Scene):
         squares = []
         points = []
         ver_points = []
-    
+
+        # 依次取出三个点中的两个(可以理解为一条边的两个端点)
         for i in adjacent_pairs(triangle.get_vertices()):
+            # 取这一边的中点坐标(i[0]和i[1]均理解为向量)
             ver = (i[0]+i[1])/2
+            # squares 是将要绘制的正方形列表
             squares.append(
-                Square(side_length=Line(i[0],i[1]).get_length())
-                .move_to(ver + rotate(i[0]-ver,math.pi/2))
+                Square(side_length=Line(i[0],i[1]).get_length())        # 确定边长构造三角形
+                .move_to(ver + rotate(i[0]-ver,math.pi/2))              
+                # move_to函数会将正方形中心对齐至某一点
+                # 于是计算得到正方形中心
                 .rotate(math.atan((i[1][1]-i[0][1])/(i[1][0]-i[0][0])))
+                # 旋转时角度利用斜率进行计算
                 .set_color(BLUE)
             )
+            # 以下两个列表是添加正方形除了已知两点之外的两点
+            # 通过这样方便我们记录和构造剩余的图形
             points.append(
                 i[0] + rotate(i[0] - i[1],math.pi/2)
             )
