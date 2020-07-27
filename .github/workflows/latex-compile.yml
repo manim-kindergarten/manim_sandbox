@@ -1,12 +1,15 @@
 name: Build Common Problems Document
 
 on:
+  # push:
+  #   paths:
+  #     - 'docs/*'
+  # pull_request:
+  #   paths:
+  #     - 'docs/*'
   push:
-    paths:
-      - 'docs/*'
-  pull_request:
-    paths:
-      - 'docs/*'
+    branches:
+      - master
 
 jobs:
   build:
