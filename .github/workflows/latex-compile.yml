@@ -1,15 +1,12 @@
 name: Build Common Problems Document
 
 on:
-  # push:
-  #   paths:
-  #     - 'docs/*'
-  # pull_request:
-  #   paths:
-  #     - 'docs/*'
   push:
-    branches:
-      - dev
+    paths:
+      - 'docs/*'
+  pull_request:
+    paths:
+      - 'docs/*'
 
 jobs:
   build:
@@ -45,7 +42,7 @@ jobs:
         git checkout --orphan problems
         git rm -rf .
         mv ../problems.pdf problems.pdf
-        git add .
+        git add problems.pdf
         git commit -m "Upload CommonProblems" -a
       
     - name: Push changes
