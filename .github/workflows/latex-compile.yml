@@ -37,12 +37,18 @@ jobs:
         name: CommonProblems
         path: docs/problems.pdf
     
-    - name: Upload to branch
+    - name: Commit files
       run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
         cp docs/problems.pdf ../problems.pdf
         git checkout --orphan problems
         git rm -rf .
         mv ../problems.pdf problems.pdf
         git add .
-        git commit -m "Upload CommonProblems"
-        git push -f origin problems
+        git commit -m "Upload CommonProblems" -a
+      
+    - name: Push changes
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
