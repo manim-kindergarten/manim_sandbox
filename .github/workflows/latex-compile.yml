@@ -18,13 +18,22 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
+    - name: Install Consolas
+      run: |
+        sudo cp docs/fonts/consola.ttf /usr/share/fonts/ 
+        sudo apt install ttf-mscorefonts-installer
+        sudo apt install msttcorefonts-installer
+        sudo apt install fontconfig
+        sudo mkfontscale
+        sudo mkfontdir
+        sudo fc-cache -fv
+
     - name: Compile TeX
       uses: xu-cheng/latex-action@v2
       with:
         root_file: problems.tex
         working_directory: docs/
         args: -xelatex -file-line-error -interaction=nonstopmode -shell-escape
-        extra_system_packages: "msttcorefonts-installer fontconfig"
         pre_compile: "update-ms-fonts && fc-cache -f"
 
     - name: Upload artifacts
