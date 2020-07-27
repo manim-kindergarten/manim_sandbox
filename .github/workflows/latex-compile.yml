@@ -24,6 +24,7 @@ jobs:
         root_file: problems.tex
         working_directory: docs/
         args: -xelatex -file-line-error -interaction=nonstopmode -shell-escape
+        extra_system_packages: "msttcorefonts-installer fontconfig"
         pre_compile: "update-ms-fonts && fc-cache -f"
 
     - name: Upload artifacts
