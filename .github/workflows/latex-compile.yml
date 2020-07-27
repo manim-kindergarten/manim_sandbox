@@ -28,7 +28,7 @@ jobs:
         working_directory: docs/
         args: -xelatex -file-line-error -interaction=nonstopmode -shell-escape
         extra_system_packages: "msttcorefonts-installer fontconfig"
-        pre_compile: "update-ms-fonts && fc-cache -f && bash docs/fonts/install.sh && fc-list"
+        pre_compile: "update-ms-fonts && fc-cache -f && bash fonts/install.sh && fc-list"
 
     - name: Upload artifacts
       uses: actions/upload-artifact@v2
