@@ -34,5 +34,16 @@ jobs:
       uses: actions/upload-artifact@v2
       if: success()
       with:
-        name: CommonProblems.pdf
+        name: CommonProblems
         path: docs/problems.pdf
+    
+    - name: Upload to branch
+      run: |
+        cp docs/problems.pdf ../problems.pdf
+        git branch -D problems
+        git checkout --orphan problems
+        git rm -rf .
+        mv ../problems.pdf problems.pdf
+        git add .
+        git commit -m "Upload CommonProblems"
+        git push -f origin problems
