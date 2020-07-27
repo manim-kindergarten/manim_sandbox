@@ -40,7 +40,6 @@ jobs:
     - name: Upload to branch
       run: |
         cp docs/problems.pdf ../problems.pdf
-        git branch -D problems
         git checkout --orphan problems
         git rm -rf .
         mv ../problems.pdf problems.pdf
