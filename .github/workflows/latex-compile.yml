@@ -23,13 +23,13 @@ jobs:
 
     - name: Install Consolas
       run: |
-        sudo cp docs/fonts/consola.ttf /usr/share/fonts/ 
+        sudo mkdir /usr/share/fonts/Consolas
+        sudo cp docs/fonts/* /usr/share/fonts/Consolas/
         sudo apt install ttf-mscorefonts-installer -y
         sudo apt install fontconfig -y
         sudo mkfontscale
         sudo mkfontdir
         sudo fc-cache -fv
-        fc-list
 
     - name: Compile TeX
       uses: xu-cheng/latex-action@v2
