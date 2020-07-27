@@ -1,7 +1,7 @@
-sudo mkdir /usr/share/fonts/Consolas
-sudo cp fonts/* /usr/share/fonts/Consolas/
-sudo apt install ttf-mscorefonts-installer -y
-sudo apt install fontconfig -y
-sudo mkfontscale
-sudo mkfontdir
-sudo fc-cache -fv
+mkdir /usr/share/fonts/Consolas
+cp fonts/* /usr/share/fonts/Consolas/
+apt install ttf-mscorefonts-installer -y
+apt install fontconfig -y
+mkfontscale
+mkfontdir
+fc-cache -fv
