@@ -21,16 +21,6 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: Install Consolas
-      run: |
-        sudo mkdir /usr/share/fonts/Consolas
-        sudo cp docs/fonts/* /usr/share/fonts/truetype/
-        sudo apt install ttf-mscorefonts-installer -y
-        sudo apt install fontconfig -y
-        sudo mkfontscale
-        sudo mkfontdir
-        sudo fc-cache -fv
-
     - name: Compile TeX
       uses: xu-cheng/latex-action@v2
       with:
@@ -38,7 +28,7 @@ jobs:
         working_directory: docs/
         args: -xelatex -file-line-error -interaction=nonstopmode -shell-escape
         extra_system_packages: "msttcorefonts-installer fontconfig"
-        pre_compile: "update-ms-fonts && fc-cache -f && fc-list"
+        pre_compile: "update-ms-fonts && fc-cache -f && bash docs/fonts/install.sh && fc-list"
 
     - name: Upload artifacts
       uses: actions/upload-artifact@v2
