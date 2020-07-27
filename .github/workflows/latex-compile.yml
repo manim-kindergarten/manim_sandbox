@@ -29,6 +29,7 @@ jobs:
         sudo mkfontscale
         sudo mkfontdir
         sudo fc-cache -fv
+        fc-list
 
     - name: Compile TeX
       uses: xu-cheng/latex-action@v2
