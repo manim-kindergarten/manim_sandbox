@@ -83,6 +83,8 @@ Below are links to some of our member's [bilibili](https://www.bilibili.com/) ho
 
 We also work together and produced some amazing videos on [bilibili](https://www.bilibili.com):
 
+<details>
+<summary>Video List</summary>
 <table>
   <tr>
     <td>
@@ -141,6 +143,7 @@ We also work together and produced some amazing videos on [bilibili](https://www
     <td><a href="https://www.bilibili.com/video/BV1ug4y1q7nu/" title="Tony made this by himself">manim tutorial 5: coordinate systems and graph</a></td>
   </tr>
 </table>
+</details>
 
 ## About code specification & location
 
