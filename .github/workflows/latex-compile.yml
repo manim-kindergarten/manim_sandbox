@@ -35,4 +35,4 @@ jobs:
       if: success()
       with:
         name: CommonProblems.pdf
-        path: docs/main.pdf
+        path: docs/problems.pdf
