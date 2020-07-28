@@ -27,7 +27,7 @@
 
 \vspace*{50mm}
 \begin{center}
-    \huge \texttt{manim} 常见问题 \textit{v2.3} \\
+    \huge \texttt{manim} 常见问题 \textit{v2.4} \\
     \hspace*{\fill} \\
     \LARGE 鹤翔万里\& catfish \\
     \today
@@ -113,6 +113,10 @@
     from manimlib.imports import *
 \end{verbatim}
 
+\subsubsection*{Q2: 缺少模块\texttt{pygments}}
+
+手动安装 \texttt{pip install pygments}
+
 \subsection{\LaTeX 问题}
 \subsubsection*{Q1: 报错\texttt{Latex error converting to dvi}}
 先不要管错误在哪，先把\texttt{manimlib/constants.py}中的\texttt{TEX\_USE\_CTEX}改成\texttt{True}再运行
@@ -128,7 +132,8 @@
     MEDIA_DIR = os.path.join(os.getcwd(), "media")
 \end{verbatim}
 
-再进行尝试
+再进行尝试。如果仍然出错，尝试将\texttt{ctex\_template.tex}中的\texttt{\textbackslash usepackage\{ctex\}}提到该文件的第二行再进行尝试。
+还出错误的话，向下继续按步骤进行：
 
 \begin{enumerate}[I.]
     \item \textbf{若安装的\texttt{\TeX}发行版为\texttt{MiK\TeX}}
@@ -343,11 +348,11 @@
 
 \subsubsection*{Q4: 如何使用傅里叶级数作图}
 \addcontentsline{toc}{subsection}{Q4: 如何使用傅里叶级数作图}
-套用 Grant 写好的文件
+套用 Grant 写好的文件 （有部分代码\texttt{import}部分路径不对，请自行调整）
 \begin{verbatim}
-    active_projects/diffyq/part2/fourier_series.py
-    active_projects/diffyq/part4/fourier_series_scenes.py
-    active_projects/diffyq/part4/long_fourier_series.py
+    from_3b1b/active/diffyq/part2/fourier_series.py
+    from_3b1b/active/diffyq/part4/fourier_series_scenes.py
+    from_3b1b/active/diffyq/part4/long_fourier_series.py
 \end{verbatim}
 
 \subsubsection*{Q5: 傅里叶级数作图如何调整时长}
@@ -377,11 +382,13 @@ $\mathtt{\dfrac{1}{slow\_factor}}$为一个循环的时间，\texttt{n\_cycles}�
 	\item \texttt{Transform(A, B)}在画面上\texttt{A}变成了\texttt{B}的样子，但是画面上的物体名字还叫\texttt{A}
 	\item \texttt{ReplacementTransform(A, B)}在画面上\texttt{A}变成了\texttt{B}的样子，并且画面上的物体名字叫\texttt{B}
 \end{enumerate}
+
 所以以下两个效果相同
 \begin{verbatim}
 self.play(Transform(A, B))
 self.play(Transform(A, C))
 \end{verbatim}
+
 \begin{verbatim}
 self.play(ReplacementTransform(A, B))
 self.play(ReplacementTransform(B, C))
