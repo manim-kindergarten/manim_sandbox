@@ -29,8 +29,8 @@ jobs:
       with:
         source_file: videos/manimTutorial/part6_Miscellaneous.py
         scene_names: "TracedPathTutorial"
-        args: "--high_quality"
-        pre_render: "git clone https://github.com/Tony031218/manim_projects --depth=1 && git clone https://github.com/manim-kindergarten/manim_sandbox --depth=1"
+        args: "--ultra_high_quality"
+        extra_repos: "https://github.com/Tony031218/manim_projects https://github.com/manim-kindergarten/manim_sandbox"
 
     # Runs a set of commands using the runners shell
     - name: Save output as artifacts
