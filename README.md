@@ -85,6 +85,8 @@ manim_sandbox是由[manim-kindergarten](https://github.com/manim-kindergarten)�
 
 manim-幼儿园的项目成员也利用manim合作制作了许多非常amazing的视频以及十分有用的manim教程，目前已有多期视频在[B站](https://www.bilibili.com/)投稿：
 
+<details>
+<summary>视频列表</summary>
 <table>
   <tr>
     <td>
@@ -143,11 +145,12 @@ manim-幼儿园的项目成员也利用manim合作制作了许多非常amazing�
     <td><a href="https://www.bilibili.com/video/BV1ug4y1q7nu/" title="这个还是翔鸽单独完成哒">manim教程 第五讲 坐标系统与图像</a></td>
   </tr>
 </table>
+</details>
 
 ## 关于manim的学习和交流
 
 我们有一个manim交流群（QQ群：862671480），欢迎大家加入交流。<br>
-对于manim学习中可能遇到的问题，可参考[manim常见问题 v2.3](https://github.com/manim-kindergarten/manim_sandbox/blob/master/documents/manim%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98v2.3.pdf)，如果不方便在线查看，[点此下载](https://github.com/manim-kindergarten/manim_sandbox/blob/master/documents/manim%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98v2.3.pdf?raw=True)<br>
+对于manim学习中可能遇到的问题，可参考[manim常见问题](https://github.com/manim-kindergarten/manim_sandbox/blob/problems/problems.pdf)，如果不方便在线查看，[点此下载](https://github.com/manim-kindergarten/manim_sandbox/blob/problems/problems.pdf?raw=True)<br>
 
 ## 关于项目中的代码规范问题
 
