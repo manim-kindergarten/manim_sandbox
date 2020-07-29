@@ -23,7 +23,7 @@ jobs:
 
     # Runs a single command using the runners shell
     - name: Render videos
-      uses: manim-kindergarten/manim_action_renderer@v1.0
+      uses: manim-kindergarten/manim_action_renderer@dev
       id: renderer
       with:
         source_file: videos/manimTutorial/part6_Miscellaneous.py
