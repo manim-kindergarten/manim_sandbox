@@ -21,6 +21,9 @@ class RawFrameScene(Scene):
         self.file_writer.write_frame(frame)
         self.num_frames += 1
 
+    def write_current_frame(self):
+        self.write_frame(self.get_frame())
+
     def capture(self, mobjects, write_current_frame=True):
         """
         Capture mobjects on the current frame, write to movie if possible.
@@ -30,11 +33,13 @@ class RawFrameScene(Scene):
         """
         self.update_frame(mobjects, self.get_frame())
         if write_current_frame:
-            self.write_frame(self.get_frame())
+            self.write_current_frame()
         return self
 
     def print_frame_message(self, msg_end="\r"):
-        print("Capturing raw frame: {}".format(self.num_frames), end=msg_end)
+        sec = int(self.num_frames / self.camera.frame_rate)
+        print("Capturing raw frame: {}. Video duration: {} min {:2d} sec".format(
+            self.num_frames, sec // 60, sec % 60), end=msg_end)
 
     def setup_thread(self):
         def thread_func():
@@ -78,4 +83,7 @@ class RawFrameScene(Scene):
 
     def wait(self, duration=DEFAULT_WAIT_TIME, stop_condition=None):
         for i in range(int(duration * self.camera.frame_rate)):
-            self.write_frame(self.get_frame())
+            self.write_current_frame()
+
+    def clear(self):
+        self.reset_camera()
