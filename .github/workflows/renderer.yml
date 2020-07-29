@@ -14,6 +14,7 @@ jobs:
   # This workflow contains a single job called "build"
   build:
     # The type of runner that the job will run on
+    if: "contains(github.event.head_commit.message, '[render]')"
     runs-on: ubuntu-latest
 
     # Steps represent a sequence of tasks that will be executed as part of the job
