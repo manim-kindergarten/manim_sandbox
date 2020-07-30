@@ -13,38 +13,38 @@ jobs:
         os: [ ubuntu-latest ]
 
     steps:
-    - uses: actions/checkout@v2
+      - uses: actions/checkout@v2
 
-    - name: Compile TeX
-      uses: xu-cheng/latex-action@v2
-      with:
-        root_file: problems.tex
-        working_directory: docs/
-        args: -xelatex -file-line-error -interaction=nonstopmode -shell-escape
-        extra_system_packages: "msttcorefonts-installer fontconfig"
-        pre_compile: "update-ms-fonts && fc-cache -f && bash fonts/install.sh && fc-list"
+      - name: Compile TeX
+        uses: xu-cheng/latex-action@v2
+        with:
+          root_file: problems.tex
+          working_directory: docs/
+          args: -xelatex -file-line-error -interaction=nonstopmode -shell-escape
+          extra_system_packages: "msttcorefonts-installer fontconfig"
+          pre_compile: "update-ms-fonts && fc-cache -f && bash fonts/install.sh"
 
-    - name: Upload artifacts
-      uses: actions/upload-artifact@v2
-      if: success()
-      with:
-        name: CommonProblems
-        path: docs/problems.pdf
-    
-    - name: Commit files
-      run: |
-        git config --local user.email "action@github.com"
-        git config --local user.name "GitHub Action"
-        cp docs/problems.pdf ../problems.pdf
-        git checkout --orphan problems
-        git rm -rf .
-        mv ../problems.pdf problems.pdf
-        git add problems.pdf
-        git commit -m "Upload CommonProblems" -a
-      
-    - name: Push changes
-      uses: ad-m/github-push-action@master
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        branch: problems
-        force: true
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v2
+        if: success()
+        with:
+          name: CommonProblems
+          path: docs/problems.pdf
+
+      - name: Commit files
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          cp docs/problems.pdf ../problems.pdf
+          git checkout --orphan problems
+          git rm -rf .
+          mv ../problems.pdf problems.pdf
+          git add problems.pdf
+          git commit -m "Upload CommonProblems" -a
+
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: problems
+          force: true

@@ -3,7 +3,7 @@ name: Render videos
 on: push
 
 jobs:
-  build:
+  render:
     if: "contains(github.event.head_commit.message, '[render]')"
     runs-on: ubuntu-latest
 
@@ -11,7 +11,7 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Render videos
-        uses: manim-kindergarten/manim_action_renderer@dev
+        uses: manim-kindergarten/manim_action_renderer@master
         id: renderer
         with:
           source_file: videos/manimTutorial/part6_Miscellaneous.py
