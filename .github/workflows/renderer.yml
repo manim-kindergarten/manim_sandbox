@@ -1,0 +1,31 @@
+name: Render videos
+
+on: push
+
+jobs:
+  render:
+    if: "contains(github.event.head_commit.message, '[render]')"
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Render videos
+        uses: manim-kindergarten/manim_action_renderer@master
+        id: renderer
+        with:
+          source_file: videos/manimTutorial/part6_Miscellaneous.py
+          args: "--high_quality"
+          fonts_dir: assets/fonts/
+          scene_names: |
+            OpeningScene
+            TracedPathTutorial
+          extra_repos: |
+            https://github.com/Tony031218/manim_projects 
+            https://github.com/manim-kindergarten/manim_sandbox
+
+      - name: Save output as artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: Videos
+          path: ${{ steps.renderer.outputs.video_path }}
