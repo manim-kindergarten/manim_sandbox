@@ -1,3 +1,8 @@
+# from @pdcxs
+# A VideoMobject to import videos, just like ImageMobject
+# put videos into assets/videos folder
+# demo usage can be found in demos in this project
+
 from manimlib.mobject.mobject import Mobject
 from manimlib.mobject.types.image_mobject\
      import ImageMobject
@@ -5,10 +10,18 @@ from manimlib.utils.images import \
     get_full_video_path
 from manimlib.constants import *
 from manimlib.utils.config_ops import digest_config
+from manimlib.utils.file_ops import seek_full_path_from_defaults
 
 from math import floor
 import cv2
 import numpy as np
+
+def get_full_video_path(video_file_name):
+    return seek_full_path_from_defaults(
+        video_file_name,
+        default_dir=os.path.join("assets", "videos"),
+        extensions=[".mp4", ".avi", ".wmv"]
+    )
 
 class VideoMobject(Mobject):
     CONFIG = {
