@@ -1,52 +1,38 @@
-\documentclass[a4paper]{article}
-\usepackage[UTF8]{ctex}
-\usepackage[colorlinks, linkcolor=blue]{hyperref}
-\usepackage[a4paper, top=2.5cm, bottom=2.5cm, left=2.5cm, right=2.5cm]{geometry}
-\usepackage{enumerate, tcolorbox, amsmath, booktabs, fontspec, tikz, harmony}
+%\documentclass[a4paper]{article}
+\documentclass[cn,blue,14pt,normal]{elegantnote}
+%\usepackage[UTF8]{ctex}
+%\usepackage[colorlinks, linkcolor=blue]{hyperref}
+%\usepackage[a4paper, top=2.5cm, bottom=2.5cm, left=2.5cm, right=2.5cm]{geometry}
+\usepackage{tcolorbox, booktabs, fontspec, tikz, harmony}
+\title{\texttt{manim}常见问题}
 
-\usepackage{fancyhdr}
-\pagestyle{fancy}
-\fancyhf{}
-\fancyfoot[L]{
-    \includegraphics[height=2\baselineskip]{assets/Logo(1).png}
-    \begin{tabular}[b]{l}
-        欢迎加入 \href{https://github.com/manim-kindergarten}{\texttt{Manim Kindergarten}}\\
-        一起来玩 \href{https://github.com/manim-kindergarten/manim_sandbox}{\texttt{Manim Sandbox}}
-    \end{tabular}
-}
-\fancyfoot[R]{\normalsize\thepage}
-\renewcommand{\footrulewidth}{0.3pt}
-\renewcommand{\headrulewidth}{0pt}
+\author{鹤翔万里\& catfish}
+\institute{\textsc{manim-kindergarten}}
 
-\usepackage{listings}
-\lstset{
-	basicstyle=\fontspec{Consolas}
-}
+\version{3.0}
+\date{\zhtoday}
+
 
 \begin{document}
+	
+\maketitle
 
-\vspace*{50mm}
-\begin{center}
-    \huge \texttt{manim} 常见问题 \textit{v2.4} \\
-    \hspace*{\fill} \\
-    \LARGE 鹤翔万里\& catfish \\
-    \today
-\end{center}
+\centerline{
+	\includegraphics[height=3\baselineskip]{assets/Logo.png}
+}
 
 \newpage
 
-\begin{center}
-    \tableofcontents
-\end{center} 
+\tableofcontents
+
+
 
 \newpage
 
-\begin{center}
-    \section{安装问题}
-\end{center}
+\section{安装问题}
 
 安装时最好不要看\texttt{README.md}自己研究，
-推荐一视数学卷毛杨的两个教程：
+推荐一视数学卷毛杨的两个教程，和教程文档中的安装指南\url{https://manim.ml/installation}：
 \begin{itemize}
     \item \url{https://www.bilibili.com/video/av38126904}
     \item \url{https://www.bilibili.com/read/cv4139851}
@@ -56,64 +42,60 @@
 \subsubsection*{Q1: 使用\texttt{anaconda}，命令行输入\texttt{python}无反应或报错}
 
 考虑\texttt{path}环境变量是否填全\footnote{安装\texttt{anaconda}时是否勾选添加到\texttt{path}变量}，\texttt{path}变量里应该有：
-
-\begin{verbatim}
+\begin{lstlisting}[frame=none]
     <your_path>\Anaconda3;
     <your_path>\Anaconda3\Scripts;
     <your_path>\Anaconda3\Library\bin;
-\end{verbatim}
+\end{lstlisting}
 
 \subsubsection*{Q2: \texttt{pip install ...}时满屏红字报错，或者安装过慢}
 
 更换国内镜像源，使用 
-\begin{verbatim}
+\begin{lstlisting}[frame=none]
     pip install -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple
-\end{verbatim}
-
+\end{lstlisting}
 代替\footnote{临时换源}
-\begin{verbatim}
+\begin{lstlisting}[frame=none]
     pip install -r requirements.txt
-\end{verbatim}
+\end{lstlisting}
 
 \subsubsection*{Q3: \texttt{pip}安装\texttt{pycairo}总是失败}
 
 下载\texttt{pycairo}对应版本的\texttt{whl}包
-\footnote{群文件中有某个版本的\texttt{pycairo}，注意\texttt{Python}版本和系统版本是否均合适}
-\begin{verbatim}
-    pycairo......whl
-\end{verbatim}
-
+\footnote{可在\url{https://www.lfd.uci.edu/~gohlke/pythonlibs/\#pycairo}中下载，注意\texttt{Python}版本和系统版本是否均合适}
 并手动安装
-\begin{verbatim}
+\begin{lstlisting}[frame=none]
     pip install pycairo......whl
-\end{verbatim}
+\end{lstlisting}
 
 \subsubsection*{Q4: \texttt{pip}安装过包，但运行时提示没有模块}
 考虑电脑上是否有多个\texttt{Python}，确定\texttt{pip}把包装到了需要使用的\texttt{Python}上面。
 
 \subsubsection*{Q5: 关于\texttt{scipy}有报错}
-可能是版本不对，使用\texttt{pip uninstall}后重新\texttt{pip install scipy}
+可能是版本不对，使用\texttt{pip uninstall scipy}后重新\texttt{pip install scipy}
 
 \newpage
 
-\begin{center}
-    \section{运行时问题}
-\end{center}
+\section{运行时问题}
+
+\begin{note}
+	在出现以下问题时，请确保你正在使用最新版\texttt{master}分支的\texttt{manim}
+\end{note}
 
 \subsection{\texttt{import}问题}
 \subsubsection*{Q1: 没有模块\texttt{big\_ol\_pile\_of\_manim\_imports}}
 
 将文件中的
-\begin{verbatim}
+\begin{lstlisting}[frame=none]
     from big_ol_pile_of_manim_imports import *
-\end{verbatim}
+\end{lstlisting}
 
 改成
-\begin{verbatim}
+\begin{lstlisting}[frame=none]
     from manimlib.imports import *
-\end{verbatim}
+\end{lstlisting}
 
-\subsubsection*{Q2: 缺少模块\texttt{pygments}}
+\subsubsection*{Q2: 缺少模块\texttt{pygments}\footnote{已在\href{https://github.com/3b1b/manim/pull/1147}{\#1147}中修复}}
 
 手动安装 \texttt{pip install pygments}
 
@@ -123,16 +105,17 @@
 
 \subsubsection*{Q2: 报错 \texttt{xelatex error converting to xdv}}\label{sub:Q2}
 若为\texttt{Windows}系统，先把\texttt{manimlib/constants.py}的第29行：
-\begin{verbatim}
+\begin{lstlisting}[frame=none]
     MEDIA_DIR = "./media"
-\end{verbatim}
+\end{lstlisting}
 
-改成
-\begin{verbatim}
+改成\footnote{已在\href{https://github.com/3b1b/manim/pull/689}{\#689}中修复}
+\begin{lstlisting}[frame=none]
     MEDIA_DIR = os.path.join(os.getcwd(), "media")
-\end{verbatim}
+\end{lstlisting}
 
-再进行尝试。如果仍然出错，尝试将\texttt{ctex\_template.tex}中的\texttt{\textbackslash usepackage\{ctex\}}提到该文件的第二行再进行尝试。
+再进行尝试。如果仍然出错，尝试将\texttt{ctex\_template.tex}中的\texttt{\textbackslash usepacka}\\
+\texttt{ge\{ctex\}}提到该文件的第二行再进行尝试\footnote{已在\href{https://github.com/3b1b/manim/pull/1187}{\#1187}中修复}。
 还出错误的话，向下继续按步骤进行：
 
 \begin{enumerate}[I.]
@@ -173,8 +156,7 @@
     \item 若含有\texttt{xdv}文件但没有\texttt{svg}文件
     \begin{enumerate}[1.]
         \item \texttt{divsvgm}是否添加到环境变量，可以使用\texttt{dvisvgm --version}观察是否由报错来检查
-        \item \texttt{dvisvgm}版本是否过低，若\texttt{dvisvgm --verison}的输出版本号为1开头，\\
-        请更换新版\texttt{dvisvgm}\footnote{上网下载、或者使用群文件中的版本}，并注意将含有\texttt{dvisvgm}的文件夹添加到环境变量中
+        \item \texttt{dvisvgm}版本是否过低，若\texttt{dvisvgm --verison}的输出版本号为1开头，请更换新版\texttt{dvisvgm}\footnote{上网下载、或者使用群文件中的版本}，并注意将含有\texttt{dvisvgm}的文件夹添加到环境变量中
     \end{enumerate}
 \end{enumerate}
 
@@ -199,7 +181,7 @@
 
 使用\texttt{TextMobject}与\texttt{TexMobject}书写公式时：
 
-\fbox{$\texttt{TextMobject("} \text{文字} \texttt{\$} \text{公式} \texttt{\$")} \Longleftrightarrow \texttt{TexMobject("\textbackslash \textbackslash text\{} \text{文字} \texttt{\}} \text{公式} \texttt{")}$}
+\noindent \fbox{$\texttt{TextMobject("} \text{文字} \texttt{\$} \text{公式} \texttt{\$")} \Longleftrightarrow \texttt{TexMobject("\textbackslash \textbackslash text\{} \text{文字} \texttt{\}} \text{公式} \texttt{")}$}
 
 \subsubsection*{Q2: \texttt{TextMobject}中怎么改字体样式}
 
@@ -210,7 +192,7 @@
     \centering
     \begin{tabular}{llll}
         \toprule
-        字体样式 & \LaTeX 命令  & 字体样式 & \LaTeX 命令 \\
+        字体样式 & \LaTeX 代码  & 字体样式 & \LaTeX 代码 \\
         \midrule
         \textrm{roman}  & \texttt{\textbackslash textrm\{\dots\}} & \textbf{bold face} & \texttt{\textbackslash textbf\{\dots\}} \\
         \textsf{sans serif} & \texttt{\textbackslash textsf\{\dots\}} & \textmd{medium weight} & \texttt{\textbackslash textmd\{\dots\}} \\
@@ -226,12 +208,13 @@
 \subsubsection*{Q3: 想自定义字体怎么办}
 
 使用新版\texttt{manim}特有的\texttt{Text()}类，
-方法如下$\texttt{Text("}\text{文字}\texttt{", font="}\text{字体}\texttt{")}$，
-其中字体要填写在计算机内存储的格式\footnote{例如：Microsoft YaHei，Source Han Sans CN(Windows可以打开C:/Windows)}，但是不能使用\LaTeX 语法书写公式
+方法如下$\texttt{Text("}\text{文字}\texttt{", font="}$
+$\text{字体}\texttt{")}$，
+其中字体要填写在计算机内存储的格式\footnote{例如：Microsoft YaHei，Source Han Sans CN(Windows可以打开C:/Windows/Fonts中的字体文件查看名称)}，但是不能使用\LaTeX 语法书写公式
 
 \subsubsection*{Q4: 想用自定义字体写公式怎么办}
 
-可以使用群文件里\texttt{cigar666}编写的\texttt{MyText()}类$_{\text{\texttt{Cigar}牛逼}}$
+可以使用\texttt{cigar666}编写的\texttt{MyText()}类，源码地址：\url{https://github.com/manim-kindergarten/manim_sandbox/blob/master/utils/mobjects/MyText.py}
 
 \subsubsection*{Q5: \texttt{TexMobject}中换行是什么}
 四个右划线\texttt{\textbackslash \textbackslash \textbackslash \textbackslash}，
@@ -265,30 +248,28 @@
 	\item 使用自带的函数\texttt{get\_submobject\_index\_labels}获取下标的\texttt{VGroup}，然后添加
 \end{enumerate}
 
+关于\texttt{Tex(t)Mobject}的结构，详细可以看视频\url{https://www.bilibili.com/video/BV1CC4y1H7kp}
+
 \subsubsection*{Q9: \texttt{TexMobject}使用 \texttt{\textbackslash frac} 拆分时出错}
 这个是\texttt{Grant}写\texttt{tex\_file\_writing.py} 的一个\texttt{bug}，
 建议使用\texttt{\{}分子 \texttt{\textbackslash over}分母\texttt{\}}
 来代替 \texttt{\textbackslash frac\{}分子\texttt{\}\{}分母\texttt{\}}
 
-\subsubsection*{Q10: 括号匹配不全}
-显示不全的例子：$\left\{\begin{matrix}
-    a+b \\
-    b+a \\
-\end{matrix}\right.$
-\begin{verbatim}
+\subsubsection*{Q10: 使用\texttt{\textbackslash left\textbackslash\{ ...\textbackslash right.}报错}
+\begin{lstlisting}[frame=none]
     TexMobject(r"\left\{\begin{matrix} a+b \\ b+a \\ \end{matrix}\right.")
-\end{verbatim}
+\end{lstlisting}
 
 \texttt{matrix}这样的写法在\texttt{manim}中会报错，无法生成\texttt{dvi}，
-原因是\texttt{manim}会自动寻找相对应的括号来匹配，这里缺少了右边的大括号
+原因是\texttt{manim}会自动寻找相对应的括号来匹配，但这里并没有右大括号，而是\texttt{.}
 
 所以推荐使用\texttt{cases}环境,效果是一样的：$\begin{cases}
     a+b \\
     b+a \\
 \end{cases}$
-\begin{verbatim}
+\begin{lstlisting}[frame=none]
     TexMobject(r"\begin{cases} a+b \\ b+a \\ \end{cases}")
-\end{verbatim}
+\end{lstlisting}
 
 \subsection{素材引用问题}
 \subsubsection*{Q1: 使用\texttt{SVGMobject}找不到\texttt{svg}文件}
@@ -306,20 +287,26 @@
 \subsubsection*{Q3: 能否导入\texttt{gif}文件}
 可以使用\texttt{ImageMobject}导入，但是只保留第一帧，不会显示动图
 
+关于插入素材（图片），详细可以看视频\url{https://www.bilibili.com/video/BV1CC4y1H7kp}
+
 \newpage
 
-\begin{center}
-    \section{其它问题}
-\end{center}
+\section{其它问题}
 
 \subsubsection*{Q1: 有什么manim教程}
 \addcontentsline{toc}{subsection}{Q1: 有什么\texttt{manim}教程}
 \url{https://github.com/manim-kindergarten/manim}这里的\texttt{README}文件中也有整合
 
 \begin{enumerate}[1.]
+	\item \texttt{manim}教程文档（制作中）：\url{https://manim.ml/}。
 	\item \texttt{MK}制作的系列视频教程（制作中）
 	\begin{itemize}
 		\item \url{https://space.bilibili.com/171431343/favlist?fid=947158443}
+	\end{itemize}
+	\item \texttt{MK}制作的视频源码(videos/)和常用自定义类(utils/)
+	\begin{itemize}
+		\item \url{https://github.com/manim-kindergarten/manim_sandbox/tree/master/videos}
+		\item \url{https://github.com/manim-kindergarten/manim_sandbox/tree/master/utils}
 	\end{itemize}
     \item 群主\texttt{cigar666}的B站专栏
     \begin{itemize}
@@ -344,16 +331,16 @@
 
 \subsubsection*{Q3: 群友用的\texttt{manim}都是什么版本}
 \addcontentsline{toc}{subsection}{Q3: 群友用的\texttt{manim}都是什么版本}
-\texttt{manim}不看版本，一般使用的都是最新库，\texttt{release}里面带版本号的都可以看作旧版
+\texttt{manim}不看版本，一般使用的都是\texttt{GitHub}上的最新源码，\texttt{release}里面带版本号的都可以看作旧版
 
 \subsubsection*{Q4: 如何使用傅里叶级数作图}
 \addcontentsline{toc}{subsection}{Q4: 如何使用傅里叶级数作图}
 套用 Grant 写好的文件 （有部分代码\texttt{import}部分路径不对，请自行调整）
-\begin{verbatim}
+\begin{lstlisting}[frame=none]
     from_3b1b/active/diffyq/part2/fourier_series.py
     from_3b1b/active/diffyq/part4/fourier_series_scenes.py
     from_3b1b/active/diffyq/part4/long_fourier_series.py
-\end{verbatim}
+\end{lstlisting}
 
 \subsubsection*{Q5: 傅里叶级数作图如何调整时长}
 \addcontentsline{toc}{subsection}{Q5: 傅里叶级数作图如何调整时长}
@@ -362,15 +349,13 @@
 $\mathtt{\dfrac{1}{slow\_factor}}$为一个循环的时间，\texttt{n\_cycles}为循环的个数
 
 
-只需要更换\texttt{svg}素材即可\footnote{自己制作，或者使用群里的\texttt{svg}素材}
+只需要更换\texttt{svg}素材即可\footnote{自己制作，或者使用这里的\texttt{svg}素材:\url{https://github.com/manim-kindergarten/manim_sandbox/tree/master/assets/svg_images}}
 
 \subsubsection*{Q6: \texttt{svg}用什么软件制作}
 \addcontentsline{toc}{subsection}{Q6: \texttt{svg}用什么软件制作}
-\texttt{Adobe Illustrator}(简称 AI)或者\texttt{inkscape}(简称 ink)
+\texttt{Adobe Illustrator}(简称 AI，推荐)或者\texttt{inkscape}(简称 ink，不推荐)。而且不要使用网页版编辑器
 
-尽量不要使用网页版编辑器
-
-目前\texttt{manim}对\texttt{SVG}的解析很局限，推荐使用\texttt{AI}导出
+目前\texttt{manim}对\texttt{SVG}的解析很局限，推荐使用\texttt{AI}\footnote{并且使用“另存为$\to$SVG”的方式，不要使用导出}
 
 \subsubsection*{Q7: 动画怎么显示旋转一个物体}
 \addcontentsline{toc}{subsection}{Q7: 动画怎么显示旋转一个物体}
@@ -384,15 +369,15 @@ $\mathtt{\dfrac{1}{slow\_factor}}$为一个循环的时间，\texttt{n\_cycles}�
 \end{enumerate}
 
 所以以下两个效果相同
-\begin{verbatim}
+\begin{lstlisting}[frame=none]
 self.play(Transform(A, B))
 self.play(Transform(A, C))
-\end{verbatim}
+\end{lstlisting}
 
-\begin{verbatim}
+\begin{lstlisting}[frame=none]
 self.play(ReplacementTransform(A, B))
 self.play(ReplacementTransform(B, C))
-\end{verbatim}
+\end{lstlisting}
 
 \subsubsection*{Q9: 怎么控制物体移动或者\texttt{Transform}的速率}
 \addcontentsline{toc}{subsection}{Q9: 怎么控制物体移动或者\texttt{Transform}的速率}
@@ -519,16 +504,16 @@ self.play(ReplacementTransform(B, C))
 \subsubsection*{Q14: 一个\texttt{self.play}里写两个\texttt{ApplyMethod}只对一个起作用怎么办}
 \addcontentsline{toc}{subsection}{Q14: 一个\texttt{self.play}里写两个\texttt{ApplyMethod}只对一个起作用怎么办}
 去掉\texttt{ApplyMethod}，例如：
-\begin{verbatim}
+\begin{lstlisting}[frame=none]
     self.play(ApplyMethod(mob.scale, 2), ApplyMethod(mob.shift, DOWN))
-\end{verbatim}
+\end{lstlisting}
 
 改成
-\begin{verbatim}
+\begin{lstlisting}[frame=none]
     self.play(mob.scale, 2, mob.shift, DOWN)
-\end{verbatim}
+\end{lstlisting}
 
-\newpage
+%\newpage
 
 \subsubsection*{Q15: 如何解决二维画面中的图层问题}
 \addcontentsline{toc}{subsection}{Q15: 如何解决二维画面中的图层问题}
@@ -585,7 +570,6 @@ self.play(ReplacementTransform(B, C))
 
 一般把 \texttt{-w}最高画质修改成\texttt{1080P60}
 
-\newpage
 
 \subsubsection*{Q19: 有没有什么好的场景例子供学习}
 \addcontentsline{toc}{subsection}{Q19: 有没有什么好的场景例子供学习}
@@ -603,12 +587,19 @@ self.play(ReplacementTransform(B, C))
 	\end{itemize}
 \end{enumerate}
 
+\subsubsection*{Q20: \texttt{shaders}分支是什么，和普通的有什么区别}
+\addcontentsline{toc}{subsection}{Q20: \texttt{shaders}分支是什么，和普通的有什么区别}
 
-\begin{center}
-    \section{注意}
-\end{center}
+\texttt{shaders}分支中的\texttt{manim}是Grant正在制作完善的新版\texttt{manim}，它使用\texttt{modernGL}来进行GPU渲染，会有更快的速度。
+但是目前仍不稳定，有能力的可以尝试使用。
 
-如果有以上之外的问题,可以在群里提出,或者按照下图操作
+关于三个版本的\texttt{manim}的简要说明在\href{https://github.com/3b1b/manim/issues/1243}{\#1243}
+
+\newpage
+
+\section{注意}
+
+如果有以上之外的问题,可以在群里提出,也可以在GitHub上提出issue，或者按照下图操作
 
     \begin{figure}[h]
         \begin{center}
@@ -621,5 +612,9 @@ self.play(ReplacementTransform(B, C))
     \item 3.虽为 manim 交流群,但不要一有问题就提出来,简单的问题能自己解决最好,不能解决时再寻求帮助
     \item 4.群主和管理员平时较忙,有时若不能及时回复敬请谅解
 \end{itemize}
+
+\begin{center}
+\textbf{最后，祝大家好运（*＾-＾*）}
+\end{center}
 
 \end{document}
