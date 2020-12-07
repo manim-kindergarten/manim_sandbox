@@ -104,6 +104,34 @@ class MyText(TexMobject):
             self.new_font_texs.add(tex_new)
         return self.new_font_texs
 
+class MyTitle(Text):
+    
+# similar to the 'Title' class in manim,
+# use Text to replace TextMobject so that we can change font
+
+    CONFIG = {
+        "scale_factor": 1,
+        "include_underline": True,
+        "underline_width": FRAME_WIDTH - 2,
+        # This will override underline_width
+        "match_underline_width_to_text": False,
+        "underline_buff": MED_SMALL_BUFF,
+    }
+
+    def __init__(self, *text, **kwargs):
+        Text.__init__(self, *text, **kwargs)
+        self.scale(self.scale_factor)
+        self.to_edge(UP)
+        if self.include_underline:
+            underline = Line(LEFT, RIGHT)
+            underline.next_to(self, DOWN, buff=self.underline_buff)
+            if self.match_underline_width_to_text:
+                underline.match_width(self)
+            else:
+                underline.set_width(self.underline_width)
+            self.add(underline)
+            self.underline = underline
+
 class Test_mytext(Scene):
 
     def construct(self):
