@@ -26,7 +26,8 @@ class BaseTree(VGroup):
             self.add(layer_i)
         return self
 
-    def generate_new_branch(self, mob, old_points, new_points):
+    @staticmethod
+    def generate_new_branch(mob, old_points, new_points):
         old_vect, new_vect = old_points[1] - old_points[0], new_points[1] - new_points[0]
         old_angle, new_angle = np.angle(complex(*old_vect[:2])), np.angle(complex(*new_vect[:2]))
         mob_new = mob.copy().shift(new_points[0] - old_points[0])\

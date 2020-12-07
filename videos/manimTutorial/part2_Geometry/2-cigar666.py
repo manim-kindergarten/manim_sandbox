@@ -375,7 +375,8 @@ class Subclass_of_Arc(Scene):
         self.play(ShowCreation(group_d2), run_time=0.8)
         self.wait(4)
 
-    def link(self, mob_a, mob_b, **kwargs):
+    @staticmethod
+    def link(mob_a, mob_b, **kwargs):
         return Line(mob_a.get_right(), mob_b.get_left(), **kwargs)
 
 class Staff(Scene):

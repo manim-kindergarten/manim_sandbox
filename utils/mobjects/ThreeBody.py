@@ -52,7 +52,8 @@ class Three_Body(VGroup):
             self.planet = three_Mobject[3].move_to(self.p_pos)
             self.add(self.planet)
 
-    def get_force(self, x1, x2, m1, m2, G=1):
+    @staticmethod
+    def get_force(x1, x2, m1, m2, G=1):
         # force of obj_01 to obj_02, this vector start from obj_02 and end in obj_01
         r = np.sqrt(sum((x1 - x2) ** 2))
         return G * m1 * m2 * (x1 - x2) / (r ** 3 + 2e-3)

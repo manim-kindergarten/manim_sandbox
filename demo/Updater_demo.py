@@ -221,7 +221,8 @@ class Intro_lnX(GraphScene):
 
         self.wait(4)
 
-    def func(self, x):
+    @staticmethod
+    def func(x):
         return 1/x
 
     def create_area(self, x0=1, x1=2.5):
