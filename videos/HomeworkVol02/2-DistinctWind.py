@@ -203,7 +203,7 @@ class main(Scene) :
         
         s = SurroundingRectangle(
             VGroup(
-                *[f for f in cor_sum_list]
+                *list(cor_sum_list)
             )
         ).set_color(BLUE)
         self.play(ShowCreation(s))
