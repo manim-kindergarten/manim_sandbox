@@ -72,7 +72,8 @@ class RawFrameScene(Scene):
         self.print_frame_message(msg_end="\n")
         self.num_plays += 1
 
-    def play(self, *args, **kwargs):
+    @staticmethod
+    def play(*args, **kwargs):
         """
         'self.play' method fails in this scene. Do not use it.
         """

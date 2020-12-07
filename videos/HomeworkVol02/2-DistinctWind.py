@@ -26,7 +26,8 @@ class BeginScene(Scene) :
         self.wait(2)
 
 class main(Scene) :
-    def Build_numbers(self) :
+    @staticmethod
+    def Build_numbers() :
         lines = []
         for line_num in range(1, 4) :
             line = []

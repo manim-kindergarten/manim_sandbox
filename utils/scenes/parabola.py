@@ -33,7 +33,8 @@ class Parabola(Scene):
         )
         return self.graph
 
-    def get_horizontal(self):
+    @staticmethod
+    def get_horizontal():
         return Line(FRAME_X_RADIUS * LEFT, FRAME_X_RADIUS * RIGHT)
 
     def value_to_point(self, y):
@@ -49,7 +50,8 @@ class Parabola(Scene):
             f + FRAME_Y_RADIUS * UP,
             f + FRAME_Y_RADIUS * DOWN)
 
-    def map(self, val, from_min, from_max, to_min, to_max):
+    @staticmethod
+    def map(val, from_min, from_max, to_min, to_max):
         return (val - from_min) / (from_max - from_min) * (to_max - to_min) + to_min
 
     def coords_to_point(self, x, y):
@@ -98,7 +100,8 @@ class Parabola(Scene):
         fac = dest_x - pos1[0]
         return pos1 + vec * fac
 
-    def right(self, point1, point2):
+    @staticmethod
+    def right(point1, point2):
         pos1 = point1.get_center()
         pos2 = point2.get_center()
         if pos1[0] > pos2[0]:
