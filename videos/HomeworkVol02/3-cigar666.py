@@ -258,14 +258,16 @@ class Sum_of_cubes_new(ThreeDScene):
         #
         # self.wait(4)
 
-    def l_shape_mn(self, mn, stroke_scale, scale_factor=1, **kwargs):
+    @staticmethod
+    def l_shape_mn(mn, stroke_scale, scale_factor=1, **kwargs):
         m, n = mn[0], mn[1]
         p = np.array([[-1, -1, 0], [2 * n - 1, -1, 0], [2 * n - 1, 2 * m - 1, 0], [-1, 2 * m - 1, 0]]) * 0.5
         l01 = Line(p[1], p[2], stroke_width=1 * stroke_scale, **kwargs).scale_about_point(scale_factor, ORIGIN)
         l02 = Line(p[2], p[3], stroke_width=1 * stroke_scale, **kwargs).scale_about_point(scale_factor, ORIGIN)
         return VGroup(l01, l02)
 
-    def rect_mn_2d(self, mn, stroke_scale, scale_factor=1, **kwargs):
+    @staticmethod
+    def rect_mn_2d(mn, stroke_scale, scale_factor=1, **kwargs):
         m, n = mn[0], mn[1]
         p = np.array([[-1, -1, 0], [2 * n - 1, -1, 0], [2 * n - 1, 2 * m - 1, 0], [-1, 2 * m - 1, 0]]) * 0.5
         rect_mn = Polygon(p[0], p[1], p[2], p[3], stroke_width=1 * stroke_scale, **kwargs).scale_about_point(scale_factor, ORIGIN)

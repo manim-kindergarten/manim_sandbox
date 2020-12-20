@@ -41,7 +41,7 @@ class Rubik_Scene(ThreeDScene):
             else:
                 self.play(Rotating(self.rubik.get_layer(layer_rotate, dim=dim), radians=theta, axis=axis, run_time=run_time), **kwargs)
         else:
-            layer_rotate = [i for i in range(1, self.order+1)]
+            layer_rotate = list(range(1, self.order+1))
             self.play(Rotating(self.rubik.get_layer(layer_rotate, dim=dim), radians=theta, axis=axis, run_time=run_time), **kwargs)
 
 

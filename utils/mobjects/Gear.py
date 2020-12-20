@@ -47,7 +47,8 @@ class Gear_outline(VMobject):
             [*vertices, vertices[0]]
         )
 
-    def polar2xyz(self, r, theta):
+    @staticmethod
+    def polar2xyz(r, theta):
         if type(theta) == np.ndarray:
             if type(r) == np.ndarray:
 
