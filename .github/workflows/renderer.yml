@@ -21,7 +21,7 @@ jobs:
             OpeningScene
             TracedPathTutorial
           extra_repos: |
-            https://github.com/Tony031218/manim_projects 
+            https://github.com/TonyCrane/manim_projects 
             https://github.com/manim-kindergarten/manim_sandbox
 
       - name: Save output as artifacts

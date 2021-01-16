@@ -45,7 +45,7 @@ Below are links to some of our member's [bilibili](https://www.bilibili.com/) ho
   </tr>
   <tr>
     <td rowspan="2">
-      <a href="https://github.com/Tony031218" target="_blank">
+      <a href="https://github.com/TonyCrane" target="_blank">
         <img src="https://avatars1.githubusercontent.com/u/44120331?s=460&u=fd846e0820e2880970eb1081ea4a47f84a8708db&v=4" alt="鹤翔万里" width="60"
         height="60">
       </a>
@@ -53,7 +53,7 @@ Below are links to some of our member's [bilibili](https://www.bilibili.com/) ho
     <td><a href="https://space.bilibili.com/171431343/">bilibili homepage</a></td>
   </tr>
   <tr>
-    <td><a href="https://github.com/Tony031218/manim_projects">manim project on GitHub</a></td>
+    <td><a href="https://github.com/TonyCrane/manim_projects">manim project on GitHub</a></td>
   </tr>
   <tr>
     <td rowspan="2">
