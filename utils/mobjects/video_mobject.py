@@ -4,6 +4,7 @@
 
 from manimlib.mobject.mobject import Mobject
 from manimlib.mobject.types.image_mobject import ImageMobject
+from manimlib.scene.scene import Scene
 from manimlib.constants import *
 from manimlib.utils.config_ops import digest_config
 from manimlib.utils.file_ops import seek_full_path_from_defaults
