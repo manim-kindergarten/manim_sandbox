@@ -9,9 +9,12 @@
 \author{鹤翔万里\& catfish}
 \institute{\textsc{manim-kindergarten}}
 
-\version{3.0}
+\version{3.1}
 \date{\zhtoday}
 
+\lstset{
+	basicstyle=\ttfamily
+}
 
 \begin{document}
 	
@@ -23,9 +26,108 @@
 
 \newpage
 
+
+\section*{一切之前}
+
+\texttt{manim}是一个使用python制作视频的动画引擎。学习它你首先要会一点python，至少要学会python的基础语法、
+模块的调用以及类的基础知识（如果想要阅读源码，还需要掌握更多python面向对象的知识）。没有python的知识
+学\texttt{manim}是毫无意义的，会非常吃力，也会遇到非常多的问题。学会了python之后便可以少走非常多的弯路，
+这也是我们的忠告。\quad 因此，加入我们
+\textsc{Manim-Kindergarten}\footnote{QQ群：862671480}首先要会使用python，我们会在入群问
+题\footnote{\url{https://b23.tv/KmAvsG}}中进行一个最基础的检测。
+
+\textbf{\underline{最后，本常见问题文档基于\texttt{manim}的\texttt{cairo-backend}分支版本\footnote{即旧版\texttt{manim}，原\texttt{master}分支版本}，}}\\
+\textbf{\underline{不包含新版\texttt{manim}中出现的新问题。}}
+
+\subsection*{如何提问：}
+
+\begin{enumerate}[I.]
+	\item 在mk群里提问，首先需要阅读完本常见问题文档。
+	
+	如果群友对你说“常见问题”或“RTFM”，那么就说明你问的问题在本文档里已经有明确的解答。
+	
+	\item 确保你问的问题不是由于python基础语法问题而造成的错误。
+	
+	如，不要问\texttt{IndentationError}，尽量不要问由于拼写导致的错误等。当群友劝你学习python
+	或者说“STFW”时，那么就说明你的问题属于没有掌握python基础语法而导致的问题，而且你可以在网络上
+	轻松搜索到解决方案。（但这时更建议你认真打牢python基础）
+	
+	\item 如果在\texttt{manim}使用过程中出现了报错：
+	
+	\begin{enumerate}[1.]
+		\item 确保问题不在本文档中
+		\item 将你的代码和\textbf{完整的}报错信息全部发送到群中，这样会方便群友为你解答
+	\end{enumerate}
+
+	\item 如果你想要实现某个效果，但不知道如何操作。请将你想要达到的效果详细易懂地描述出来。
+	\item 语气友善，态度谦虚，避免造成不必要的纠纷。
+\end{enumerate}
+
+\subsection*{教程推荐：}
+
+\begin{enumerate}[I.]
+	\item Python教程：
+	
+	\begin{enumerate}[1.]
+		\item \href{https://www.ituring.com.cn/book/1861}{《Python编程：从入门到实践》}，ISBN 978-7-115-42802-8
+		
+		\item \href{https://www.ituring.com.cn/book/1564}{《流畅的Python》}，ISBN 978-7-115-45415-7（适合掌握Python基础知识后进阶）
+		
+		\item 菜鸟教程-Python3教程 \url{https://www.runoob.com/python3/python3-tutorial.html}
+	\end{enumerate}
+
+	\item \texttt{manim}教程：
+	
+	\begin{enumerate}[1.]
+		\item \texttt{manim}教程文档（制作中）：\url{https://manim.ml/}
+		
+		\item \texttt{MK}制作的系列视频教程（制作中）
+		\begin{itemize}
+			\item \url{https://space.bilibili.com/171431343/favlist?fid=947158443}
+		\end{itemize}
+	
+		\item \texttt{MK}制作的视频源码(videos/)和常用自定义类(utils/)
+	
+		\item 群主\texttt{cigar666}的B站专栏
+		\begin{itemize}
+			\item \url{https://www.bilibili.com/read/readlist/rl82339}
+		\end{itemize}
+	
+		\item \texttt{pdcxs}大大转载的\texttt{manim}教程
+		\begin{itemize}
+			\item \url{https://www.bilibili.com/video/av64023740}
+			\item 源码 \url{https://github.com/Elteoremadebeethoven/AnimationsWithManim}
+		\end{itemize}
+	
+		\item \texttt{GitHub}上\texttt{cai-hust}的中文教程
+		\begin{itemize}
+			\item \url{https://github.com/cai-hust/manim-tutorial-CN}
+		\end{itemize}
+	
+		\item 看\texttt{manim}源码
+	\end{enumerate}
+
+	\item 新版\texttt{manim}教程：
+	
+	\begin{enumerate}[1.]
+		\item 新版\texttt{manim}官方文档：\url{https://3b1b.github.io/manim/}
+		
+		\item 新版\texttt{manim}中文文档：\url{https://manim.ml/shaders/}
+	\end{enumerate}
+
+	\item OpenGL及shaders教程（Grant亲自推荐）
+	\begin{enumerate}[1.]
+		\item The Book of Shaders: \url{https://thebookofshaders.com/}
+		
+		\item Python \& OpenGL for Scientific Visualization: \url{https://www.labri.fr/perso/nrougier/python-opengl/}
+		
+		\item Geometry Shader: \url{https://learnopengl.com/Advanced-OpenGL/Geometry-Shader}
+	\end{enumerate}
+\end{enumerate}
+
+\newpage
+
 \tableofcontents
-
-
 
 \newpage
 
@@ -42,7 +144,7 @@
 \subsubsection*{Q1: 使用\texttt{anaconda}，命令行输入\texttt{python}无反应或报错}
 
 考虑\texttt{path}环境变量是否填全\footnote{安装\texttt{anaconda}时是否勾选添加到\texttt{path}变量}，\texttt{path}变量里应该有：
-\begin{lstlisting}[frame=none]
+\begin{lstlisting}[frame=none, columns=flexible]
     <your_path>\Anaconda3;
     <your_path>\Anaconda3\Scripts;
     <your_path>\Anaconda3\Library\bin;
@@ -51,11 +153,12 @@
 \subsubsection*{Q2: \texttt{pip install ...}时满屏红字报错，或者安装过慢}
 
 更换国内镜像源，使用 
-\begin{lstlisting}[frame=none]
+\begin{lstlisting}[frame=none, columns=flexible]
     pip install -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple
 \end{lstlisting}
+
 代替\footnote{临时换源}
-\begin{lstlisting}[frame=none]
+\begin{lstlisting}[frame=none, columns=flexible]
     pip install -r requirements.txt
 \end{lstlisting}
 
@@ -64,7 +167,7 @@
 下载\texttt{pycairo}对应版本的\texttt{whl}包
 \footnote{可在\url{https://www.lfd.uci.edu/~gohlke/pythonlibs/\#pycairo}中下载，注意\texttt{Python}版本和系统版本是否均合适}
 并手动安装
-\begin{lstlisting}[frame=none]
+\begin{lstlisting}[frame=none, columns=flexible]
     pip install pycairo......whl
 \end{lstlisting}
 
@@ -79,19 +182,19 @@
 \section{运行时问题}
 
 \begin{note}
-	在出现以下问题时，请确保你正在使用最新版\texttt{master}分支的\texttt{manim}
+	在出现以下问题时，请确保你正在使用最新版\texttt{cairo-backend}分支的\texttt{manim}
 \end{note}
 
 \subsection{\texttt{import}问题}
 \subsubsection*{Q1: 没有模块\texttt{big\_ol\_pile\_of\_manim\_imports}}
 
 将文件中的
-\begin{lstlisting}[frame=none]
+\begin{lstlisting}[frame=none, columns=flexible]
     from big_ol_pile_of_manim_imports import *
 \end{lstlisting}
 
 改成
-\begin{lstlisting}[frame=none]
+\begin{lstlisting}[frame=none, columns=flexible]
     from manimlib.imports import *
 \end{lstlisting}
 
@@ -105,60 +208,106 @@
 
 \subsubsection*{Q2: 报错 \texttt{xelatex error converting to xdv}}\label{sub:Q2}
 若为\texttt{Windows}系统，先把\texttt{manimlib/constants.py}的第29行：
-\begin{lstlisting}[frame=none]
+\begin{lstlisting}[frame=none, columns=flexible]
     MEDIA_DIR = "./media"
 \end{lstlisting}
 
 改成\footnote{已在\href{https://github.com/3b1b/manim/pull/689}{\#689}中修复}
-\begin{lstlisting}[frame=none]
+\begin{lstlisting}[frame=none, columns=flexible]
     MEDIA_DIR = os.path.join(os.getcwd(), "media")
 \end{lstlisting}
 
-再进行尝试。如果仍然出错，尝试将\texttt{ctex\_template.tex}中的\texttt{\textbackslash usepacka}\\
-\texttt{ge\{ctex\}}提到该文件的第二行再进行尝试\footnote{已在\href{https://github.com/3b1b/manim/pull/1187}{\#1187}中修复}。
+再进行尝试。如果仍然出错，尝试将\texttt{ctex\_template.tex}中的\texttt{\textbackslash usepa}\\
+\texttt{ckage\{ctex\}}提到该文件的第二行再进行尝试\footnote{已在\href{https://github.com/3b1b/manim/pull/1187}{\#1187}中修复}。
 还出错误的话，向下继续按步骤进行：
 
 \begin{enumerate}[I.]
-    \item \textbf{若安装的\texttt{\TeX}发行版为\texttt{MiK\TeX}}
+    \item \textbf{若安装的\TeX 发行版为MiK\TeX}
     \begin{enumerate}[1.]
-        \item \texttt{MiK\TeX}的有关路径是否添加到环境变量中
+        \item MiK\TeX 的有关路径是否添加到环境变量中
         \item 是否有包没有装全
     \end{enumerate}
 
     \begin{tcolorbox}
         对于\texttt{2.}，可以正常运行一遍\texttt{WriteStuff}场景，看是否有框弹出提示\texttt{install}什么东西，
         如果有，则\texttt{install}，并重复运行安装运行安装...直到不报错为止。 \\
-        或者使用\TeX 编辑器\texttt{\TeX Studio}
-        并使用\texttt{xelatex}手动编译\texttt{media/Tex}文件夹中的{} \texttt{.tex}文件，查看是否有包没有安装。
+        或者使用\TeX 编辑器\TeX Studio等
+        并使用\texttt{xelatex}手动编译\texttt{media/Tex}文件夹中的\texttt{.tex}文件，查看是否有包没有安装。
     \end{tcolorbox}
         
     \begin{tcolorbox}
-        对于没有\texttt{1.}和\texttt{2.}问题却依旧报错的，可以选择重新安装新版\texttt{MiK\TeX}或者安装\texttt{\TeX Live-full}版。
+        对于没有\texttt{1.}和\texttt{2.}问题却依旧报错的，可以选择重新安装新版MiK\TeX 或者安装\TeX Live-full版（推荐）。
     \end{tcolorbox}
 
-    \item \textbf{若安装的\texttt{\TeX}发行版为\texttt{\TeX Live}}
+    \item \textbf{若安装的\TeX 发行版为\TeX Live}
     \begin{enumerate}[1.]
-        \item \texttt{\TeX Live}有关路径是否添加到环境变量中
+        \item \TeX Live有关路径是否添加到环境变量中
         \item 安装的是否为\texttt{full}版本
     \end{enumerate}
 
-    \item \textbf{若安装的\texttt{\TeX}发行版不为以上两款}
+    \item \textbf{若安装的\TeX 发行版不为以上两款}
     
-    建议换成\texttt{\TeX Live-full}版或者\texttt{MiK\TeX}，并且在重新安装前请删除旧版
+    建议换成\TeX Live-full版或者MiK\TeX，并且注意在重新安装前删除旧版
 \end{enumerate}
 
-\subsubsection*{Q3: 报错在文件夹内找不到\texttt{svg}文件}
+\subsection{dvisvgm问题}
+
+\subsubsection*{Q1: 报错\texttt{OSError: No file matching .svg in image directory}}
 
 清空\texttt{media/Tex}文件夹内全部内容，再次运行带文字的场景，查看\texttt{Tex}文件夹中的内容：
 
 \begin{enumerate}[I.]
-    \item 若仅有\texttt{tex}文件和\texttt{log}文件,按照\texttt{\ref{sub:Q2}}中方法处理
-    \item 若含有\texttt{xdv}文件但没有\texttt{svg}文件
+    \item 若含有\texttt{.tex}文件，但没有\texttt{.xdv}文件,按照\texttt{\ref{sub:Q2}}中方法处理
+    \item 若含有\texttt{.xdv}文件但没有\texttt{.svg}文件
     \begin{enumerate}[1.]
-        \item \texttt{divsvgm}是否添加到环境变量，可以使用\texttt{dvisvgm --version}观察是否由报错来检查
-        \item \texttt{dvisvgm}版本是否过低，若\texttt{dvisvgm --verison}的输出版本号为1开头，请更换新版\texttt{dvisvgm}\footnote{上网下载、或者使用群文件中的版本}，并注意将含有\texttt{dvisvgm}的文件夹添加到环境变量中
+        \item 检查\texttt{divsvgm}是否添加到环境变量，可以使用\texttt{dvisvgm -\!-versi}
+        
+        \texttt{on}观察是否由报错来检查
+        \item \texttt{dvisvgm}版本是否过低，若\texttt{dvisvgm -\!-verison}的输出版本号小于2.4，请更换新版\texttt{dvisvgm}\footnote{上网下载、或者使用群文件中的版本}，并注意将含有\texttt{dvisvgm}的文件夹添加到环境变量中
+        \item 若\texttt{dvisvgm}的版本高于2.4，可能是你的\texttt{dvisvgm}暂不支持\texttt{PostS}
+        
+        \texttt{cript}请按照Q2中指导操作
     \end{enumerate}
 \end{enumerate}
+
+\subsubsection*{Q2: 如何让\texttt{dvisvgm}支持\texttt{PostScript}\footnote{这部分解决方案来自\texttt{dvisvgm}的FAQ:\url{https://dvisvgm.de/FAQ/}}}
+
+打开终端，输入\texttt{dvisvgm -l}检查有没有\texttt{ps         dvips PostScript spe}\\
+\texttt{cials}（如果有，则已经支持了\texttt{PostScript}）；输入\texttt{dvisvgm -h}
+检查有没有\texttt{-\!-libgs=filename}。接下来按照以下处理
+
+\begin{enumerate}[1.]
+	\item 若\texttt{dvisvgm -h}输出中没有\texttt{-\!-libgs}，\texttt{dvisvgm -l}中没有\texttt{ps}
+	\begin{itemize}
+		\item 你安装的\texttt{dvisvgm}无法支持\texttt{PostScript}，请换一个安装再试
+	\end{itemize}
+	\item 若\texttt{dvisvgm -h}输出中含有\texttt{-\!-libgs}
+	
+	这说明你的\texttt{dvisvgm}需要\texttt{Ghostscript}才能支持\texttt{PostScript}，按下述操作：
+	\begin{enumerate}[a.]
+		\item 查找\texttt{Ghostscript}库
+		\begin{itemize}
+			\item 如果是Windows32位系统，则需要\texttt{gsdll32.dll}（可能位于\texttt{C:\textbackslash Windows\textbackslash System32\textbackslash}文件夹中）
+			
+			\item 如果是Windows64位系统，则需要\texttt{gsdll64.dll}（可能位于\texttt{C:\textbackslash Windows\textbackslash System32\textbackslash}文件夹中)
+			
+			\item 如果是Linux系统，则需要\texttt{libgs.so}（可能位于\texttt{/usr/local/li}
+			\texttt{b/}或\texttt{/usr/lib/}文件夹中）
+			
+			\item 如果是MacOS系统，则需要\texttt{libgsl.dylib}（可能位于\texttt{/usr/lo}
+			\texttt{cal/lib/}或\texttt{/opt/local/lib/}文件夹中）
+		\end{itemize}
+		\item 添加\texttt{Ghostscript}库，可以通过以下三种方法：
+		\begin{itemize}
+			\item 把上述文件位于的文件夹添加到\texttt{PATH}环境变量中
+			\item 把上述文件的完整路径（包括目录和文件名）设置为\texttt{LIBGS}环境变量的值
+			\item 终端输入\texttt{dvisvgm -\!-libgs="文件完整位置（包括文件名）"}
+		\end{itemize}
+	\end{enumerate}
+\end{enumerate}
+
+如上操作后，再输入\texttt{dvisvgm -l}，如果含有\texttt{ps}则成功支持了\texttt{PostSc}\\
+\texttt{ript}。
 
 \subsection{中文显示问题}
 \subsubsection*{Q1: 含有中文的\texttt{TextMobject}编译报错，\texttt{Latex error converting to dvi}}
@@ -256,7 +405,7 @@ $\text{字体}\texttt{")}$，
 来代替 \texttt{\textbackslash frac\{}分子\texttt{\}\{}分母\texttt{\}}
 
 \subsubsection*{Q10: 使用\texttt{\textbackslash left\textbackslash\{ ...\textbackslash right.}报错}
-\begin{lstlisting}[frame=none]
+\begin{lstlisting}[frame=none, columns=flexible]
     TexMobject(r"\left\{\begin{matrix} a+b \\ b+a \\ \end{matrix}\right.")
 \end{lstlisting}
 
@@ -267,11 +416,11 @@ $\text{字体}\texttt{")}$，
     a+b \\
     b+a \\
 \end{cases}$
-\begin{lstlisting}[frame=none]
+\begin{lstlisting}[frame=none, columns=flexible]
     TexMobject(r"\begin{cases} a+b \\ b+a \\ \end{cases}")
 \end{lstlisting}
 
-\subsection{素材引用问题}
+\subsection[素材引用问题]{素材引用问题\footnote{关于插入素材（图片），详细可以看视频\url{https://www.bilibili.com/video/BV1CC4y1H7kp}}}
 \subsubsection*{Q1: 使用\texttt{SVGMobject}找不到\texttt{svg}文件}
 \begin{enumerate}[I.]
     \item 直接使用绝对路径引用\texttt{svg}文件
@@ -287,63 +436,32 @@ $\text{字体}\texttt{")}$，
 \subsubsection*{Q3: 能否导入\texttt{gif}文件}
 可以使用\texttt{ImageMobject}导入，但是只保留第一帧，不会显示动图
 
-关于插入素材（图片），详细可以看视频\url{https://www.bilibili.com/video/BV1CC4y1H7kp}
+
 
 \newpage
 
 \section{其它问题}
 
-\subsubsection*{Q1: 有什么manim教程}
-\addcontentsline{toc}{subsection}{Q1: 有什么\texttt{manim}教程}
-\url{https://github.com/manim-kindergarten/manim}这里的\texttt{README}文件中也有整合
+\subsubsection*{Q1: 没有\texttt{manim}源码}
+\addcontentsline{toc}{subsection}{Q1: 没有\texttt{manim}源码}
+最好不要使用\texttt{pip install manimlib}来装\texttt{manim}，请在\texttt{GitHub}上\texttt{clone}下来\texttt{manim}的全部内容
 
-\begin{enumerate}[1.]
-	\item \texttt{manim}教程文档（制作中）：\url{https://manim.ml/}。
-	\item \texttt{MK}制作的系列视频教程（制作中）
-	\begin{itemize}
-		\item \url{https://space.bilibili.com/171431343/favlist?fid=947158443}
-	\end{itemize}
-	\item \texttt{MK}制作的视频源码(videos/)和常用自定义类(utils/)
-	\begin{itemize}
-		\item \url{https://github.com/manim-kindergarten/manim_sandbox/tree/master/videos}
-		\item \url{https://github.com/manim-kindergarten/manim_sandbox/tree/master/utils}
-	\end{itemize}
-    \item 群主\texttt{cigar666}的B站专栏
-    \begin{itemize}
-        \item \url{https://www.bilibili.com/read/readlist/rl82339}
-    \end{itemize}
-    \item \texttt{pdcxs}大大转载的\texttt{manim}教程
-    \begin{itemize}
-        \item \url{https://www.bilibili.com/video/av64023740}
-        \item 源码 \url{https://github.com/Elteoremadebeethoven/AnimationsWithManim}
-    \end{itemize}
-    \item \texttt{GitHub}上\texttt{cai-hust}的中文教程
-    \begin{itemize}
-        \item \url{https://github.com/cai-hust/manim-tutorial-CN}
-    \end{itemize}
-    \item 看\texttt{manim}源码
-\end{enumerate}
+\subsubsection*{Q2: 群友用的\texttt{manim}都是什么版本}
+\addcontentsline{toc}{subsection}{Q2: 群友用的\texttt{manim}都是什么版本}
+一般使用的都是\texttt{GitHub}上的最后一版\texttt{cairo-backend}分支上的源码，少部分使用的是\texttt{master}
+分支上的新版本源码（不在本文档讨论范围内）
 
-\subsubsection*{Q2: 没有\texttt{manim}源码}
-\addcontentsline{toc}{subsection}{Q2: 没有\texttt{manim}源码}
-最好不要使用\texttt{pip install manimlib}来装\texttt{manim}，请在\texttt{GitHub}上\texttt{clone}下来\texttt{manim}的全部内容，
-可以选择\texttt{MK}修改的版本：\url{https://github.com/manim-kindergarten/manim}
-
-\subsubsection*{Q3: 群友用的\texttt{manim}都是什么版本}
-\addcontentsline{toc}{subsection}{Q3: 群友用的\texttt{manim}都是什么版本}
-\texttt{manim}不看版本，一般使用的都是\texttt{GitHub}上的最新源码，\texttt{release}里面带版本号的都可以看作旧版
-
-\subsubsection*{Q4: 如何使用傅里叶级数作图}
-\addcontentsline{toc}{subsection}{Q4: 如何使用傅里叶级数作图}
+\subsubsection*{Q3: 如何使用傅里叶级数作图}
+\addcontentsline{toc}{subsection}{Q3: 如何使用傅里叶级数作图}
 套用 Grant 写好的文件 （有部分代码\texttt{import}部分路径不对，请自行调整）
-\begin{lstlisting}[frame=none]
+\begin{lstlisting}[frame=none, columns=flexible]
     from_3b1b/active/diffyq/part2/fourier_series.py
     from_3b1b/active/diffyq/part4/fourier_series_scenes.py
     from_3b1b/active/diffyq/part4/long_fourier_series.py
 \end{lstlisting}
 
-\subsubsection*{Q5: 傅里叶级数作图如何调整时长}
-\addcontentsline{toc}{subsection}{Q5: 傅里叶级数作图如何调整时长}
+\subsubsection*{Q4: 傅里叶级数作图如何调整时长}
+\addcontentsline{toc}{subsection}{Q4: 傅里叶级数作图如何调整时长}
 \texttt{CONFIG}中\texttt{run\_time}无法控制，使用\texttt{slow\_factor}和\texttt{n\_cycles}来控制
 
 $\mathtt{\dfrac{1}{slow\_factor}}$为一个循环的时间，\texttt{n\_cycles}为循环的个数
@@ -351,36 +469,36 @@ $\mathtt{\dfrac{1}{slow\_factor}}$为一个循环的时间，\texttt{n\_cycles}�
 
 只需要更换\texttt{svg}素材即可\footnote{自己制作，或者使用这里的\texttt{svg}素材:\url{https://github.com/manim-kindergarten/manim_sandbox/tree/master/assets/svg_images}}
 
-\subsubsection*{Q6: \texttt{svg}用什么软件制作}
-\addcontentsline{toc}{subsection}{Q6: \texttt{svg}用什么软件制作}
+\subsubsection*{Q5: \texttt{svg}用什么软件制作}
+\addcontentsline{toc}{subsection}{Q5: \texttt{svg}用什么软件制作}
 \texttt{Adobe Illustrator}(简称 AI，推荐)或者\texttt{inkscape}(简称 ink，不推荐)。而且不要使用网页版编辑器
 
 目前\texttt{manim}对\texttt{SVG}的解析很局限，推荐使用\texttt{AI}\footnote{并且使用“另存为$\to$SVG”的方式，不要使用导出}
 
-\subsubsection*{Q7: 动画怎么显示旋转一个物体}
-\addcontentsline{toc}{subsection}{Q7: 动画怎么显示旋转一个物体}
+\subsubsection*{Q6: 动画怎么显示旋转一个物体}
+\addcontentsline{toc}{subsection}{Q6: 动画怎么显示旋转一个物体}
 使用\texttt{Ratate}和\texttt{Rotating}，区别在群文件中有视频
 
-\subsubsection*{Q8: \texttt{Transform}和\texttt{ReplacementTransform}有什么区别}
-\addcontentsline{toc}{subsection}{Q8: \texttt{Transform}和\texttt{ReplacementTransform}有什么区别}
+\subsubsection*{Q7: \texttt{Transform}和\texttt{ReplacementTransform}有什么区别}
+\addcontentsline{toc}{subsection}{Q7: \texttt{Transform}和\texttt{ReplacementTransform}有什么区别}
 \begin{enumerate}[1.]
 	\item \texttt{Transform(A, B)}在画面上\texttt{A}变成了\texttt{B}的样子，但是画面上的物体名字还叫\texttt{A}
 	\item \texttt{ReplacementTransform(A, B)}在画面上\texttt{A}变成了\texttt{B}的样子，并且画面上的物体名字叫\texttt{B}
 \end{enumerate}
 
 所以以下两个效果相同
-\begin{lstlisting}[frame=none]
+\begin{lstlisting}[frame=none, columns=flexible]
 self.play(Transform(A, B))
 self.play(Transform(A, C))
 \end{lstlisting}
 
-\begin{lstlisting}[frame=none]
+\begin{lstlisting}[frame=none, columns=flexible]
 self.play(ReplacementTransform(A, B))
 self.play(ReplacementTransform(B, C))
 \end{lstlisting}
 
-\subsubsection*{Q9: 怎么控制物体移动或者\texttt{Transform}的速率}
-\addcontentsline{toc}{subsection}{Q9: 怎么控制物体移动或者\texttt{Transform}的速率}
+\subsubsection*{Q8: 怎么控制物体移动或者\texttt{Transform}的速率}
+\addcontentsline{toc}{subsection}{Q8: 怎么控制物体移动或者\texttt{Transform}的速率}
 使用\texttt{rate\_func}，一些\texttt{manim}中已经定义的在群文件中有视频
 
 \begin{figure}[htbp]
@@ -431,14 +549,14 @@ self.play(ReplacementTransform(B, C))
     \end{minipage}
 \end{figure}
 
-\subsubsection*{Q10: 数学符号/公式 用\LaTeX 怎么打}
-\addcontentsline{toc}{subsection}{Q10: 数学符号\texttt{/}公式 用\LaTeX 怎么打}
+\subsubsection*{Q9: 数学符号/公式 用\LaTeX 怎么打}
+\addcontentsline{toc}{subsection}{Q9: 数学符号\texttt{/}公式 用\LaTeX 怎么打}
 请见 \url{https://www.luogu.com.cn/blog/IowaBattleship/latex-gong-shi-tai-quan}
 
 推荐妈咪叔维护的\url{https://www.latexlive.com/}
 
-\subsubsection*{Q11: 一些特殊\LaTeX 的外部包}
-\addcontentsline{toc}{subsection}{Q11: 一些特殊\LaTeX 的外部包}
+\subsubsection*{Q10: 一些特殊\LaTeX 的外部包}
+\addcontentsline{toc}{subsection}{Q10: 一些特殊\LaTeX 的外部包}
 
 \Ganz \Halb \Vier \Acht \Sech \Zwdr
 
@@ -450,7 +568,7 @@ self.play(ReplacementTransform(B, C))
 就拿上面的音符为例，因为是在\texttt{harmony}包中的，所以在\texttt{tex}文件中添加\texttt{\textbackslash usepackage\{harmony\}}\footnote{不需要使用的时候记得改回来哦\label{change}}
 
 然后新建一个\texttt{py}文件，写入代码
-\begin{lstlisting}
+\begin{lstlisting}[frame=none, columns=flexible]
     from manimlib.imports import *
     class TestHarmony(Scene):
         def construct(self):
@@ -462,8 +580,8 @@ self.play(ReplacementTransform(B, C))
 
 运行py文件即可
 
-\subsubsection*{Q12: 使用\LaTeX 外部包，编译错误或者无显示}
-\addcontentsline{toc}{subsection}{Q12: 使用\LaTeX 外部包，编译错误或者无显示}
+\subsubsection*{Q11: 使用\LaTeX 外部包，编译错误或者无显示}
+\addcontentsline{toc}{subsection}{Q11: 使用\LaTeX 外部包，编译错误或者无显示}
 首先，并不是所有外部包都能在\texttt{manim}中顺利使用，大多都不支持\texttt{xelatex}编译，
 所以建议需要使用外部包时只用\texttt{latex}编译\footnote{即把\texttt{TEX\_USE\_CTEX}改为\texttt{False}}
 
@@ -471,7 +589,7 @@ self.play(ReplacementTransform(B, C))
 在\texttt{xelatex}用{} \texttt{\textbackslash draw}会无法显示，
 需要修改\texttt{tex\_template.tex}文件\textsuperscript{\ref{change}}，修改成如下：
 
-\begin{lstlisting}
+\begin{lstlisting}[frame=none, columns=flexible]
     \documentclass[preview, dvisvgm]{standalone}
     \usepackage{tikz}
 \end{lstlisting}
@@ -480,7 +598,7 @@ self.play(ReplacementTransform(B, C))
     \draw (-1, 0) -- (1, 0);
 \end{tikzpicture}
 
-\begin{lstlisting}
+\begin{lstlisting}[frame=none, columns=flexible]
     class TestTikz(Scene):
         def construct(self):
             tikz = TextMobject(
@@ -496,27 +614,27 @@ self.play(ReplacementTransform(B, C))
 
 运行py文件即可
 
-\subsubsection*{Q13: 一些比较复杂,操纵东西比较多的动画怎么做}
-\addcontentsline{toc}{subsection}{Q13: 一些比较复杂,操纵东西比较多的动画怎么做}
+\subsubsection*{Q12: 一些比较复杂,操纵东西比较多的动画怎么做}
+\addcontentsline{toc}{subsection}{Q12: 一些比较复杂,操纵东西比较多的动画怎么做}
 使用外部剪辑软件,例如\texttt{Adobe Premiere Pro}或者达芬奇
 
 
-\subsubsection*{Q14: 一个\texttt{self.play}里写两个\texttt{ApplyMethod}只对一个起作用怎么办}
-\addcontentsline{toc}{subsection}{Q14: 一个\texttt{self.play}里写两个\texttt{ApplyMethod}只对一个起作用怎么办}
+\subsubsection*{Q13: 一个\texttt{self.play}里写两个\texttt{ApplyMethod}只对一个起作用怎么办}
+\addcontentsline{toc}{subsection}{Q13: 一个\texttt{self.play}里写两个\texttt{ApplyMethod}只对一个起作用怎么办}
 去掉\texttt{ApplyMethod}，例如：
-\begin{lstlisting}[frame=none]
+\begin{lstlisting}[frame=none, columns=flexible]
     self.play(ApplyMethod(mob.scale, 2), ApplyMethod(mob.shift, DOWN))
 \end{lstlisting}
 
 改成
-\begin{lstlisting}[frame=none]
+\begin{lstlisting}[frame=none, columns=flexible]
     self.play(mob.scale, 2, mob.shift, DOWN)
 \end{lstlisting}
 
-%\newpage
+\newpage
 
-\subsubsection*{Q15: 如何解决二维画面中的图层问题}
-\addcontentsline{toc}{subsection}{Q15: 如何解决二维画面中的图层问题}
+\subsubsection*{Q14: 如何解决二维画面中的图层问题}
+\addcontentsline{toc}{subsection}{Q14: 如何解决二维画面中的图层问题}
 可以使用\texttt{pdcxs}添加的\texttt{plot\_depth}，具体更改见下图\footnote{\texttt{plot\_depth}的值越大，运行出来的物体就越在上面}
 
 \texttt{MK fork}的版本已经做了修改：\url{https://github.com/manim-kindergarten/manim}
@@ -533,9 +651,9 @@ self.play(ReplacementTransform(B, C))
 
 \newpage
 
-\subsubsection*{Q16: 如何导出\texttt{gif}文件}
-\addcontentsline{toc}{subsection}{Q16: 如何导出\texttt{gif}文件}
-在新版本中，\texttt{manim}导出\texttt{gif}已经失效，可以导出\texttt{mp4}，后用\texttt{ffmpeg}转换。也可以按照下图修改源码
+\subsubsection*{Q15: 如何导出\texttt{gif}文件}
+\addcontentsline{toc}{subsection}{Q15: 如何导出\texttt{gif}文件}
+在最后一个\texttt{cairo-backend}版本中，\texttt{manim}导出\texttt{gif}已经失效，可以导出\texttt{mp4}，后用\texttt{ffmpeg}转换。也可以按照下图修改源码
 
 \texttt{MK fork}的版本已经做了修改：\url{https://github.com/manim-kindergarten/manim}
 \begin{figure}[h]
@@ -546,33 +664,33 @@ self.play(ReplacementTransform(B, C))
 
 改过后，在输入命令时加上\texttt{-i}选项，就能导出\texttt{gif}了
 
-\subsubsection*{Q17: 如何导出透明的图片或者视频}
-\addcontentsline{toc}{subsection}{Q17: 如何导出透明的图片或者视频}
+\subsubsection*{Q16: 如何导出透明的图片或者视频}
+\addcontentsline{toc}{subsection}{Q16: 如何导出透明的图片或者视频}
 在运行命令的时候加上 \texttt{-t}选项
 \begin{itemize}
 	\item 如果是 \texttt{-s}保存图片，则会存储为背景透明的\texttt{png}图片
 	\item 如果是 \texttt{-l/-m/-w}保存视频，则会存储为背景透明的\texttt{mov}视频文件，方便\texttt{pr}中的剪辑
 \end{itemize}
 
-\subsubsection*{Q18: 渲染视频的画质和帧率怎么调整}
-\addcontentsline{toc}{subsection}{Q18: 渲染视频的画质和帧率怎么调整}
+\subsubsection*{Q17: 渲染视频的画质和帧率怎么调整}
+\addcontentsline{toc}{subsection}{Q17: 渲染视频的画质和帧率怎么调整}
 \texttt{manim}的默认画质有四种
 \begin{itemize}
 	\item \texttt{-l} 最低画质 \texttt{480P15}
 	\item \texttt{-m} 中等画质 \texttt{720P30}
-	\item \texttt{--high\_quality}\footnote{没有缩写} 高画质 \texttt{1080P60}
+	\item \texttt{-\!-high\_quality}\footnote{没有缩写} 高画质 \texttt{1080P60}
 	\item \texttt{-w} 导出(最高)画质 \texttt{1440P60(2K)}
 	\item \texttt{-uhd} 超高清 \texttt{4K120fps}(B站最高)\footnote{仅限\texttt{MK}版本\texttt{manim}}
 \end{itemize}
 
-不加画质选项，默认使用 \texttt{-w}最高画质\footnote{比如 \texttt{-p}(虽然很多人把 \texttt{-p}当成了 \texttt{-w}。。。)}。
+不加画质选项，默认使用 \texttt{-w}最高画质\footnote{比如 \texttt{-p}(虽然很多人把 \texttt{-p}当成了 \texttt{-w}...)}。
 可以通过修改\texttt{constants.py}中对应的画面长宽和帧率来修改\footnote{\texttt{manimlib/constants.py}的\texttt{118}行开始}
 
 一般把 \texttt{-w}最高画质修改成\texttt{1080P60}
 
 
-\subsubsection*{Q19: 有没有什么好的场景例子供学习}
-\addcontentsline{toc}{subsection}{Q19: 有没有什么好的场景例子供学习}
+\subsubsection*{Q18: 有没有什么好的场景例子供学习}
+\addcontentsline{toc}{subsection}{Q18: 有没有什么好的场景例子供学习}
 
 \begin{enumerate}[1.]
 	\item \texttt{GitHub}上\texttt{manim-kindergarten/manim\_sandbox}中的\texttt{demo}和\texttt{videos}文件夹中的代码
@@ -581,17 +699,18 @@ self.play(ReplacementTransform(B, C))
 	\item 群里几个B站\texttt{up}主的\texttt{GitHub}库对应他们的代码
 	\begin{itemize}
 		\item \texttt{cigar666} \url{https://github.com/cigar666/my_manim_projects}
-		\item 鹤翔万里 \url{https://github.com/Tony031218/manim_projects}
+		\item 鹤翔万里 \url{https://github.com/TonyCrane/manim_projects}
 		\item \texttt{pdcxs} \url{https://github.com/pdcxs/ManimProjects}
 		\item 有一种悲伤叫颓废 \url{https://github.com/136108Haumea/my-manim}
 	\end{itemize}
 \end{enumerate}
 
-\subsubsection*{Q20: \texttt{shaders}分支是什么，和普通的有什么区别}
-\addcontentsline{toc}{subsection}{Q20: \texttt{shaders}分支是什么，和普通的有什么区别}
+\subsubsection*{Q19: 新版本\texttt{manim}是什么，和旧版有什么区别}
+\addcontentsline{toc}{subsection}{Q19: 新版本\texttt{manim}是什么，和旧版有什么区别}
 
-\texttt{shaders}分支中的\texttt{manim}是Grant正在制作完善的新版\texttt{manim}，它使用\texttt{modernGL}来进行GPU渲染，会有更快的速度。
-但是目前仍不稳定，有能力的可以尝试使用。
+新版\texttt{manim}使用\texttt{OpenGL}和\texttt{moderngl}来进行GPU渲染，会有更快的速度，
+也支持实时渲染和交互操作。更改了很多底层逻辑和结构，也调整了一些小的用法。
+详细在针对新版的常见问题中叙述。
 
 关于三个版本的\texttt{manim}的简要说明在\href{https://github.com/3b1b/manim/issues/1243}{\#1243}
 
@@ -616,5 +735,24 @@ self.play(ReplacementTransform(B, C))
 \begin{center}
 \textbf{最后，祝大家好运（*＾-＾*）}
 \end{center}
+
+\newpage
+
+\section{附：ChangeLog}
+
+\subsection*{v3.0}
+\begin{itemize}
+	\item 使用了Elegant\LaTeX Note主题
+	\item 增加了\texttt{master}分支和\texttt{shaders}分支的区别
+\end{itemize}
+
+\subsection*{v3.1}
+\begin{itemize}
+	\item 修复了代码段字符间距大且包含空格的bug
+	\item 增加了文档首页“一切之前”部分
+	\item 增加了针对新旧版\texttt{manim}的区别和新版教程链接
+	\item 增加了由于\texttt{dvisvgm}问题导致\texttt{OSError}的解决方案
+	\item 增加了ChangeLog部分
+\end{itemize}
 
 \end{document}
