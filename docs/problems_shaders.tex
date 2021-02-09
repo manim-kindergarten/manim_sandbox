@@ -1,0 +1,303 @@
+%\documentclass[a4paper]{article}
+\documentclass[cn,blue,14pt,normal]{elegantnote}
+%\usepackage[UTF8]{ctex}
+%\usepackage[colorlinks, linkcolor=blue]{hyperref}
+%\usepackage[a4paper, top=2.5cm, bottom=2.5cm, left=2.5cm, right=2.5cm]{geometry}
+\usepackage{tcolorbox, booktabs, fontspec, tikz, harmony}
+\title{\texttt{manimgl}常见问题}
+
+\author{鹤翔万里}
+\institute{\textsc{manim-kindergarten}}
+
+\version{1.0}
+\date{\zhtoday}
+
+\lstset{
+	basicstyle=\ttfamily
+}
+
+\begin{document}
+	
+\maketitle
+
+\centerline{
+	\includegraphics[height=3\baselineskip]{assets/Logo.png}
+}
+
+\newpage
+
+
+\section*{一切之前}
+
+\texttt{manim}是一个使用python制作视频的动画引擎。学习它你首先要会一点python，至少要学会python的基础语法、
+模块的调用以及类的基础知识（如果想要阅读源码，还需要掌握更多python面向对象的知识）。没有python的知识
+学\texttt{manim}是毫无意义的，会非常吃力，也会遇到非常多的问题。学会了python之后便可以少走非常多的弯路，
+这也是我们的忠告。\quad 因此，加入我们
+\textsc{Manim-Kindergarten}\footnote{QQ群：862671480}首先要会使用python，我们会在入群问
+题\footnote{\url{https://b23.tv/KmAvsG}}中进行一个最基础的检测。
+
+\textbf{\underline{最后，本常见问题文档基于\texttt{manim}的\texttt{master}分支版本}}\footnote{即新版\texttt{manim}，原\texttt{shaders}分支版本}\textbf{\underline{，此文档中}}
+\textbf{\underline{未出现的问题可能在旧版也会有同样问题，所以推荐两个常见问题文档}}\\
+\textbf{\underline{一起查阅。}}
+
+\subsection*{如何提问：}
+
+\begin{enumerate}[I.]
+	\item 在mk群里提问，首先需要阅读完本常见问题文档和基于旧版的常见问题文档
+	
+	\item 确保你问的问题不是由于python基础语法问题而造成的错误。
+	
+	\item 如果在\texttt{manim}使用过程中出现了报错：
+	
+	\begin{enumerate}[1.]
+		\item 确保问题不在本文档和旧版常见问题文档中
+		\item 将你的代码和\textbf{完整的}报错信息全部发送到群中，这样会方便群友为你解答
+	\end{enumerate}
+
+	\item 如果你想要实现某个效果，但不知道如何操作。请将你想要达到的效果详细易懂地描述出来。
+	\item 语气友善，态度谦虚，避免造成不必要的纠纷。
+\end{enumerate}
+
+\newpage
+
+\subsection*{教程推荐：}
+
+\begin{enumerate}[I.]
+	\item Python教程：
+	
+	\begin{enumerate}[1.]
+		\item \href{https://www.ituring.com.cn/book/1861}{《Python编程：从入门到实践》}，ISBN 978-7-115-42802-8
+		
+		\item \href{https://www.ituring.com.cn/book/1564}{《流畅的Python》}，ISBN 978-7-115-45415-7（适合掌握Python基础知识后进阶）
+		
+		\item 菜鸟教程-Python3教程 \url{https://www.runoob.com/python3/python3-tutorial.html}
+	\end{enumerate}
+
+	\item \texttt{manim}教程：
+	
+	\begin{enumerate}[1.]
+		\item \texttt{manim}教程文档（制作中）：\url{https://manim.ml/}
+		
+		\item \texttt{MK}制作的系列视频教程（制作中）
+		\begin{itemize}
+			\item \url{https://space.bilibili.com/171431343/favlist?fid=947158443}
+		\end{itemize}
+	
+		\item \texttt{MK}制作的视频源码(videos/)和常用自定义类(utils/)
+	
+		\item 群主\texttt{cigar666}的B站专栏
+		\begin{itemize}
+			\item \url{https://www.bilibili.com/read/readlist/rl82339}
+		\end{itemize}
+	
+		\item \texttt{pdcxs}大大转载的\texttt{manim}教程
+		\begin{itemize}
+			\item \url{https://www.bilibili.com/video/av64023740}
+			\item 源码 \url{https://github.com/Elteoremadebeethoven/AnimationsWithManim}
+		\end{itemize}
+	
+		\item \texttt{GitHub}上\texttt{cai-hust}的中文教程
+		\begin{itemize}
+			\item \url{https://github.com/cai-hust/manim-tutorial-CN}
+		\end{itemize}
+	
+		\item 看\texttt{manim}源码
+	\end{enumerate}
+
+	\item 新版\texttt{manim}教程：
+	
+	\begin{enumerate}[1.]
+		\item 新版\texttt{manim}官方文档：\url{https://3b1b.github.io/manim/}
+		
+		\item 新版\texttt{manim}中文文档：\url{https://manim.ml/shaders/}
+	\end{enumerate}
+
+	\item OpenGL及shaders教程（Grant亲自推荐）
+	\begin{enumerate}[1.]
+		\item The Book of Shaders: \url{https://thebookofshaders.com/}
+		
+		\item Python \& OpenGL for Scientific Visualization: \url{https://www.labri.fr/perso/nrougier/python-opengl/}
+		
+		\item Geometry Shader: \url{https://learnopengl.com/Advanced-OpenGL/Geometry-Shader}
+	\end{enumerate}
+\end{enumerate}
+
+\newpage
+
+\tableofcontents
+
+\newpage
+
+\section{安装问题}
+
+\begin{note}
+	这里未提到的部分安装时会出现的问题请见旧版常见问题文档“manim常见问题v3.1”
+\end{note}
+
+\subsection{Python问题}
+
+\subsubsection*{Q1: 关于\texttt{pip install manimlib}}
+如果想要安装新版，请不要这样做。pypi上目前的\texttt{manimlib}仍为旧版，即目前\texttt{cairo-backend}分支中的版本。
+安装新版目前只有克隆下GitHub上的3b1b/manim的master分支并直接使用\footnote{未来会上传到\texttt{manimgl}包中}
+
+\subsubsection*{Q2: 无法安装包\texttt{mapbox\_earcut}}
+如果在安装包时出现报错
+\begin{lstlisting}[frame=none, columns=flexible]
+CMake must be installed to build the following extensions
+\end{lstlisting}
+
+先通过运行\texttt{pip install cmake}安装\texttt{cmake}，再尝试。
+
+\newpage
+
+\section{运行时问题}
+
+\subsection{\texttt{import}问题}
+
+\subsubsection*{Q1: 无法导入\texttt{OpenGL}，抛出\texttt{ImportError}}
+在最新的macOS Big Sur里，\texttt{OpenGL}的默认位置被从\texttt{library}改到了\texttt{library}下面的
+\texttt{frameworks}中，所以在目前的版本中\texttt{PyOpenGL}找不到原来的位置，会导致报错
+\begin{lstlisting}[frame=none, columns=flexible]
+ImportError: (`Unable to load OpenGL library', `dlopen(OpenGL, 10): image not found', `OpenGL', None)
+\end{lstlisting}
+
+为此，长期的解决方法是等待接下来的Python更新。短期的解决方法是改变PyOpenGL的读取位置，步骤如下：
+\begin{enumerate}[1.]
+	\item 找到Python下\texttt{PyOpenGL}的文件\texttt{OpenGL/platform/ctypesloader.py}，并且在做出任何改动之前做好完整的备份
+	\item 找到其中的\texttt{fullName = util.find\_library( name )}
+	\item 把它更改为\texttt{fullName = `/System/Library/Frameworks/OpenGL.fr}\\\texttt{amework/OpenGL'}
+\end{enumerate}
+
+\subsection{\LaTeX 问题}
+具体\LaTeX 问题请见旧版常见问题文档“manim常见问题v3.1”
+
+\subsubsection*{Q1: 如何使用中文}
+如果要通过\LaTeX （即\texttt{manim}中的类\texttt{TexText}）使用中文，需要在\texttt{custom\_defaults.yml}文件中进行更改。
+
+将其中的\texttt{tex:}部分改为
+\begin{lstlisting}[frame=none, columns=flexible]
+tex:
+  text_to_replace: "[tex_expression]"
+  executable: "xelatex -no-pdf"
+  template_file: "ctex_template.tex"
+  intermediate_filetype: "xdv"
+\end{lstlisting}
+
+另外也请注意，\texttt{Text}和\texttt{TexText}不同，具体区别下面会提到。
+
+\subsubsection*{Q2: 怎么检测少了哪个包}
+尝试运行群文件“入群必看！！”中的\texttt{check\_latex\_packages.py}文件，其中哪个包检查后为\texttt{failed}，则缺少了哪个包。
+可以安装这个包，或者不必要的话将其从\texttt{ctex\_template.tex}中删除。
+
+\subsection{dvisvgm问题}
+\subsubsection*{Q1: 报错\texttt{OSError: C:\textbackslash Users\textbackslash ...\textbackslash Temp\textbackslash Tex\textbackslash <...>.svg not Found}}
+如果你运行\texttt{manim}的位置不在C盘，那么请按照以下处理；如果你运行的位置在C盘，请看旧版常见问题文档中“dvisvgm问题”部分。
+
+处理这个问题有两种方法：
+\begin{enumerate}[1.]
+	\item 更换2.8以上版本的dvisvgm
+	\item 在\texttt{custom\_defaults.yml}中为\texttt{temporary\_storage}设置一个在同一磁盘下的路径
+\end{enumerate}
+
+\subsection{命令行选项问题}
+\subsubsection*{Q1: \texttt{-pl}选项不能用了怎么办}
+在新版中，命令行参数有了很大改变。\texttt{-p}选项已经删除，取而代之的是\texttt{-o}选项（在保存文件后打开文件）。
+目前常用的选项如下\footnote{全部选项见文档: \url{https://manim.ml/shaders/getting\_started/configuration.html\#id4}}：
+\begin{itemize}
+	\item \texttt{-w} 将场景写入视频文件
+	\item \texttt{-o} 将场景写入文件，并打开
+	\item \texttt{-s} 直接跳到视频最后一帧，但是并不保存
+	\item \texttt{-s} 与 \texttt{-o} 连用（\texttt{-s -o}或\texttt{-so}），保存并打开视频最后一帧
+\end{itemize}
+
+\subsubsection*{Q2: 怎么调整导出画质}
+目前默认了四种画质
+\begin{itemize}
+	\item \texttt{low}: 480p15
+	\item \texttt{medium}: 720p30
+	\item \texttt{high}: 1080p30
+	\item \texttt{ultra\_high}: 2160p60
+\end{itemize}
+
+可以通过更改\texttt{custom\_defaults.yml}中的\texttt{camera\_qualities.def}\\\texttt{ault\_quality}来设置默认质量。
+也可以通过使用\texttt{-l,-m,-\!-hd,-\!-uhd}四个选项指定质量。也可以通过\texttt{-r WxH}指定分辨率、\texttt{-\!-frame\_rate FRAME\_RATE}
+指定帧率。
+
+\subsection{窗口问题}
+\subsubsection*{Q1: 在运行的时候为什么会弹出一个窗口，如何交互}
+这是新版本的特性，有实时播放的窗口，并且可以通过鼠标键盘进行交互。默认支持的交互操作有：
+\begin{itemize}
+	\item 滚动鼠标中键来上下移动画面
+	\item 按住键盘上\texttt{z}键的同时滚动鼠标中键来缩放画面
+	\item 按住键盘上\texttt{s}键的同时移动鼠标来平移画面
+	\item 按住键盘上\texttt{d}键的同时移动鼠标来改变三维视角
+\end{itemize}
+
+需要注意：请确保你的输入法在英文模式，使用中文模式按上述按键无效。
+
+\subsubsection*{Q2: \texttt{self.embed()}模式下窗口卡出，而且无法交互}
+在进入\texttt{self.embed()}打开了iPython终端后，窗口暂时无法触碰，否则会出现无响应的情况（但是只要新的命令输入后就会恢复）。
+
+要想在这是也通过鼠标进行交互，先输入\texttt{touch()}或者\texttt{self.interact()}。
+
+\subsubsection*{Q3: 如何调整窗口的位置}
+在\texttt{custom\_defaults.yml}中，更改\texttt{window\_position}。也可以使用\texttt{-f}选项来全屏显示窗口。
+
+\subsection{文字问题}
+\subsubsection*{Q1: 有些中文无法正常显示，出现实心等问题怎么办}
+这是新版的巨大bug，目前还没有修复方法。如果大量使用文字的话，还是推荐使用旧版qwq
+
+\subsubsection*{Q2: \texttt{Tex}、\texttt{TexText}、\texttt{Text}有什么区别}
+旧版本中的\texttt{TexMobject}和\texttt{TextMobject}改了名字。\texttt{TexMobject}改为了\texttt{Tex}，\texttt{TextMobject}
+改为了\texttt{TexText}。
+\begin{itemize}
+	\item \textbf{\texttt{Tex}}: 使用\LaTeX 的公式环境，使用\LaTeX 语法
+	\item \textbf{\texttt{TexText}}: 使用\LaTeX 的正文环境，使用\LaTeX 语法
+	\item \textbf{\texttt{Text}}: 使用cairo来生成svg文字，不使用\LaTeX 语法，可以更换字体
+\end{itemize}
+
+\newpage
+
+\section{其他问题}
+
+\subsubsection*{Q1: 新旧版\texttt{manim}有什么区别}
+\addcontentsline{toc}{subsection}{Q1: 新旧版\texttt{manim}有什么区别}
+
+新版\texttt{manim}使用\texttt{OpenGL}和\texttt{moderngl}来进行GPU渲染，会有更快的速度，
+也支持实时渲染和交互操作。更改了很多底层逻辑和结构，也调整了一些小的用法。
+具体的所有用法上的更改待更新。
+
+关于三个版本的\texttt{manim}的简要说明在\href{https://github.com/3b1b/manim/issues/1243}{\#1243}
+
+\newpage
+
+\section{注意}
+
+如果有以上之外的问题,可以在群里提出,也可以在GitHub上提出issue，或者按照下图操作
+
+    \begin{figure}[h]
+        \begin{center}
+            \includegraphics[width=6cm]{assets/grant.png}
+        \end{center}
+    \end{figure}
+
+也请注意群规第 3,4 条
+\begin{itemize}
+    \item 3.虽为 manim 交流群,但不要一有问题就提出来,简单的问题能自己解决最好,不能解决时再寻求帮助
+    \item 4.群主和管理员平时较忙,有时若不能及时回复敬请谅解
+\end{itemize}
+
+\begin{center}
+\textbf{最后，祝大家好运（*＾-＾*）}
+\end{center}
+
+\newpage
+
+\section{附：ChangeLog}
+
+\subsection*{v1.0}
+\begin{itemize}
+	\item 开始为新版manim编写常见问题文档
+\end{itemize}
+
+\end{document}
