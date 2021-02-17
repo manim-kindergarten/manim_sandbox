@@ -19,9 +19,7 @@ from manim_sandbox.utils.mobjects.ColorText import *
 from manim_sandbox.utils.mobjects.ThreeDVector import *
 from manim_sandbox.utils.mobjects.BezierGenerator import BezierGenerator
 from manim_sandbox.utils.mobjects.BezierGenerator import BezierFunc
-from manim_sandbox.utils.mobjects.BooleanOperationsOnPolygons import PolygonIntersection
-from manim_sandbox.utils.mobjects.BooleanOperationsOnPolygons import PolygonUnion
-from manim_sandbox.utils.mobjects.BooleanOperationsOnPolygons import PolygonSubtraction
+from manim_sandbox.utils.mobjects.BooleanOperationsOnPolygons import PolygonIntersection, PolygonUnion, PolygonSubtraction
 
 from manim_sandbox.utils.scenes.bilibili import *
 from manim_sandbox.utils.scenes.parabola import *
