@@ -2,10 +2,11 @@
 
 """
 注：
-    1. 主要用来多边形布尔运算的问题，可以套娃，存在bug，一般情况应该够用，如发现bug请联系颓废
-    2. 支持的多边形有，Polygon, RegularPolygon, Circle, Ellipse, ParametricFunction, Dot, Line, VGroup
-    3. 但主要用于Polygon, VGroup应该有很多bug
-    4. 只需导入三个函数：PolygonIntersection(求交)，PolygonUnion(求加)，PolygonSubtraction(求减)
+    1. 视频讲解：https://www.bilibili.com/video/BV1JV411B7T1、https://www.bilibili.com/video/BV15y4y1J7K7
+    2. 主要用来多边形布尔运算的问题，可以套娃，存在bug，一般情况应该够用，如发现bug请联系颓废
+    3. 支持的多边形有，Polygon, RegularPolygon, Circle, Ellipse, ParametricFunction, Dot, Line, VGroup
+    4. 但主要用于Polygon, VGroup应该有很多bug
+    5. 只需导入三个函数：PolygonIntersection(求交)，PolygonUnion(求加)，PolygonSubtraction(求减)
 """
 
 
@@ -15,6 +16,8 @@ from manimlib.mobject.types.vectorized_mobject import VMobject
 from manimlib.mobject.geometry import *
 from manimlib.scene.scene import Scene
 from manimlib.mobject.functions import ParametricFunction
+from manimlib.constants import PI
+from manimlib.utils.config_ops import digest_config
 #from manimlib.imports import *
 #from manim_sandbox.utils.imports import *
 #import time
