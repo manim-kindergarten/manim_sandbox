@@ -2,7 +2,7 @@
 
 """
 注：
-    1. 主要用来求点集的三角剖分（德劳内三角化）和维诺图（泰森多边形），算法的思路可以看我的这期视频：https://www.bilibili.com/video/BV1Ck4y1z7VT
+    1. 主要用来求三角剖分和维诺图，算法的思路可以看我的这期视频：https://www.bilibili.com/video/BV1Ck4y1z7VT
     2. 时间复杂度O(nlogn)，一般情况应该够用，如发现bug请联系颓废
     3. 只需导入两个函数：DelaunayTrianglation(求德劳内三角剖分), Voronoi(求维诺图)
 """
@@ -14,6 +14,7 @@ from manimlib.constants import PI
 from manimlib.utils.config_ops import digest_config
 from manimlib.mobject.geometry import Dot, Line, Polygon
 from manimlib.scene.scene import Scene
+from manimlib.utils.space_ops import normalize
 #import time
 #import math
 #from manimlib.imports import *
@@ -26,7 +27,7 @@ ev = np.exp(1)**PI/1000000000
 ev_sq = ev**2
 
 # 无穷大
-Infinity = 23333
+Infinity = 333
 
 # 判断两个点是否相等，小于误差的平方，则相等，O(1)
 def point_is_equal(p, q):
@@ -426,9 +427,6 @@ def ClipFace(face, vo, remainedpoints):
     clipbucket1.Face = clipface1
     clipbucket2.Face = clipface2
     clipbucket3.Face = clipface3
-    #print(clipface1.Bucket.Points)
-    #print(clipface2.Bucket.Points)
-    #print(clipface3.Bucket.Points)
 
     return clipface1, clipface2, clipface3
 
@@ -450,47 +448,22 @@ def VisitNet(face):
         e2 = e1.Suc
         e3 = e2.Suc
         ## 将正在访问的面的三个相邻的面加入faces
-        # e1的孪生兄弟
-        e1Twin = e1.Twin
-        # e1未被访问过
-        if e1.Visit == visitvalue:
-            ls, le = e1.Start.Point, e1.End.Point
-            if abs(ls[0]) != Infinity and abs(ls[1]) != Infinity and abs(le[0]) != Infinity and abs(le[1]) != Infinity:
-                delaunaynet.append([ls, le])
-            e1.Visit = notvisitvalue
-            if e1Twin:
-                faces.append(e1Twin.Face)
-                # 访问过
-                e1Twin.Face.Visit = notvisitvalue
-                e1Twin.Visit = notvisitvalue
+        eis = [e1, e2, e3]
+        for ei in eis:
+            # ei的孪生兄弟
+            eiTwin = ei.Twin
+            # ei未被访问过
+            if ei.Visit == visitvalue:
+                ls, le = ei.Start.Point, ei.End.Point
+                if abs(ls[0]) != Infinity and abs(ls[1]) != Infinity and abs(le[0]) != Infinity and abs(le[1]) != Infinity:
+                    delaunaynet.append([ls, le])
+                ei.Visit = notvisitvalue
+                if eiTwin:
+                    faces.append(eiTwin.Face)
+                    # 访问过
+                    eiTwin.Face.Visit = notvisitvalue
+                    eiTwin.Visit = notvisitvalue
 
-        # e2的孪生兄弟
-        e2Twin = e2.Twin
-        # e2未被访问过
-        if e2.Visit == visitvalue:
-            ls, le = e2.Start.Point, e2.End.Point
-            if abs(ls[0]) != Infinity and abs(ls[1]) != Infinity and abs(le[0]) != Infinity and abs(le[1]) != Infinity:
-                delaunaynet.append([ls, le])
-            e2.Visit = notvisitvalue
-            if e2Twin:
-                faces.append(e2Twin.Face)
-                # 访问过
-                e2Twin.Face.Visit = notvisitvalue
-                e2Twin.Visit = notvisitvalue
-
-        # e3的孪生兄弟
-        e3Twin = e3.Twin
-        # e3未被访问过
-        if e3.Visit == visitvalue:
-            ls, le = e3.Start.Point, e3.End.Point
-            if abs(ls[0]) != Infinity and abs(ls[1]) != Infinity and abs(le[0]) != Infinity and abs(le[1]) != Infinity:
-                delaunaynet.append([ls, le])
-            e3.Visit = notvisitvalue
-            if e3Twin:
-                faces.append(e3Twin.Face)
-                # 访问过
-                e3Twin.Face.Visit = notvisitvalue
-                e3Twin.Visit = notvisitvalue
     return delaunaynet
 
 # 访问三角形，O(n)
@@ -551,44 +524,34 @@ def VisitVoronoi(face):
         e2 = e1.Suc
         e3 = e2.Suc
         ## 将正在访问的面的三个相邻的面加入faces
-        # e1的孪生兄弟
-        e1Twin = e1.Twin
-        # e1未被访问过
-        if e1.Visit == visitvalue:
-            e1.Visit = notvisitvalue
-            if e1Twin:
-                ls, le = e1.Face.Center, e1Twin.Face.Center
-                voronoi.append([ls, le])
-                faces.append(e1Twin.Face)
-                # 访问过
-                e1Twin.Face.Visit = notvisitvalue
-                e1Twin.Visit = notvisitvalue
+        eis = [e1, e2, e3]
+        for ei in eis:
+            # ei的孪生兄弟
+            eiTwin = ei.Twin
+            # ei未被访问过
+            if ei.Visit == visitvalue:
+                ei.Visit = notvisitvalue
+                if eiTwin:
+                    ls, le = ei.Start.Point, ei.End.Point
+                    if abs(ls[0]) != Infinity and abs(ls[1]) != Infinity and abs(le[0]) != Infinity and abs(le[1]) != Infinity:
+                        efc, etfc = ei.Face.Center, eiTwin.Face.Center
+                        ese = eiTwin.Suc.End.Point
+                        # 边的对点是无穷点
+                        if abs(ese[0]) == Infinity or abs(ese[1]) == Infinity:
+                            eis, eie = np.array(ei.Start.Point), np.array(ei.End.Point)
+                            vertical = np.cross(eie - eis, np.array([0, 0, 1]))
+                            vertical = normalize(vertical)
+                            vertical = Infinity * vertical
+                            newle = efc + vertical
+                            voronoi.append([efc, newle])
+                        else:
+                            voronoi.append([efc, etfc])
 
-        # e2的孪生兄弟
-        e2Twin = e2.Twin
-        # e2未被访问过
-        if e2.Visit == visitvalue:
-            e2.Visit = notvisitvalue
-            if e2Twin:
-                ls, le = e2.Face.Center, e2Twin.Face.Center
-                voronoi.append([ls, le])
-                faces.append(e2Twin.Face)
-                # 访问过
-                e2Twin.Face.Visit = notvisitvalue
-                e2Twin.Visit = notvisitvalue
+                    faces.append(eiTwin.Face)
+                    # 访问过
+                    eiTwin.Face.Visit = notvisitvalue
+                    eiTwin.Visit = notvisitvalue
 
-        # e3的孪生兄弟
-        e3Twin = e3.Twin
-        # e3未被访问过
-        if e3.Visit == visitvalue:
-            e3.Visit = notvisitvalue
-            if e3Twin:
-                ls, le = e3.Face.Center, e3Twin.Face.Center
-                voronoi.append([ls, le])
-                faces.append(e3Twin.Face)
-                # 访问过
-                e3Twin.Face.Visit = notvisitvalue
-                e3Twin.Visit = notvisitvalue
     return voronoi
 
 # 给网加圆心，O(n)
@@ -600,7 +563,7 @@ def InitNetCircumcircleCenter(face):
     # 访问过
     face.Visit = notvisitvalue
 
-    delaunaynet = VGroup()
+    #delaunaynet = VGroup()
 
     while faces:
         eachface = faces[-1]
@@ -621,17 +584,17 @@ def InitNetCircumcircleCenter(face):
         if eachface.Center is None:
             eachface.Center = CircumcircleCenter(p1, p2, p3)
 
-        delaunaynet.add(Polygon(p1, p2, p3))
-        ei = [e1, e2, e3]
-        for each in ei:
-            et = each.Twin
-            if et:
-                etf = et.Face
+        #delaunaynet.add(Polygon(p1, p2, p3))
+        eis = [e1, e2, e3]
+        for ei in eis:
+            eit = ei.Twin
+            if eit:
+                eitf = eit.Face
                 # 未访问过
-                if etf.Visit == visitvalue:
+                if eitf.Visit == visitvalue:
                     # 访问过
-                    etf.Visit = notvisitvalue
-                    faces.append(etf)
+                    eitf.Visit = notvisitvalue
+                    faces.append(eitf)
 
 # 构造网，O(nlogn)
 def ConstructNet(points=None):
@@ -794,6 +757,48 @@ def net_insert_point(point, net):
 
     return infedge.Face
 
+# 在网中插入点，并设置外心，O(n)
+def net_insert_point_and_set_circumcirclecenter(point, net):
+    # 点所在的面，O(n)
+    posface = get_point_posface(point, net)
+
+    vo = Vertice(point)
+    # 桶所在三角形的边
+    crpface = posface
+    hf1 = crpface.HalfEdge
+    hf2 = hf1.Suc
+    hf3 = hf2.Suc
+
+    # 撕裂面
+    ClipFace(crpface, vo, [])
+
+    # 设置外心
+    hf1.Face.Center = CircumcircleCenter(hf1.Start.Point, hf1.End.Point, point)
+    hf2.Face.Center = CircumcircleCenter(hf2.Start.Point, hf2.End.Point, point)
+    hf3.Face.Center = CircumcircleCenter(hf3.Start.Point, hf3.End.Point, point)
+
+    # 看看是否要边翻转，O(6)
+    edges = [hf1, hf2, hf3]
+    while edges:
+        eachedge = edges[-1]
+        edges.pop(-1)
+        eachedgetwin = eachedge.Twin
+        if eachedgetwin:
+            trip1 = vo.Point
+            trip2 = eachedgetwin.Start.Point
+            trip3 = eachedgetwin.End.Point
+            trip4 = eachedgetwin.Suc.End.Point
+            if InCircle(trip1, trip2, trip3, trip4):
+                edges.append(eachedgetwin.Pre)
+                edges.append(eachedgetwin.Suc)
+                efv1 = eachedge.Suc
+                efv2 = eachedgetwin.Suc
+                EdgeFlipping(eachedge)
+                efv1.Face.Center = CircumcircleCenter(trip1, trip2, trip4)
+                efv2.Face.Center = CircumcircleCenter(trip1, trip3, trip4)
+
+    return vo.HalfEdge.Face
+
 # 德劳内三角网，O(nlogn)
 class DelaunayTrianglation(VGroup):
     def __init__(self, *points, **kwargs):
@@ -806,6 +811,9 @@ class DelaunayTrianglation(VGroup):
     def VisitNet(self):
         return VisitNet(self.net)
 
+    def VisitTriangles(self):
+        return VGroup(*VisitTriangles(self.net), **self.kwargs)
+
     # 获取网
     def GetNet(self):
         return self.net
@@ -813,7 +821,7 @@ class DelaunayTrianglation(VGroup):
     # 插入节点
     def InsertPoint(self, point):
         net_insert_point(point, self.net)
-        self.become(VGroup(*[Line(*each) for each in self.VisitNet()], **self.kwargs))
+        self.become(VGroup(*[Line(*each, **self.kwargs) for each in self.VisitNet()]))
         return self
 
 # 维诺图，O(n)+O(nlogn)=O(nlogn)
@@ -835,10 +843,9 @@ class Voronoi(VGroup):
 
     # 插入节点
     def InsertPoint(self, point):
-        net_insert_point(point, self.net)
-        InitNetCircumcircleCenter(self.net)
+        net_insert_point_and_set_circumcirclecenter(point, self.net)
         self.voronoi = self.VisitVoronoi()
-        self.become(VGroup(*[Line(*each) for each in self.voronoi], **self.kwargs))
+        self.become(VGroup(*[Line(*each, **self.kwargs) for each in self.voronoi]))
         return self
 
 # 测试类
@@ -955,7 +962,6 @@ class test(Scene):
         he3.Face = face2
         he4.Face = face2
         he6.Face = face2
-
         he5.Twin = he6
         he6.Twin = he5
 
@@ -992,8 +998,3 @@ class test(Scene):
         print(end - start)
         '''
         self.wait()
-
-
-
-
-
