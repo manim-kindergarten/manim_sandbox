@@ -832,7 +832,7 @@ class Voronoi(VGroup):
         self.net = DelaunayTrianglation(*points).GetNet()
         InitNetCircumcircleCenter(self.net)
         self.voronoi = self.VisitVoronoi()
-        VGroup.__init__(self, *[Line(*each) for each in self.voronoi], **kwargs)
+        VGroup.__init__(self, *[Line(*each, **kwargs) for each in self.voronoi])
 
     def VisitVoronoi(self):
         return VisitVoronoi(self.net)
