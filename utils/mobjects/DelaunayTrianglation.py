@@ -2,7 +2,7 @@
 
 """
 注：
-    1. 主要用来求三角剖分和维诺图，算法的思路可以看我的这期视频：https://www.bilibili.com/video/BV1Ck4y1z7VT
+    1. 主要用来求点集的三角剖分（德劳内三角化）和维诺图（泰森多边形），算法的思路可以看我的这期视频：https://www.bilibili.com/video/BV1Ck4y1z7VT
     2. 时间复杂度O(nlogn)，一般情况应该够用，如发现bug请联系颓废
     3. 只需导入两个函数：DelaunayTrianglation(求德劳内三角剖分), Voronoi(求维诺图)
 """
@@ -104,7 +104,7 @@ def InCircle(p, q, b, d):
         return True
     return False
 
-# 三点外接圆圆心
+# 三点外接圆圆心，O(1)
 def CircumcircleCenter(p, q, b):
     '''
     \begin{align}
@@ -198,7 +198,7 @@ class Bucket():
         # 桶对应的面
         self.Face = None
 
-# 初始化无穷大的网
+# 初始化无穷大的网，O(1)
 def InitInfNet(points = None):
     # 初始化无穷远点
     # 逆时针
@@ -247,7 +247,7 @@ def get_polygon_directed_area(polygon):
     l = len(a)
     return 1 / 2 * sum([a[i][0] * a[(i + 1) % l][1] - a[(i + 1) % l][0] * a[i][1] for i in range(l)])
 
-# 边翻转
+# 边翻转，O(1)
 def EdgeFlipping(halfedge):
     # 记录面的旧visit值
     visitvalue = halfedge.Face.Visit
@@ -327,7 +327,7 @@ def EdgeFlipping(halfedge):
     newface1.Bucket = bucket1
     newface2.Bucket = bucket2
 
-# 点vo撕裂面face
+# 点vo撕裂面face，O(1)
 def ClipFace(face, vo, remainedpoints):
     visitvalue = face.Visit
     hf1 = face.HalfEdge
@@ -432,7 +432,7 @@ def ClipFace(face, vo, remainedpoints):
 
     return clipface1, clipface2, clipface3
 
-# 访问网
+# 访问网，O(n)
 def VisitNet(face):
     visitvalue = face.Visit
     notvisitvalue = not visitvalue
@@ -493,7 +493,7 @@ def VisitNet(face):
                 e3Twin.Visit = notvisitvalue
     return delaunaynet
 
-# 访问三角形
+# 访问三角形，O(n)
 def VisitTriangles(face):
     # 访问网
     visitvalue = face.Visit
@@ -533,7 +533,7 @@ def VisitTriangles(face):
 
     return delaunaynet
 
-# 访问维诺图
+# 访问维诺图，O(n)
 def VisitVoronoi(face):
     visitvalue = face.Visit
     notvisitvalue = not visitvalue
@@ -591,7 +591,7 @@ def VisitVoronoi(face):
                 e3Twin.Visit = notvisitvalue
     return voronoi
 
-# 给网加圆心
+# 给网加圆心，O(n)
 def InitNetCircumcircleCenter(face):
     # 访问网
     visitvalue = face.Visit
@@ -633,7 +633,7 @@ def InitNetCircumcircleCenter(face):
                     etf.Visit = notvisitvalue
                     faces.append(etf)
 
-# 构造网
+# 构造网，O(nlogn)
 def ConstructNet(points=None):
     face1 = InitInfNet(points)
     infedge = face1.HalfEdge
@@ -794,7 +794,7 @@ def net_insert_point(point, net):
 
     return infedge.Face
 
-# 德劳内三角网
+# 德劳内三角网，O(nlogn)
 class DelaunayTrianglation(VGroup):
     def __init__(self, *points, **kwargs):
         digest_config(self, kwargs)
@@ -816,7 +816,7 @@ class DelaunayTrianglation(VGroup):
         self.become(VGroup(*[Line(*each) for each in self.VisitNet()], **self.kwargs))
         return self
 
-# 维诺图
+# 维诺图，O(n)+O(nlogn)=O(nlogn)
 class Voronoi(VGroup):
     def __init__(self, *points, **kwargs):
         digest_config(self, kwargs)
@@ -841,7 +841,7 @@ class Voronoi(VGroup):
         self.become(VGroup(*[Line(*each) for each in self.voronoi], **self.kwargs))
         return self
 
-
+# 测试类
 class test(Scene):
     def construct(self):
 
@@ -992,3 +992,8 @@ class test(Scene):
         print(end - start)
         '''
         self.wait()
+
+
+
+
+
