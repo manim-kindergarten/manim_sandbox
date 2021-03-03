@@ -805,7 +805,7 @@ class DelaunayTrianglation(VGroup):
         digest_config(self, kwargs)
         self.net = ConstructNet(list(points))
         self.kwargs = kwargs
-        VGroup.__init__(self, *[Line(*each) for each in self.VisitNet()], **kwargs)
+        VGroup.__init__(self, *[Line(*each, **kwargs) for each in self.VisitNet()])
 
     # 获取网的顶点对，即用坐标表示的线
     def VisitNet(self):
