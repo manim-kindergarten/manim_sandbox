@@ -27,7 +27,7 @@ ev = np.exp(1)**PI/1000000000
 ev_sq = ev**2
 
 # 无穷大
-Infinity = 1000
+Infinity = 333
 
 # 判断两个点是否相等，小于误差的平方，则相等，O(1)
 def point_is_equal(p, q):
