@@ -1,8 +1,6 @@
 # from @GZTime
 
 from manimlib.imports import *
-from public.imports import *
-from manim_sandbox.utils.imports import *
 
 class CubicSum(Scene):
     def construct(self):
@@ -15,7 +13,7 @@ class CubicSum(Scene):
         self.play(*[FadeOut(title) for title in titles])
 
         colors = [BLUE,YELLOW,GREEN,RED]
-        
+
         texts = [[TexMobject(str(i) + '\\times',str(i) + '^2')
             .move_to((i**2)/8 * DOWN + (i**2)/8 * LEFT + LEFT * i/8 + LEFT)
             for i in range(1,6)]]
@@ -46,9 +44,9 @@ class CubicSum(Scene):
             texts[2].append(TexMobject(str(i + 1) + '^3').move_to(texts[0][i]))
             self.play(ReplacementTransform(texts[0][i],texts[2][i + 1]),run_time=0.5)
             self.wait(0.5)
-        
+
         self.play(Write(texts[2][0]))
-        
+
         blues = VGroup(*group)
         colors = [BLUE_D,YELLOW_D,GREEN_D,RED]
         parts = [blues]
@@ -64,7 +62,7 @@ class CubicSum(Scene):
             parts.append(parts[i-1].copy().set_fill(color=colors[i]))
             self.play(Rotating(parts[i],radians=PI/2,about_point=ORIGIN,run_time=1,rate_func=smooth))
             self.wait(0.5)
-        
+
         self.play(Write(texts[1][0][0:2]))
         self.wait(1)
 
@@ -73,7 +71,7 @@ class CubicSum(Scene):
 
         texts[1].append(TexMobject('n','\\times','n').move_to(parts[1][12].get_center() + RIGHT * 2))
         texts[1].append(TexMobject('n').move_to(parts[2][10].get_center() + RIGHT * 1.5))
-        
+
         texts.append([TexMobject('=','(n^2+n)^2').move_to(RIGHT * 5)])
 
         self.play(FadeIn(brackets[0]),Write(texts[1][1]))
@@ -86,7 +84,7 @@ class CubicSum(Scene):
         self.play(ShowCreationThenDestruction(big_square,run_time=3,rate_func=lambda t: smooth(t,inflection=20)))
 
         self.play(ReplacementTransform(VGroup(*brackets,texts[1][1],texts[1][2]),texts[3][0][1]))
-        
+
         self.play(VGroup(*parts).scale,0.2)
         self.play(VGroup(*texts[1][0]).next_to,VGroup(*parts),LEFT,
             VGroup(*texts[3][0]).next_to,VGroup(*parts),RIGHT)
