@@ -22,6 +22,7 @@ from manim_sandbox.utils.mobjects.BezierGenerator import BezierFunc
 from manim_sandbox.utils.mobjects.BooleanOperationsOnPolygons import PolygonIntersection, PolygonUnion, PolygonSubtraction
 from manim_sandbox.utils.mobjects.DelaunayTrianglation import DelaunayTrianglation, Voronoi
 from manim_sandbox.utils.mobjects.Lsystem import Lsystem
+from manim_sandbox.utils.mobjects.tree_diagram import *
 
 from manim_sandbox.utils.scenes.bilibili import *
 from manim_sandbox.utils.scenes.parabola import *
